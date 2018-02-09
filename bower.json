@@ -1,0 +1,28 @@
+{
+  "name": "message",
+  "authors": [
+    "Tehetena Mashresha <tehetena.mashresha@semel.fi>"
+  ],
+  "description": "test application",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-ui-router": "~0.3.1",
+    "jquery": "2.2.4",
+    "bootstrap-social": "^5.1.1",
+    "font-awesome": "^4.7.0",
+    "angular-bootstrap": "^2.3.0",
+    "angular-daterangepicker": "^0.2.2"
+  },
+  "resolutions": {
+    "angular": "1.5.8"
+  }
+}

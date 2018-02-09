@@ -1,0 +1,157 @@
+<div class="col-md-8 col-xs-12">
+    <form ng-submit="create()" method="post">
+            <div class="checkbox-inline">
+                    <label class="groubLable">Group</label>
+                    <input type="checkbox" class="vanish"  ng-model="group" />
+            </div>
+            
+      <div class="form-container">
+       <div id="mydiv">     
+          <div class="carNumber" ng-hide="group">
+            <label>Car Number</label>
+           
+            <div class="form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.CarStart" ng-disabled="body.All"> --
+              </div>
+              <div class="form-group ">    
+                <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.CarEnd" ng-disabled="body.All">   
+              </div>
+            </div>
+          </div> 
+        <div class="groupNo" ng-show = "group">
+            <label>Group Number</label>
+   
+            <div class="form-inline">
+              <div class="form-group">
+                <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.groupnumup" ng-disabled="body.All"> --
+              </div>
+              <div class="form-group">    
+                 <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.groupnumlow" ng-disabled="body.All">   
+              </div>
+            </div>
+        </div>
+            <label>zone Number</label>
+            <div class="form-inline">
+                    <div class="form-group">
+                      <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneStart" ng-disabled="body.All"> --
+                    </div>
+                    <div class="form-group">    
+                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneEnd" ng-disabled="body.All">   
+                    </div>
+            </div>
+            <label>Drivers Number</label>
+            <div class="form-inline">
+                    <div class="form-group">
+                      <input type="text" class="form-control"  maxlength="4" size="4" placeholder=""ng-model="body.DriverStart" ng-disabled="body.All"> --
+                    </div>
+                    <div class="form-group">    
+                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.DriverEnd" ng-disabled="body.All">   
+                    </div>
+            </div>
+            <label>Area</label>
+            
+            <input id="areA" ng-model="body.Posting" list= "allArea" class="form-control" ng-disabled="body.All"/>
+            <datalist id="allArea">
+                <option ng-repeat="area in areas" valeu="{{area}}">{{area.postingName}}</option>
+            </datalist>
+
+            <label>property</label>
+            
+            <input   class="form-control" id="property" ng-model="body.Properties" ng-disabled="body.All"/>
+            
+            <label>On Shift</label>
+       
+            <input   class="form-control" id="shiftt" ng-model="body.DispatchStatus" list= "allShifts" ng-disabled="body.All"/>
+            <datalist id="allShifts">
+                <option ng-repeat="shift in shifts" value="{{shift.statusName}}">{{shift.statusName}}</option>
+            </datalist>
+      </div> 
+            <label>Repeat</label>
+            
+            <input  class="form-control" id="xtimes" placeholder="X times" ng-model="body.RepeatTimeMin"/>
+            <input  class="form-control"   id="range" name="datefilter" value="" placeholder="time and date" ng-value="body.range"/>
+            
+            
+            <label>Standard Message</label>
+            
+            <button type="button" class="btn btn-sm" ng-click="open()">Choose Message</button>
+            
+            <label>new message</label>
+            
+            <textarea id="textHere" class="form-control" rows="7" cols="500" ng-model="body.Text" >  </textarea>
+            <button type="button" class="btn btn-primary ">Save Message</button>
+           
+            <button class="btn" type="submit" id="submit-msg">SEND</button>
+      </div>
+   
+
+   
+</div>
+
+<div id="filter" class="col-md-4 col-xs-12 ">
+ 
+    <ul>
+        <li>
+             <div class="checkbox-inline">
+                <input type="checkbox" class="working" ng-model="body.WorkShift" ng-disabled="body.All || body.NotWorkShift" />
+                <label>In Workshift</label>
+            </div>
+        </li>
+        <li>
+            <div class="checkbox-inline">
+                <input type="checkbox" class="notWorking" ng-model="body.NotWorkShift" ng-disabled="body.All || body.WorkShift"/>
+                <label>Not In workshift</label>
+            </div>
+        </li>
+        <li>
+            <div class=" checkbox-inline ">
+                <input type="checkbox" class="allCars"  ng-model="body.All"  />
+                <label>All Cars</label>
+            </div>
+        </li>
+        <li>
+            <div class="checkbox-inline">
+                <input type="checkbox" ng-model= "body.Print" />
+                <label>Forced print</label>
+            </div>
+        </li>
+        <li>
+            <div class="checkbox-inline">
+                <input type="checkbox" ng-model="body.QuarantedDelivery" />
+                <label>Secured send</label>
+            </div>
+        </li>
+    </ul>     
+    
+</div>
+</form>
+<div>
+    <script type="text/ng-template" id="myModalContent.html">
+        <div class="modal-header">
+            <input class="form-control" placeholder="Search" ng-model="search.text" autofocus ng-keyup="filterId($event)" />
+        </div>   
+        <div class="modal-body">
+            <table id="modalTable" class="table table-striped table-hover table-responsive" arrow-selector>
+                <thead id="tblHead">
+                    <tr>
+                        <th>ID</th>
+                        <th></th>
+                        <th>Text Message</th>
+                        <th>Creation Date</th>      
+                    </tr>
+                </thead>
+                <tbody >
+                    <tr ng-repeat="item in items | filter:search"  ng-click ="$event.preventDefault(); setSelected(); selected.item = item  " >
+                        <td >{{item.id}}<td>
+                        <td> {{item.text}}</td>
+                        <td >{{item.creationdate}}</td>
+                    </tr>         
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+           <div id= "here" ></div>
+        </div>
+    </script>
+</div>

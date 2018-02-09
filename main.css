@@ -1,0 +1,244 @@
+
+body {
+	background: #fafafa;
+	color: #454544;
+	line-height: 2.4285;
+}
+
+
+
+.pad {
+	margin-top: 20px;
+	margin-left: 2%;
+	margin-right: 1%;
+}
+
+.navbar-fixed-top, .navbar-fixed-bottom {
+    position: relative;
+}
+
+.navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
+    margin-left: -57px;
+}
+
+
+
+.nav > li > a:hover, .nav > li > a:focus{
+    text-decoration: none;
+    background-color: white;
+    color: #1D1E1F;
+}
+
+
+.nav > li > a {
+    color: white;
+}
+
+.active {
+    text-decoration: none;
+    background-color: white;
+    color: #1D1E1F;
+}
+
+.nav-tabs {
+    margin-bottom: -20px;
+    color: aliceblue;
+    border-bottom: 0;
+}
+
+
+/*Clear button*/
+#clearBtn {
+    margin-top: 20px;
+    float: right;
+}
+
+/*lables for the car status*/
+.navbar-nav > li > a {
+    padding-top: 6px;
+    padding-bottom: 6px;
+    color: white;
+}
+
+/*color codes for car status */
+.nav {
+    padding-left: 20px;
+    padding-right: 50px;
+}
+
+.navbar-inverse .navbar-nav > li > a {
+    color: white;
+}
+
+.navbar-nav > li {
+    float: left;
+    padding-left: 10px;
+}
+
+.btn.outline.free {
+    background: #30D965;
+    border: 2px solid #30D965;
+}
+
+.btn.outline.sfh {
+    background: #DB40C5;
+    border: 2px solid #DB40C5;
+}
+
+.btn.outline.occ {
+    background: #FF3636;
+    border: 2px solid #FF3636;
+}
+
+.btn.outline.ntav {
+    background: #EEF51B;
+    border: 2px solid #EEF51B;
+}
+
+.btn.outline {
+    color: #111;
+    width: 55px;
+    padding: 4px 12px;
+}
+
+
+ul {
+	list-style-type: none;
+  }
+
+  .table-hover > tbody > tr:hover {
+    background-color: rgb(154, 197, 243);
+}
+
+
+.btn,
+.btn:focus {
+	background-color: #0c6bec;
+	border: 1px solid #0c6bec;
+	border-radius: 0;
+	color: white;
+}
+
+.btn:hover {
+	background-color: white;
+	color: #0c6bec;
+	border: 1px solid #0c6bec;
+}
+
+.btn a {
+	color: white;
+}
+
+.btn:hover a {
+	color: #0c6bec;
+}
+
+.btn-load {
+	width: 350px;
+	height: 40px;
+	margin: 18px auto;
+	display: block;
+	font-size: 20px;
+	text-transform: capitalize;
+}
+
+.modal-container {
+	flex-direction: column;
+}
+
+.modal {
+	top: 10%;
+	padding-right: 20px;
+	justify-content: center;
+	align-self: center;
+}
+
+.modal-dialog {
+	width: auto;
+	max-width: 600px;
+	display: flex;
+	justify-content: center;
+}
+
+.form-container {
+	display: flex;
+	height: 700px;
+	justify-content: space-around;
+	align-content: space-around;
+	width: 100%;
+	flex: 1 1 90%;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+.form-container label {
+	display: flex;
+	margin-bottom: -10px;
+}
+
+form {
+	padding-left: 20px;
+}
+
+.form-container input {
+	display: flex;
+	width: 80%;
+	max-width: 300px;
+	height: 35px;
+	padding-left: 10px;
+}
+
+/*check boxes inside the jumbootron*/
+.checkbox-inline input[type='checkbox'] {
+    position: relative;
+    margin-top: 4px \9;
+    margin-left: -20px;
+}
+
+input[type="checkbox"] {
+    display: block;
+    padding-left: 15px;
+    text-indent: -15px;
+  }
+.vanish {
+    width: 13px;
+    height: 13px;
+    padding: 0;
+    margin:0;
+    vertical-align: bottom;
+    position: relative;
+    top: -1px;
+    *overflow: hidden;
+  }
+
+  #filter ul> li {
+    margin: 41px -27;
+}
+
+  .checkbox-inline input[type='checkbox'] {
+    position: relative;
+    margin-top: 4px \9;
+	margin-left: -20px;
+	float: left;
+    margin-right: 0.4em;
+
+}
+
+input[type=checkbox] + label {
+    display: inline-block;
+    margin-left: 0.5em;
+    margin-right: 2em;
+    line-height: 1em;
+}
+input[type=checkbox]
+{
+  /* Double-sized Checkboxes */
+  -ms-transform: scale(2); /* IE */
+  -moz-transform: scale(2); /* FF */
+  -webkit-transform: scale(2); /* Safari and Chrome */
+  -o-transform: scale(2); /* Opera */
+  padding: 10px;
+}
+.hidden{
+    display: none;
+}

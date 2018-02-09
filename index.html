@@ -1,0 +1,142 @@
+<html>
+
+<head>
+  <title>Messages</title>
+
+  <!-- Viewport settings-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+  <!-- Basic style -->
+  <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+  <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
+  <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="bower_components/Kendo UI for jQuery R1 2018/styles/kendo.common.min.css" rel="stylesheet" />
+  <link href="bower_components/Kendo UI for jQuery R1 2018/styles/kendo.default.min.css" rel="stylesheet" />
+ <link href="bower_components/bootstrap-daterangepicker/daterangepicker.css"  rel="stylesheet" />
+  <style>
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+  </style>
+
+  <link href="main.css" rel="stylesheet" />
+
+</head>
+
+
+<body>
+<div id="app-container" ng-app="app">
+    <div ng-controller="IndexCtrl">
+        <nav class="navbar navbar-inverse navbar-fixed-top navbar-expand-md navbar-light bg-ligh">
+                <div class="container" >
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#topNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                        <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand"> <img src="logo/logo.png" alt="Semel Logo"> </a>
+                    </div>
+        
+                    <div class="collapse navbar-collapse" id="topNavbar">
+                        <ul class="nav navbar-nav">
+                            <li><a> Free</a> <button type="button" class="btn btn-primary btn-default outline free">0000</button> </li>
+                            <li><a>SFH</a><button type="button" class="btn btn-primary btn-default outline sfh">0000</button></li>
+                            <li><a>Occ</a><button type="button" class="btn btn-primary btn-default outline occ">0000</button></li>
+                            <li><a>Not Av</a><button type="button" class="btn btn-primary btn-default outline ntav">0000</button></li>
+                        </ul>
+                        <div id="filter" class="form-group row">
+                            <div class="col-md-2">
+                                <label style="color: white; " for="SelectPI">Call Center</label>
+                                <input id="inputCenter" list="callcenter" class="form-control" placeholder="Call center" ng-model="body.OperatingCompany"/>
+                                <datalist id="callcenter"></datalist>
+        
+                            </div>
+                            <div class="col-md-2">
+                                <label style="color: white; " for="SelectP">AREA</label>
+                                <input list="area" class="form-control" placeholder="Area" ng-model="body.Posting"/>
+                                <datalist id="area"></datalist>
+        
+                            </div>
+        
+                            <div class="col-md-1  ">
+                                <label style="color: white;" for="vihecle">PROPERTY</label>
+                                <input class="form-control" id="vihecle" placeholder="property" ng-model="body.Properties" />
+        
+                            </div>
+        
+                            <div class="col-md-1">
+                                <label style="color: white;" class="control-label" for="propertyInput">VEHICLE</label>
+                                <input class="form-control" id="propertyInput" placeholder="vehicle">
+        
+                            </div>
+                            <button id="clearBtn" class="btn  pull-right" type="button">Clear</button>
+                        </div>
+        
+                    </div>
+        
+                </div>
+            </nav>
+
+        
+    </div>      
+
+  
+        <nav class="navbar navbar-inverse ">
+                <div>
+                    <div class="navbar-header">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bottomNavbar">
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                    </div>
+                    <div class="collapse navbar-collapse" id="bottomNavbar">
+                            <ul class="nav  nav-tabs">
+                                    <li><a ui-sref="home" >Home </a></li>
+                                    <li><a ui-sref="message">Text Message Cars</a></li>
+                                    <li><a ui-sref="zone">Zone Information</a></li>
+                                    <li><a ui-sref="carWorkshift">Car Workshift change</a></li>
+                                    <li><a ui-sref="workshiftchange">Group workshift change</a></li>
+                                    <li><a ui-sref="dispatch">Dispatch mode setting</a></li>
+                                    <li><a ui-sref="restriction">Active Restriction</a></li>
+                                    <li><a ui-sref="carInfo">Car Information</a></li>
+                            </ul>
+                             
+                    </div>
+                </div>
+        
+        </nav>
+    
+
+    <div cache-view="false" ui-view class="testview"> </div>
+
+</div>
+
+
+  <script src="bower_components/jquery/dist/jquery.js"></script>
+  <script src="bower_components/Kendo UI for jQuery R1 2018/js/kendo.all.min.js"></script>
+  <script src="bower_components/moment/moment.js"></script>
+  
+  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+  <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+  <script type="text/javascript" src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+  <script type="text/javascript" src="bower_components/angular-daterangepicker/js/angular-daterangepicker.min.js"></script>  
+  <script type="text/javascript" src="app.js"></script>
+  <script type="text/javascript" src="IndexCtrl.js"></script>
+   
+  <!--	Import component scripts-->
+  <script src="components/apiService.js"></script>
+  <script src="components/message/CreateMessageCtrl.js"></script>
+  <script src="components/message/MessageCtrl.js"></script>
+  
+ 
+  <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
+
+</body>
+
+</html>
