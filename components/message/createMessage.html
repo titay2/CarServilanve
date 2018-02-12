@@ -2,12 +2,12 @@
     <form ng-submit="create()" method="post">
             <div class="checkbox-inline">
                     <label class="groubLable">Group</label>
-                    <input type="checkbox" class="vanish"  ng-model="group" />
+                    <input type="checkbox" class="vanish"  ng-model="body.Group" />
             </div>
             
       <div class="form-container">
        <div id="mydiv">     
-          <div class="carNumber" ng-hide="group">
+          <div class="carNumber" ng-hide="body.Group">
             <label>Car Number</label>
            
             <div class="form-inline">
@@ -19,7 +19,7 @@
               </div>
             </div>
           </div> 
-        <div class="groupNo" ng-show = "group">
+        <div class="groupNo" ng-show = "body.Group">
 
             <label>Group Name</label>
    
