@@ -22,9 +22,6 @@
      findCallCenter();
      findArea();
 
-     let val = ''
-
-    
     
      //fetch all call centers
      function findCallCenter() {
@@ -35,7 +32,8 @@
             success: function (data) {
                ;
                 $(data).each(function () {
-                  var callCenter = "<option value=\"" + this.name + "\">" + this.name + "</option>";
+                  var callCenter = "<option id= \"" + this.operatingCompanyId + "\"  value=\"" + this.name + "\">" + this.name + "</option>";
+
                     $("#callcenter").append(callCenter);
                 });
     

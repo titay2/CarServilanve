@@ -22,8 +22,10 @@
 	 pickDate();
 
 	 //GET THE NEW CALL CENTER VALUE 
-	 $("#inputCenter").on('input', function(){
-		var val = $(this).val();
+	 
+	 $("#inputCenter").on('input', function(){	
+		var opt = $('option[value="'+$(this).val()+'"]');
+		var val = opt.attr('id');
 		$scope.body.OperatingCompany = val
 	 })
 	
