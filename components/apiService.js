@@ -39,7 +39,7 @@
     return defer.promise;
    }
  
-   function post(path, body, config) {
+   function post(path, body , config) {
     var defer = $q.defer();
     console.log(body);
     console.log(config);

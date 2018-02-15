@@ -10,7 +10,7 @@
       
 	// GIVES AN EMPTY FORM FOR A NEW MESSAGE
 	function CreateMessageCtrl(apiService, $scope, $state, $uibModal, $log) {
-	 $scope.allow_anonymous_answer = false;
+	// $scope.body.allow_anonymous_answer = false;
 	 var vm = this;
 	 var $working = $(" input[class = 'working']");
 	 var $notworking = $(" input[class = 'notWorking']");
@@ -22,15 +22,17 @@
 	 pickDate();
 
 	 //GET THE NEW CALL CENTER VALUE 
-	 
+	 var newBody = new Object();
 	 $("#inputCenter").on('input', function(){	
 		var opt = $('option[value="'+$(this).val()+'"]');
 		var val = opt.attr('id');
-		$scope.body.OperatingCompany = val
+		$scope.body.OperatingCompany = val;
+		newBody. OperatingCompany = $scope.body.OperatingCompany
+		console.log(JSON.stringify( newBody));
 	 })
 	
 	 $scope.body = {
-	  CarStart:"",
+	  CarStart:"" ,
 	  CarEnd: "",
 	  WorkShiftGroup:"",
 	  Group:"",
@@ -41,22 +43,24 @@
 	  Posting: "",
 	  DispatchStatus: "",
 	  RepeatTimeMin: "",
-	  range: "",
-	 // RepeatTimeStart:"",
-	 // RepeatTimeEnd:"",
+	 // range: "",
+	  RepeatTimeStart:"",
+	  RepeatTimeEnd:"",
 	  Text: "",
 	  WorkShift: "",
 	  NotWorkShift:""	,
 	  All:"",
 	  Print:"",
 	  QuarantedDelivery:"",
-	  OperatingCompany:"",
+	  OperatingCompany: "",
 	  Properties :""
 	 };
+
+	 var boddy = JSON.stringify(newBody)
    
 	 //SEND A MESSAGE 
 	 $scope.create = () => {
-	  apiService.post('StandardTextMessages', $scope.body )
+	  apiService.post('StandardTextMessages', $scope.body)
 	  .then(data => {
 	   $state.reload();
 	  })
@@ -108,8 +112,9 @@
 	   }
 	  });
 	  $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-		$(this).val(picker.startDate.format('llll') + ' - ' + picker.endDate.format('llll'));  
-	   $scope.body.range =picker.startDate.format('llll') + ' - ' + picker.endDate.format('llll');
+		$(this).val(picker.startDate.format() + ' - ' + picker.endDate.format());  
+	   $scope.body.RepeatTimeStart = picker.startDate.format('llll');
+	   $scope.body.RepeatTimeEnd = picker.endDate.format('llll');
 	  });
 	  $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
 	   $(this).val('');

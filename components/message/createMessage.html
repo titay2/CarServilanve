@@ -13,7 +13,7 @@
            
             <div class="form-inline">
               <div class="form-group">
-                <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.CarStart" ng-disabled="body.All"> --
+                <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="CarStart" ng-disabled="body.All"> --
               </div>
               <div class="form-group ">    
                 <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.CarEnd" ng-disabled="body.All">   
@@ -42,7 +42,7 @@
                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder=""ng-model="body.DriverStart" ng-disabled="body.All"> --
                     </div>
                     <div class="form-group">    
-                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.DriverEnd" ng-disabled="body.All">   
+                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.DriverEnd " ng-disabled="body.All">   
                     </div>
             </div>
             <label>Area</label>
@@ -63,10 +63,11 @@
                 <option ng-repeat="shift in shifts" value="{{shift.statusName}}">{{shift.statusName}}</option>
             </datalist>
       </div> 
-            <label>Repeat</label>
+            <label>Repeat Every</label>
             
-            <input  class="form-control" id="xtimes" placeholder="X times" ng-model="body.RepeatTimeMin"/>
-            <input  class="form-control"   id="range" name="datefilter" value="" placeholder="time and date" ng-value="body.range"/>
+            <input  class="form-control" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeMin"/>
+            <input  class="hidden" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeStart"/>
+            <input  class="form-control"   id="range" name="datefilter" value="" placeholder="time and date" ng-value="body.RepeatTimeStart"/>
             
             
             <label>Standard Message</label>
@@ -118,6 +119,7 @@
                 <label>Secured send</label>
             </div>
         </li>
+        
     </ul>     
     
 </div>
