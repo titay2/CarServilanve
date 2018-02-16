@@ -71,8 +71,11 @@
                                 <input class="form-control" id="propertyInput" placeholder="vehicle">
         
                             </div>
-                            <label style="color: white;" class="control-label" for="clearBtn">&nbsp; {{'CLEAR' | translate }}</label>
-                            <button id="clearBtn" class="btn" type="button">Clear</button>
+                            <div id ="clearLable">
+                                  
+                                    <button id="clearBtn" class="btn" type="button" translate >CLEAR</button>
+                                 </div>
+                            
                             <div class="topcorner">
                                     <label  style="color: white;" class="control-label" for="lang">&nbsp; <i class="fa fa-language"></i> {{'LANGUAGE' | translate}}</label>
                                     <select id="lang" class="form-control" ng-model="body.language" placeholder="language">
@@ -103,14 +106,15 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bottomNavbar">
                             <ul class="nav  nav-tabs">
-                                    <li><a ui-sref="home" translate>Home </a></li>
-                                    <li><a ui-sref="message" translate>Text </a></li>
-                                    <li><a ui-sref="zone" translate>Zone </a></li>
-                                    <li><a ui-sref="carWorkshift" translate>Carshift </a></li>
-                                    <li><a ui-sref="workshiftchange" translate>Groupshift </a></li>
-                                    <li><a ui-sref="dispatch" translate>Dispatch</a></li>
-                                    <li><a ui-sref="restriction" translate>Active</a></li>
                                     <li><a ui-sref="carInfo" translate>CarInfo</a></li>
+                                    <li><a ui-sref="dispatch" translate>Dispatch</a></li>
+                                    <li><a ui-sref="zone" translate>Zone </a></li>
+                                    <li><a ui-sref="home" translate>CarsIn </a></li>
+                                    <li><a ui-sref="message" translate>Text </a></li>
+                                    <li><a ui-sref="carWorkshift" translate>Carshift </a></li>                    
+                                    <li><a ui-sref="workshiftchange" translate>Groupshift </a></li> 
+                                    <li><a ui-sref="restriction" translate>Active</a></li>
+                                   
                             </ul>
                              
                     </div>

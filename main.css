@@ -18,7 +18,7 @@ body {
 }
 
 .navbar > .container .navbar-brand, .navbar > .container-fluid .navbar-brand {
-    margin-left: -57px;
+    margin-left: -97px;
 }
 
 
@@ -49,9 +49,11 @@ body {
 
 /*Clear button*/
 #clearBtn {
-
+    margin-right: -70px;
+    margin-top: 38px;
     float: right;
 }
+
 
 /*lables for the car status*/
 .navbar-nav > li > a {
