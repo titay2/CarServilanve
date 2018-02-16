@@ -1,4 +1,27 @@
 {
-    "HEADLINE": "AUTO"
+  "HEADLINE": "CAR INFO",
+  "LANGUAGE":"LANGUAGE",
+  "English":"Englanti",
+  "Finnish":"Suomi",
+  "Swedish":"Ruotsi",
+  "CALL":"Call Center",
+  "Free":"Free",
+  "SFH":"SFH",
+  "Occ":"Occ",
+  "Not Av":"Not Av",
+  "AREA":"AREA",
+  "PROPERTY":"PROPERTY",
+  "VEHICLE":"VEHICLE",
+  "CLEAR":"CLEAR",
+  "Home": "home",
+  "Text":"Text Message Cars",
+  "Zone":"Zone information",
+  "Carshift":"Car Workshift Change",
+  "Groupshift":"Group Workshift Change",
+  "Active":"Active Restriction",
+  "Dispatch":"Dispatch Mode Setting",
+  "CarInfo":"Car Information",
+  "Group":"Group"
+ 
     
   }

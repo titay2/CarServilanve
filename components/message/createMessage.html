@@ -2,14 +2,14 @@
     <form ng-submit="create()" method="post">
            
             <div class="checkbox-inline">
-                    <label class="groubLable">Group</label>
+                    <label class="groubLable" translate>Group</label>
                     <input type="checkbox" class="vanish"  ng-model="body.Group" />
             </div>
             
       <div class="form-container">
        <div id="mydiv">     
           <div class="carNumber" ng-hide="body.Group">
-            <label translate>HEADLINE</label>
+            <label translate>Car</label>
            
             <div class="form-inline">
               <div class="form-group">
@@ -22,12 +22,12 @@
           </div> 
         <div class="groupNo" ng-show = "body.Group">
 
-            <label>Group Name</label>
+            <label translate>GroupName</label>
    
              <input type="text" class="form-control"  placeholder="Group Name" ng-model="body.WorkShiftGroup" ng-disabled="body.All"> 
              
         </div>
-            <label>zone Number</label>
+            <label translate>Zonenum</label>
             <div class="form-inline">
                     <div class="form-group">
                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneStart" ng-disabled="body.All"> --
@@ -36,7 +36,7 @@
                        <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneEnd" ng-disabled="body.All">   
                     </div>
             </div>
-            <label>Drivers Number</label>
+            <label translate>Drivers</label>
             <div class="form-inline">
                     <div class="form-group">
                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder=""ng-model="body.DriverStart" ng-disabled="body.All"> --
@@ -45,41 +45,40 @@
                        <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.DriverEnd " ng-disabled="body.All">   
                     </div>
             </div>
-            <label>Area</label>
+            <label translate>AREA</label>
             
             <input id="areA" ng-model="body.Posting" list= "allArea" class="form-control" ng-disabled="body.All"/>
             <datalist id="allArea">
                 <option ng-repeat="area in areas" valeu="{{area}}">{{area.postingName}}</option>
             </datalist>
 
-            <label>property</label>
+            <label>PROPERTY</label>
             
             <input   class="form-control" id="property" ng-model="body.Properties" ng-disabled="body.All"/>
             
-            <label>On Shift</label>
+            <label translate>OnShift</label>
        
             <input   class="form-control" id="shiftt" ng-model="body.DispatchStatus" list= "allShifts" ng-disabled="body.All"/>
             <datalist id="allShifts">
                 <option ng-repeat="shift in shifts" value="{{shift.statusName}}">{{shift.statusName}}</option>
             </datalist>
       </div> 
-            <label>Repeat Every</label>
-            
+            <label translate>Repeat</label>
             <input  class="form-control" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeMin"/>
             <input  class="hidden" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeStart"/>
             <input  class="form-control"   id="range" name="datefilter" value="" placeholder="time and date" ng-value="body.RepeatTimeStart"/>
             
             
-            <label>Standard Message</label>
+            <label translate >Standard</label>
             
-            <button type="button" class="btn btn-sm" ng-click="open()">Choose Message</button>
+            <button type="button" class="btn btn-sm" ng-click="open()" translate>Choose</button>
             
-            <label>new message</label>
+            <label translate>new</label>
             
             <textarea id="textHere" class="form-control" rows="7" cols="500" ng-model="body.Text" >  </textarea>
-            <button type="button" class="btn btn-primary ">Save Message</button>
+            <button type="button" class="btn btn-primary " translate>SAVE</button>
            
-            <button class="btn" type="submit" id="submit-msg">SEND</button>
+            <button class="btn" type="submit" id="submit-msg" translate>SEND</button>
       </div>
    
 
@@ -92,31 +91,31 @@
         <li>
              <div class="checkbox-inline">
                 <input type="checkbox" class="working" ng-model="body.WorkShift" ng-disabled="body.All || body.NotWorkShift" />
-                <label>In Workshift</label>
+                <label translate >InWorkshift</label>
             </div>
         </li>
         <li>
             <div class="checkbox-inline">
                 <input type="checkbox" class="notWorking" ng-model="body.NotWorkShift" ng-disabled="body.All || body.WorkShift"/>
-                <label>Not In workshift</label>
+                <label translat >Notworkshift</label>
             </div>
         </li>
         <li>
             <div class=" checkbox-inline ">
                 <input type="checkbox" class="allCars"  ng-model="body.All"  />
-                <label>All Cars</label>
+                <label translate>AllCars</label>
             </div>
         </li>
         <li>
             <div class="checkbox-inline">
                 <input type="checkbox" ng-model= "body.Print" />
-                <label>Forced print</label>
+                <label translate>Forced</label>
             </div>
         </li>
         <li>
             <div class="checkbox-inline">
                 <input type="checkbox" ng-model="body.QuarantedDelivery" />
-                <label>Secured send</label>
+                <label translate>Secured</label>
             </div>
         </li>
         
@@ -135,8 +134,8 @@
                     <tr>
                         <th>ID</th>
                         <th></th>
-                        <th>Text Message</th>
-                        <th>Creation Date</th>      
+                        <th>{{'Texttbl'| translate}}</th>
+                        <th translate>Creation</th>      
                     </tr>
                 </thead>
                 <tbody >

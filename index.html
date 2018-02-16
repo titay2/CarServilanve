@@ -41,44 +41,44 @@
         
                     <div class="collapse navbar-collapse" id="topNavbar">
                         <ul class="nav navbar-nav">
-                            <li><a> Free</a> <button type="button" class="btn btn-primary btn-default outline free">0000</button> </li>
-                            <li><a>SFH</a><button type="button" class="btn btn-primary btn-default outline sfh">0000</button></li>
-                            <li><a>Occ</a><button type="button" class="btn btn-primary btn-default outline occ">0000</button></li>
-                            <li><a>Not Av</a><button type="button" class="btn btn-primary btn-default outline ntav">0000</button></li>
+                            <li><a translate >Free</a> <button type="button" class="btn btn-primary btn-default outline free">0000</button> </li>
+                            <li><a translate >SFH</a><button type="button" class="btn btn-primary btn-default outline sfh">0000</button></li>
+                            <li><a translate >Occ</a><button type="button" class="btn btn-primary btn-default outline occ">0000</button></li>
+                            <li><a translate >Not Av</a><button type="button" class="btn btn-primary btn-default outline ntav">0000</button></li>
                         </ul>
                         <div id="filter" class="form-group row">
                             <div class="col-md-2">
-                                <label style="color: white; " for="SelectPI">Call Center</label>
+                                <label style="color: white; " for="SelectPI" translate >CALL</label>
                                 <input id="inputCenter"  list="callcenter" class="form-control" placeholder="Call center"  ng-model="body.OperatingCompany"/>
                                 <datalist id="callcenter"></datalist>
         
                             </div>
                             <div class="col-md-2">
-                                <label style="color: white; " for="SelectP">AREA</label>
+                                <label style="color: white; " for="SelectP" translate >AREA</label>
                                 <input list="area" class="form-control" placeholder="Area" ng-model="body.Posting"/>
                                 <datalist id="area"></datalist>
         
                             </div>
         
                             <div class="col-md-1  ">
-                                <label style="color: white;" for="vihecle">PROPERTY</label>
+                                <label style="color: white;" for="vihecle" translate >PROPERTY</label>
                                 <input class="form-control" id="vihecle" placeholder="property" ng-model="body.Properties" />
         
                             </div>
         
                             <div class="col-md-1">
-                                <label style="color: white;" class="control-label" for="propertyInput">VEHICLE</label>
+                                <label style="color: white;" class="control-label" for="propertyInput" translate >VEHICLE</label>
                                 <input class="form-control" id="propertyInput" placeholder="vehicle">
         
                             </div>
-                            <label style="color: white;" class="control-label" for="clearBtn">&nbsp; CLEAR</label>
+                            <label style="color: white;" class="control-label" for="clearBtn">&nbsp; {{'CLEAR' | translate }}</label>
                             <button id="clearBtn" class="btn" type="button">Clear</button>
                             <div class="topcorner">
-                                    <label style="color: white;" class="control-label" for="lang">&nbsp; <i class="fa fa-language"></i>LANGUAGE</label>
+                                    <label  style="color: white;" class="control-label" for="lang">&nbsp; <i class="fa fa-language"></i> {{'LANGUAGE' | translate}}</label>
                                     <select id="lang" class="form-control" ng-model="body.language" placeholder="language">
-                                            <option value="fi" >Finnish</option>
-                                            <option value="en" >English</option>
-                                            <option value="sw" >Swedish</option>
+                                            <option  value="fi" > {{'Finnish' | translate}}</option>
+                                            <option  value="en" > {{'English' | translate}}</option>
+                                            <option  value="sw" > {{'Swedish' | translate}}</option>
                                           </select>
                             </div>
                         </div>
@@ -103,14 +103,14 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bottomNavbar">
                             <ul class="nav  nav-tabs">
-                                    <li><a ui-sref="home" >Home </a></li>
-                                    <li><a ui-sref="message">Text Message Cars</a></li>
-                                    <li><a ui-sref="zone">Zone Information</a></li>
-                                    <li><a ui-sref="carWorkshift">Car Workshift change</a></li>
-                                    <li><a ui-sref="workshiftchange">Group workshift change</a></li>
-                                    <li><a ui-sref="dispatch">Dispatch mode setting</a></li>
-                                    <li><a ui-sref="restriction">Active Restriction</a></li>
-                                    <li><a ui-sref="carInfo">Car Information</a></li>
+                                    <li><a ui-sref="home" translate>Home </a></li>
+                                    <li><a ui-sref="message" translate>Text </a></li>
+                                    <li><a ui-sref="zone" translate>Zone </a></li>
+                                    <li><a ui-sref="carWorkshift" translate>Carshift </a></li>
+                                    <li><a ui-sref="workshiftchange" translate>Groupshift </a></li>
+                                    <li><a ui-sref="dispatch" translate>Dispatch</a></li>
+                                    <li><a ui-sref="restriction" translate>Active</a></li>
+                                    <li><a ui-sref="carInfo" translate>CarInfo</a></li>
                             </ul>
                              
                     </div>
