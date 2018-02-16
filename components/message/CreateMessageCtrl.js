@@ -6,31 +6,32 @@
 	 .controller('CreateMessageCtrl', CreateMessageCtrl);
    
    
-	CreateMessageCtrl.$inject = ['apiService', '$scope', '$state', '$uibModal', '$log'];
-      
+	CreateMessageCtrl.$inject = ['apiService', '$scope', '$state', '$uibModal', '$log', '$translate'];
+	
 	// GIVES AN EMPTY FORM FOR A NEW MESSAGE
-	function CreateMessageCtrl(apiService, $scope, $state, $uibModal, $log) {
-	// $scope.body.allow_anonymous_answer = false;
+	function CreateMessageCtrl(apiService, $scope, $state, $uibModal, $log, $translate) {
+	
 	 var vm = this;
 	 var $working = $(" input[class = 'working']");
 	 var $notworking = $(" input[class = 'notWorking']");
-   
-	
+	 var deflang = 'en';
+
+	 setLanguage()
 	 findall();
 	 findAreas ()
 	 findShift()
 	 pickDate();
 
 	 //GET THE NEW CALL CENTER VALUE 
-	 var newBody = new Object();
 	 $("#inputCenter").on('input', function(){	
 		var opt = $('option[value="'+$(this).val()+'"]');
 		var val = opt.attr('id');
-		$scope.body.OperatingCompany = val;
-		newBody. OperatingCompany = $scope.body.OperatingCompany
-		console.log(JSON.stringify( newBody));
+		$scope.body.OperatingCompany = val;                   
 	 })
-	
+	 
+	 //SET ENGLISH AS A DEFAULT LANGUAGE
+	 $("#lang").val(deflang);
+
 	 $scope.body = {
 	  CarStart:"" ,
 	  CarEnd: "",
@@ -43,7 +44,6 @@
 	  Posting: "",
 	  DispatchStatus: "",
 	  RepeatTimeMin: "",
-	 // range: "",
 	  RepeatTimeStart:"",
 	  RepeatTimeEnd:"",
 	  Text: "",
@@ -56,7 +56,7 @@
 	  Properties :""
 	 };
 
-	 var boddy = JSON.stringify(newBody)
+
    
 	 //SEND A MESSAGE 
 	 $scope.create = () => {
@@ -70,8 +70,22 @@
    
 	 }
    
-                                 //FUNCTIONS
-
+								 //FUNCTIONS
+								 
+	//SET LANGUAGE CHANGES ON USER PREFRENCE							 
+	function setLanguage() {
+	 $("#lang").on('change', function (e) {
+	  var optionSelected = $("option:selected", this);
+	  var valueSelected = this.value;
+	   if (valueSelected === 'fi') {
+		$translate.use('fi');
+	   } else if(valueSelected === 'en') {
+		$translate.use('en');
+	   }else{
+		$translate.use('sw');
+			}
+	 });
+	}
 	 // GET ALL THE STANDARD MESSAGES FROM THE DB
 	 function findall() {
 	  apiService.get('StandardTextMessages')

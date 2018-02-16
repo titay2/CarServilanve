@@ -5,14 +5,15 @@
      .module('app')
      .factory('transletService', transletService);
    
-     transletService.$inject = ['$translate'];
+     transletService.$inject = ['$translate', '$translatePartialLoader','$translateProvider'];
    
     /* @ngInject */
-    function transletService($translate, $q) {
-     var service = {
-      get: get,
-      post: post,
-     };
-   
+    function transletService($translate, $translatePartialLoader, $translateProvider ) {
+        $translateProvider.translations('en', {
+			car: 'auto'
+		  });
+		  //$translateProvider.translations('en'.translations);
+		  $translateProvider.preferredLanguage('en');
+		  console.log("en");
     }
    })();

@@ -7,14 +7,22 @@
 	  'ui.router',
 	  'ui.bootstrap',
 	  'daterangepicker',
+	  'pascalprecht.translate',
+	 
 	 ])
 	 .config(config);
    
    
-	config.$inject = ['$stateProvider', '$urlRouterProvider'];
-   
-	function config($stateProvider, $urlRouterProvider) {
-   
+	config.$inject = ['$stateProvider', '$urlRouterProvider', '$translateProvider'];
+
+	function config($stateProvider, $urlRouterProvider, $translateProvider) {
+		$translateProvider.useStaticFilesLoader({
+			 prefix:'../i18n/local-',
+			 suffix: '.json'
+		});
+			$translateProvider .preferredLanguage('en')
+			$translateProvider.fallbackLanguage('en');
+
 	 $stateProvider
 	  .state('home', {
 	   url: '/home',

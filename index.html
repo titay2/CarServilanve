@@ -71,7 +71,16 @@
                                 <input class="form-control" id="propertyInput" placeholder="vehicle">
         
                             </div>
-                            <button id="clearBtn" class="btn  pull-right" type="button">Clear</button>
+                            <label style="color: white;" class="control-label" for="clearBtn">&nbsp; CLEAR</label>
+                            <button id="clearBtn" class="btn" type="button">Clear</button>
+                            <div class="topcorner">
+                                    <label style="color: white;" class="control-label" for="lang">&nbsp; <i class="fa fa-language"></i>LANGUAGE</label>
+                                    <select id="lang" class="form-control" ng-model="body.language" placeholder="language">
+                                            <option value="fi" >Finnish</option>
+                                            <option value="en" >English</option>
+                                            <option value="sw" >Swedish</option>
+                                          </select>
+                            </div>
                         </div>
         
                     </div>
@@ -124,7 +133,7 @@
   <script type="text/javascript" src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
   <script type="text/javascript" src="bower_components/angular-daterangepicker/js/angular-daterangepicker.min.js"></script>  
   <script type="text/javascript" src="bower_components/angular-translate/angular-translate.min.js"></script>  
-  <script type="text/javascript" src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.min.js"></script>  
+  <script type="text/javascript" src="bower_components/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js"></script>  
   <script type="text/javascript" src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>  
   <script type="text/javascript" src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>  
  
