@@ -20,7 +20,7 @@
  
    };
  
-   var rootUrl = 'http://localhost:59910/api/';
+   var rootUrl = 'http://localhost:52273/api/';
  
    return service;
  

@@ -74,14 +74,6 @@
 	  });
    
 	 }
-	 var kendoNav = angular.element(".k-grouping-header");
-	 
-	
-	 $(".k-grouping-header").css({
-	  "backgroundColor": "#4991DE",
-	  "border-color": "#4991DE"
-	 });
-	 
 	 
 	}
    

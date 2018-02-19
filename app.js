@@ -16,12 +16,13 @@
 	config.$inject = ['$stateProvider', '$urlRouterProvider', '$translateProvider'];
 
 	function config($stateProvider, $urlRouterProvider, $translateProvider) {
+		$translateProvider .preferredLanguage('en')
+		$translateProvider.fallbackLanguage('en');
 		$translateProvider.useStaticFilesLoader({
 			 prefix:'../i18n/local-',
 			 suffix: '.json'
 		});
-			$translateProvider .preferredLanguage('en')
-			$translateProvider.fallbackLanguage('en');
+			
 
 	 $stateProvider
 	  .state('home', {

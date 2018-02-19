@@ -60,9 +60,10 @@
    
 	 //SEND A MESSAGE 
 	 $scope.create = () => {
-	  apiService.post('StandardTextMessages', $scope.body)
+	  apiService.post('SendTextMessages', $scope.body)
 	  .then(data => {
 	   $state.reload();
+	   location.reload();
 	  })
 	  .catch((err) => {
 	   console.log(err);
@@ -70,6 +71,9 @@
    
 	 }
    
+	
+
+	
 								 //FUNCTIONS
 								 
 	//SET LANGUAGE CHANGES ON USER PREFRENCE							 
@@ -168,6 +172,11 @@
 	$scope.selected = {
 	 item: $scope.items[0]
 	};  
+	$scope.keyInput = function(keyEvent){
+		if (keyEvent === 13){
+			alert('entered!')
+		}
+	}
 	$scope.setSelected = function() {
         var selectd = this.item;
         $uibModalInstance.close(selectd.text);
