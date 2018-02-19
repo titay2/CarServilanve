@@ -123,6 +123,7 @@
 	  $('input[name="datefilter"]').daterangepicker({
 	   autoUpdateInput: false,
 	   timePicker: true,
+	   timePicker24Hour:true,
 	   startDate:moment(),
 	   timePickerIncrement: 1,
 	   locale: {
