@@ -59,18 +59,17 @@
                                 <datalist id="area"></datalist>
         
                             </div>
-        
-                            <div class="col-md-1  ">
-                                <label style="color: white;" for="vihecle" translate >PROPERTY</label>
-                                <input class="form-control" id="vihecle" placeholder="property" ng-model="body.Properties" />
-        
-                            </div>
-        
                             <div class="col-md-1">
-                                <label style="color: white;" class="control-label" for="propertyInput" translate >VEHICLE</label>
-                                <input class="form-control" id="propertyInput" placeholder="vehicle">
+                                <label style="color: white;" class="control-label" for="propertyInput" translate >PROPERTY</label>
+                                <input class="form-control" id="propertyInput" placeholder="Property" ng-model="body.Properties">
         
                             </div>
+                            <div class="col-md-1  ">
+                                <label style="color: white;" for="vihecle" translate >VEHICLE</label>
+                                <input class="form-control" id="vihecle" placeholder="Vehicle"  />
+        
+                            </div>
+        
                             <div id ="clearLable">
                                   
                                     <button id="clearBtn" class="btn" type="button" translate >CLEAR</button>
@@ -109,7 +108,7 @@
                                     <li><a ui-sref="carInfo" translate>CarInfo</a></li>
                                     <li><a ui-sref="dispatch" translate>Dispatch</a></li>
                                     <li><a ui-sref="zone" translate>Zone </a></li>
-                                    <li><a ui-sref="home" translate>CarsIn </a></li>
+                                    <li><a ui-sref="carsinshift" translate>CarsIn </a></li>
                                     <li><a ui-sref="message" translate>Text </a></li>
                                     <li><a ui-sref="carWorkshift" translate>Carshift </a></li>                    
                                     <li><a ui-sref="workshiftchange" translate>Groupshift </a></li> 

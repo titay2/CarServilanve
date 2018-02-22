@@ -1,69 +1,75 @@
 <div class="col-md-8 col-xs-12">
     <form ng-submit="create()" method="post">
-           
-            <div class="checkbox-inline">
-                    <label class="groubLable" translate>Group</label>
-                    <input type="checkbox" class="vanish"  ng-model="body.Group" />
-            </div>
-            
-      <div class="form-container">
-       <div id="mydiv">     
-          <div class="carNumber" ng-hide="body.Group">
-            <label translate>Car</label>
-           
-            <div class="form-inline">
-              <div class="form-group">
-                <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="CarStart" ng-disabled="body.All"> --
-              </div>
-              <div class="form-group ">    
-                <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.CarEnd" ng-disabled="body.All">   
-              </div>
-            </div>
-          </div> 
-        <div class="groupNo" ng-show = "body.Group">
+        <div class="checkbox-inline">
 
-            <label translate>GroupName</label>
-   
-             <input type="text" class="form-control"  placeholder="Group Name" ng-model="body.WorkShiftGroup" ng-disabled="body.All"> 
-             
+            <label class="groubLable" translate>Group</label>
+
+            <input type="checkbox" class="vanish"  ng-model="body.Group" />
+
         </div>
-            <label translate>Zonenum</label>
-            <div class="form-inline">
-                    <div class="form-group">
-                      <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneStart" ng-disabled="body.All"> --
+        <div class="form-container">
+            <div id="mydiv"> 
+                <div class="carNumber" ng-hide="body.Group">
+                    <label translate>Car</label>
+                    <div class="form-inline">
+                        <div class="form-group">
+                            <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="CarStart" ng-disabled="body.All"> --
+                        </div>
+                        <div class="form-group ">    
+                            <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.CarEnd" ng-disabled="body.All">   
+                        </div>
                     </div>
-                    <div class="form-group">    
-                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneEnd" ng-disabled="body.All">   
-                    </div>
-            </div>
-            <label translate>Drivers</label>
-            <div class="form-inline">
-                    <div class="form-group">
-                      <input type="text" class="form-control"  maxlength="4" size="4" placeholder=""ng-model="body.DriverStart" ng-disabled="body.All"> --
-                    </div>
-                    <div class="form-group">    
-                       <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.DriverEnd " ng-disabled="body.All">   
-                    </div>
-            </div>
-            <label translate>AREA</label>
-            
-            <input id="areA" ng-model="body.Posting" list= "allArea" class="form-control" ng-disabled="body.All"/>
-            <datalist id="allArea">
-                <option ng-repeat="area in areas" valeu="{{area}}">{{area.postingName}}</option>
-            </datalist>
+                </div>
 
-            <label translate>PROPERTY</label>
+                <div class="groupNo" ng-show = "body.Group">
+                    <label translate>GroupName</label>
+                    <input type="text" class="form-control"  placeholder="Group Name" ng-model="body.WorkShiftGroup" ng-disabled="body.All">  
+                </div>
+        
+                <label translate>Zonenum</label>
+
+                <div class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneStart" ng-disabled="body.All"> --
+                    </div>
+                    <div class="form-group">    
+                        <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneEnd" ng-disabled="body.All">   
+                    </div>
+                </div>
+
+                <label translate>Drivers</label>
+
+                <div class="form-inline">
+                    <div class="form-group">
+                        <input type="text" class="form-control"  maxlength="4" size="4" placeholder=""ng-model="body.DriverStart" ng-disabled="body.All"> --
+                    </div>
+                    <div class="form-group">    
+                        <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.DriverEnd " ng-disabled="body.All">   
+                    </div>
+                </div>
+
+                <label translate>AREA</label>   
+
+                <input ng-model="body.Posting" list= "allArea" class="form-control" ng-disabled="body.All"/>
+                    <datalist id="allArea">
+                        <option ng-repeat="area in areas" valeu="{{area}}">{{area.postingName}}</option>
+                    </datalist>
+
+                <label translate>PROPERTY</label>
+
+                <input   class="form-control" id="property" ng-model="body.Properties" ng-disabled="body.All"/>
             
-            <input   class="form-control" id="property" ng-model="body.Properties" ng-disabled="body.All"/>
-            
-            <label translate>OnShift</label>
-       
-            <input   class="form-control" id="shiftt" ng-model="body.DispatchStatus" list= "allShifts" ng-disabled="body.All"/>
-            <datalist id="allShifts">
-                <option ng-repeat="shift in shifts" value="{{shift.statusName}}">{{shift.statusName}}</option>
-            </datalist>
-      </div> 
-            <label translate>Repeat</label>
+                <label translate>OnShift</label>
+                
+                <input   class="form-control" id="shiftt" ng-model="body.DispatchStatus" list= "allShifts" ng-disabled="body.All"/>
+                    <datalist id="allShifts">
+                        <option ng-repeat="shift in shifts" value="{{shift.statusName}}">{{shift.statusName}}</option>
+                    </datalist>
+
+            </div> 
+
+            <label translate>Repeat</label> 
+
             <input  class="form-control" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeMin"/>
             <input  class="hidden" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeStart"/>
             <input  class="form-control"   id="range" name="datefilter" value="" placeholder="time and date" ng-value="body.RepeatTimeStart"/>
@@ -76,52 +82,48 @@
             <label translate>new</label>
             
             <textarea id="textHere" class="form-control" rows="7" cols="500" ng-model="body.Text" >  </textarea>
+
             <button type="button" class="btn btn-primary " translate>SAVE</button>
            
             <button class="btn" type="submit" id="submit-msg" translate>SEND</button>
-      </div>
-   
-
-   
+        </div>
 </div>
 
-<div id="filter" class="col-md-4 col-xs-12 ">
- 
-    <ul>
-        <li>
-             <div class="checkbox-inline">
-                <input type="checkbox" class="working" ng-model="body.WorkShift" ng-disabled="body.All || body.NotWorkShift" />
-                <label translate >InWorkshift</label>
-            </div>
-        </li>
-        <li>
-            <div class="checkbox-inline">
-                <input type="checkbox" class="notWorking" ng-model="body.NotWorkShift" ng-disabled="body.All || body.WorkShift"/>
-                <label translate >Notworkshift</label>
-            </div>
-        </li>
-        <li>
-            <div class=" checkbox-inline ">
-                <input type="checkbox" class="allCars"  ng-model="body.All"  />
-                <label translate>AllCars</label>
-            </div>
-        </li>
-        <li>
-            <div class="checkbox-inline">
-                <input type="checkbox" ng-model= "body.Print" />
-                <label translate>Forced</label>
-            </div>
-        </li>
-        <li>
-            <div class="checkbox-inline">
-                <input type="checkbox" ng-model="body.QuarantedDelivery" />
-                <label translate>Secured</label>
-            </div>
-        </li>
-        
-    </ul>     
+        <div id="filter" class="col-md-4 col-xs-12 ">
+            <ul>
+                <li>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" class="working" ng-model="body.WorkShift" ng-disabled="body.All || body.NotWorkShift" />
+                        <label translate >InWorkshift</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" class="notWorking" ng-model="body.NotWorkShift" ng-disabled="body.All || body.WorkShift"/>
+                        <label translate >Notworkshift</label>
+                    </div>
+                </li>
+                <li>
+                    <div class=" checkbox-inline ">
+                        <input type="checkbox" class="allCars"  ng-model="body.All"  />
+                        <label translate>AllCars</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" ng-model= "body.Print" />
+                        <label translate>Forced</label>
+                    </div>
+                </li>
+                <li>
+                    <div class="checkbox-inline">
+                        <input type="checkbox" ng-model="body.QuarantedDelivery" />
+                        <label translate>Secured</label>
+                    </div>
+                </li>
+            </ul>     
     
-</div>
+        </div>
 </form>
 <div>
     <script type="text/ng-template" id="myModalContent.html">

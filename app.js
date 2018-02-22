@@ -16,19 +16,21 @@
 	config.$inject = ['$stateProvider', '$urlRouterProvider', '$translateProvider'];
 
 	function config($stateProvider, $urlRouterProvider, $translateProvider) {
-		$translateProvider .preferredLanguage('en')
-		$translateProvider.fallbackLanguage('en');
-		$translateProvider.useStaticFilesLoader({
-			 prefix:'../i18n/local-',
-			 suffix: '.json'
+
+	$translateProvider 
+		.preferredLanguage('en')
+		.fallbackLanguage('en')
+		.useStaticFilesLoader({
+			prefix:'../i18n/local-',
+			suffix: '.json'
 		});
 			
 
 	 $stateProvider
-	  .state('home', {
-	   url: '/home',
+	  .state('carsinshift', {
+	   url: '/carsinshift',
    
-	   templateUrl: 'components/home/home.html',
+	   templateUrl: 'components/carsinshift/carsinshift.html',
 	   controllerAs: 'vm'
 	  })
    

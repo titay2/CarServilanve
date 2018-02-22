@@ -70,9 +70,6 @@
 	  });
    
 	 }
-   
-	
-
 	
 								 //FUNCTIONS
 								 
@@ -95,6 +92,7 @@
 	  apiService.get('StandardTextMessages')
 	   .then((data) => {
 		$scope.items = data;
+
 	   })
 	   .catch((err) => {
 		console.log(err);
@@ -102,7 +100,7 @@
 	 }
    
 	 
-	 //FETCH ALL THE AREAS FROM THE DB
+	 //FETCH ALL THE POSTINGS FROM THE DB
 	 function findAreas (){
 	  apiService.get('Postings')
 	   .then((data)=>{
@@ -110,7 +108,7 @@
 	   })  
 	 }
 
-	 //FETCH THE SHIFTS LIST FROM DB
+	 //FETCH THE SHIFTS FROM DB
 	 function findShift(){
 	  apiService.get('DispatchStatuses')
 	   .then((data)=>{
@@ -122,7 +120,7 @@
 	 function pickDate() {
 	  $('input[name="datefilter"]').daterangepicker({
 	   autoUpdateInput: false,
-	   timePicker: true,
+	   timePicker: false,
 	   timePicker24Hour:true,
 	   startDate:moment(),
 	   timePickerIncrement: 1,
