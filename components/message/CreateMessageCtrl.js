@@ -6,17 +6,17 @@
 	 .controller('CreateMessageCtrl', CreateMessageCtrl);
    
    
-	CreateMessageCtrl.$inject = ['apiService', '$scope', '$state', '$uibModal', '$log', '$translate'];
+	CreateMessageCtrl.$inject = ['apiService','translateService', '$scope', '$state', '$uibModal', '$log', '$translate'];
 	
 	// GIVES AN EMPTY FORM FOR A NEW MESSAGE
-	function CreateMessageCtrl(apiService, $scope, $state, $uibModal, $log, $translate) {
+	function CreateMessageCtrl(apiService, translateService,$scope, $state, $uibModal, $log, $translate) {
+	 translateService.setLanguage();
 	
 	 var vm = this;
 	 var $working = $(" input[class = 'working']");
 	 var $notworking = $(" input[class = 'notWorking']");
 	 var deflang = 'en';
-
-	 setLanguage()
+	
 	 findall();
 	 findAreas ()
 	 findShift()
@@ -73,20 +73,8 @@
 	
 								 //FUNCTIONS
 								 
-	//SET LANGUAGE CHANGES ON USER PREFRENCE							 
-	function setLanguage() {
-	 $("#lang").on('change', function (e) {
-	  var optionSelected = $("option:selected", this);
-	  var valueSelected = this.value;
-	   if (valueSelected === 'fi') {
-		$translate.use('fi');
-	   } else if(valueSelected === 'en') {
-		$translate.use('en');
-	   }else{
-		$translate.use('sw');
-			}
-	 });
-	}
+							 
+
 	 // GET ALL THE STANDARD MESSAGES FROM THE DB
 	 function findall() {
 	  apiService.get('StandardTextMessages')

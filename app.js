@@ -8,8 +8,9 @@
 	  'ui.bootstrap',
 	  'daterangepicker',
 	  'pascalprecht.translate',
-	 
-	 ])
+	  'ngCookies',
+	  'kendo.directives'
+	])
 	 .config(config);
    
    
@@ -23,13 +24,13 @@
 		.useStaticFilesLoader({
 			prefix:'../i18n/local-',
 			suffix: '.json'
-		});
-			
+		})
+		.useSanitizeValueStrategy()	
+		.useCookieStorage();
 
 	 $stateProvider
 	  .state('carsinshift', {
 	   url: '/carsinshift',
-   
 	   templateUrl: 'components/carsinshift/carsinshift.html',
 	   controllerAs: 'vm'
 	  })
@@ -57,10 +58,18 @@
 	  })
 	  .state('carWorkshift', {
 	   url: '/carWorkshift',
-   
-	   templateUrl: 'components/carWorkshift/carworkshift.html',
-	   controllerAs: 'vm'
-   
+	   views:{
+		   '':{
+			   templateUrl:'components/carWorkshift/carshift.html',
+			   controller:'CarShiftCtrl',
+			   controllerAs:'vm'
+		   },
+		   'change@carWorkshift':{
+				templateUrl: 'components/carWorkshift/changecarshift.html',
+				controller:'ChangeCarShiftCtrl',
+				controllerAs: 'vm'
+		   }
+	   },
 	  })
 	  .state('dispatch', {
 	   url: '/dispatch',
@@ -92,7 +101,7 @@
 	  })
    
    
-	 $urlRouterProvider.otherwise('/home');
+	 $urlRouterProvider.otherwise('/message');
    
 	}
    

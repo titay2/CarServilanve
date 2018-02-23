@@ -10,21 +10,20 @@
   <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
   <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
   <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="bower_components/Kendo UI for jQuery R1 2018/styles/kendo.common.min.css" rel="stylesheet" />
-  <link href="bower_components/Kendo UI for jQuery R1 2018/styles/kendo.default.min.css" rel="stylesheet" />
+  <link href="bower_components/Kendo-ui/styles/kendo.common.min.css" rel="stylesheet" />
+  <link href="bower_components/Kendo-ui/styles/kendo.default.min.css" rel="stylesheet" />
  <link href="bower_components/bootstrap-daterangepicker/daterangepicker.css"  rel="stylesheet" />
+ <link href="bower_components/Kendo-ui/styles/kendo.default.min.css" rel="stylesheet" />
   <style>
     .navbar {
       margin-bottom: 0;
-      border-radius: 0;
+      border-radius: 0; 
     }
   </style>
 
-  <link href="main.css" rel="stylesheet" />
+  <link rel="stylesheet" href="main.css" />
 
 </head>
-
-
 <body>
 <div id="app-container" ng-app="app">
     <div ng-controller="IndexCtrl">
@@ -50,26 +49,21 @@
                             <div class="col-md-2">
                                 <label style="color: white; " for="SelectPI" translate >CALL</label>
                                 <input id="inputCenter"  list="callcenter" class="form-control" placeholder="Call center"  ng-model="body.OperatingCompany"/>
-                                <datalist id="callcenter"></datalist>
-        
+                                <datalist id="callcenter"></datalist> 
                             </div>
                             <div class="col-md-2">
                                 <label style="color: white; " for="SelectP" translate >AREA</label>
                                 <input list="area" class="form-control" placeholder="Area" ng-model="body.Posting"/>
                                 <datalist id="area"></datalist>
-        
                             </div>
                             <div class="col-md-1">
                                 <label style="color: white;" class="control-label" for="propertyInput" translate >PROPERTY</label>
                                 <input class="form-control" id="propertyInput" placeholder="Property" ng-model="body.Properties">
-        
                             </div>
                             <div class="col-md-1  ">
                                 <label style="color: white;" for="vihecle" translate >VEHICLE</label>
-                                <input class="form-control" id="vihecle" placeholder="Vehicle"  />
-        
+                                <input class="form-control" id="vihecle" placeholder="Vehicle"/>
                             </div>
-        
                             <div id ="clearLable">
                                   
                                     <button id="clearBtn" class="btn" type="button" translate >CLEAR</button>
@@ -77,11 +71,11 @@
                             
                             <div class="topcorner">
                                     <label  style="color: white;" class="control-label" for="lang">&nbsp; <i class="fa fa-language"></i> {{'LANGUAGE' | translate}}</label>
-                                    <select id="lang" class="form-control" ng-model="body.language" placeholder="language">
-                                            <option  value="fi" > {{'Finnish' | translate}}</option>
-                                            <option  value="en" > {{'English' | translate}}</option>
-                                            <option  value="sw" > {{'Swedish' | translate}}</option>
-                                          </select>
+                                    <select id="lang" class="form-control" ng-model="body.language">
+                                        <option  value="fi" > {{'Finnish' | translate}}</option>
+                                        <option  value="en" > {{'English' | translate}}</option>
+                                        <option  value="sw" > {{'Swedish' | translate}}</option>
+                                    </select>
                             </div>
                         </div>
         
@@ -128,10 +122,11 @@
 
 
   <script src="bower_components/jquery/dist/jquery.js"></script>
-  <script src="bower_components/Kendo UI for jQuery R1 2018/js/kendo.all.min.js"></script>
   <script src="bower_components/moment/moment.js"></script>
-  
-  <script type="text/javascript" src="bower_components/angular/angular.js"></script>
+ <script  type="text/javascript" src="bower_components/angular/angular.js"></script>
+ <script  type="text/javascript" src="bower_components/Kendo-ui/js/kendo.all.min.js"></script>
+
+  <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
   <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
   <script type="text/javascript" src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
   <script type="text/javascript" src="bower_components/angular-daterangepicker/js/angular-daterangepicker.min.js"></script>  
@@ -140,13 +135,18 @@
   <script type="text/javascript" src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>  
   <script type="text/javascript" src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>  
  
+ 
+ 
   <script type="text/javascript" src="app.js"></script>
   <script type="text/javascript" src="IndexCtrl.js"></script>
    
   <!--	Import component scripts-->
   <script src="components/apiService.js"></script>
+  <script src="components/translateService.js"></script>
   <script src="components/message/CreateMessageCtrl.js"></script>
   <script src="components/message/MessageCtrl.js"></script>
+  <script src="components/carWorkshift/CarShiftCtrl.js"></script>
+  <script src="components/carWorkshift/ChangeCarShiftCtrl.js"></script>
   
  
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>

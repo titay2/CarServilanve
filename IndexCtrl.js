@@ -6,9 +6,9 @@
 		.module('app')
 		.controller('IndexCtrl', IndexCtrl);
 
-     IndexCtrl.$inject = [ '$scope', '$state'];
+     IndexCtrl.$inject = [ '$scope', '$state','$translate'];
 
-    function IndexCtrl( $scope) {
+    function IndexCtrl( $scope,$translate) {
 
     console.log("loadded");
     }
@@ -18,7 +18,7 @@
      var root  = "http://localhost:52273/api/";
      
 
-
+  
      findCallCenter();
      findArea();
 
@@ -69,5 +69,4 @@
 		var vm = this;
 		
 	}
-
 }());

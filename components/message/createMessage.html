@@ -60,7 +60,7 @@
                 <input   class="form-control" id="property" ng-model="body.Properties" ng-disabled="body.All"/>
             
                 <label translate>OnShift</label>
-                
+
                 <input   class="form-control" id="shiftt" ng-model="body.DispatchStatus" list= "allShifts" ng-disabled="body.All"/>
                     <datalist id="allShifts">
                         <option ng-repeat="shift in shifts" value="{{shift.statusName}}">{{shift.statusName}}</option>
@@ -72,7 +72,7 @@
 
             <input  class="form-control" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeMin"/>
             <input  class="hidden" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeStart"/>
-            <input  class="form-control"   id="range" name="datefilter" value="" placeholder="time and date" ng-value="body.RepeatTimeStart"/>
+            <input  class="form-control"   id="range" name="datefilter" value="" placeholder="time and date" ng-value="body.RepeatTimeEnd"/>
             
             
             <label translate >Standard</label>
@@ -85,7 +85,7 @@
 
             <button type="button" class="btn btn-primary " translate>SAVE</button>
            
-            <button class="btn" type="submit" id="submit-msg" translate>SEND</button>
+            <button class="button" type="submit" id="submit-msg" translate>SEND</button>
         </div>
 </div>
 

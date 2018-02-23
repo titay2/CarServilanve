@@ -12,6 +12,7 @@
    var service = {
     get: get,
     post: post,
+    
    };
  
    $http.defaults.headers.common = {
@@ -23,7 +24,7 @@
    var rootUrl = 'http://localhost:52273/api/';
  
    return service;
- 
+  
    function get(path, config) {
     var defer = $q.defer();
     $http.get(rootUrl + path, config)
