@@ -1,7 +1,7 @@
 (function() {
 
  'use strict';
-
+ 
    
  angular
  .module('app')
@@ -13,9 +13,7 @@
   var kendoGrid = $("#grid");
 
   
-  findall();
-
-
+findall();
 
   //FETCH ALLL MESSAGES FROM BD AND PASS IT TO THE KENDO GRID 
   function findall() {

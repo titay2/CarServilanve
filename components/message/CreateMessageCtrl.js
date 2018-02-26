@@ -1,10 +1,14 @@
 (function() {
 	'use strict';
+
+	
    
 	angular
 	 .module('app')
-	 .controller('CreateMessageCtrl', CreateMessageCtrl);
-   
+	 .controller('CreateMessageCtrl', CreateMessageCtrl)
+	 
+
+
    
 	CreateMessageCtrl.$inject = ['apiService','translateService', '$scope', '$state', '$uibModal', '$log', '$translate'];
 	

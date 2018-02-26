@@ -1,9 +1,37 @@
-<label translate>Car</label>
 
-<input   class="form-control" maxlength="4" size="4" ng-model="body.carnumber" />
+<h1 translate>Carshift</h1>
 
-<label translate>Range</label>
+<div id="grid"></div>
 
-<input   class="form-control" maxlength="4" size="4" ng-model="body.starttime" />
-
-
+<script type="text/x-kendo-template" id="template">
+    <div class="refreshBtnContainer">
+        <a href="\\#" class="k-pager-refresh k-link k-button" title="Refresh"><span class="k-icon k-i-reload"></span></a>
+    </div>
+    <div class="toolbar">
+        <label class="category-label" for="category">Show products by Call Center:</label>
+        <input type="search" id="category" style="width: 150px"/>
+       
+    </div>
+    <a class="k-button k-button-icontext k-grid-add" href="\\#"><span class="k-icon k-add"> </span>Add new record</a>
+</script>
+ <style>
+                #grid .k-grid-toolbar
+                {
+                    padding: .6em 1.3em .6em .4em;
+                }
+                .category-label
+                {
+                    vertical-align: middle;
+                    padding-right: .5em;
+                }
+                #category
+                {
+                    vertical-align: middle;
+                }
+                .refreshBtnContainer {
+                    display: inline-block;
+                }
+                .toolbar {
+                    float: right;
+                }
+            </style>

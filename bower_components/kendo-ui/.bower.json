@@ -38,7 +38,6 @@
     "commit": "9b30d6bf4dee479f92a66d58a0df933dcc3d2e2e"
   },
   "_source": "https://bower.telerik.com/bower-kendo-ui.git",
-  "_target": "^2018.1.221+SP1",
-  "_originalSource": "https://bower.telerik.com/bower-kendo-ui.git",
-  "_direct": true
+  "_target": "~2018.1.221",
+  "_originalSource": "https://bower.telerik.com/bower-kendo-ui.git"
 }
