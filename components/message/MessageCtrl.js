@@ -1,195 +1,70 @@
 (function() {
-
- 'use strict';
+	'use strict';
  
-   
- angular
- .module('app')
- .controller('MessageCtrl', MessageCtrl)
+	angular
+		.module('app')
+ 		.controller('MessageCtrl', MessageCtrl)
 
- MessageCtrl.$inject = ['apiService', '$scope', '$state'];
- function MessageCtrl(apiService, $scope, $state) {
-  var vm = this;
-  var kendoGrid = $("#grid");
+		 MessageCtrl.$inject = ['apiService', '$scope', '$state'];
 
-  
-findall();
+ 		function MessageCtrl(apiService, $scope, $state) {
+			$(document).ready(function() {
+ 				$("#grid").kendoGrid({
+					dataSource:{
+						transport:{
+							read:{
+								url:"http://localhost:52273/api/StandardTextMessages",
+								data:{ format: "json"},
+								dataType: "json",
+							}
+						},
+						schema: {
+							model: {
+								id:"id",
+								fields: {
+					  			id: { type :"text"},
+					  			text: {type : "text" },
+					  			creationdate: {type: "date" }
+								}
+							}
+						}
+					},
+					columns:[	
+		  				{ field: "id", title: "ID", width: 60}, 
+		  				{ field: "text", title: "Text", width: 600}, 
+		  				{ field: "creationdate", title: "Date", width: 200},
+		 			],
+        			scrollable: true,
+					detailInit: detailInit
+				});
+			});
 
-  //FETCH ALLL MESSAGES FROM BD AND PASS IT TO THE KENDO GRID 
-  function findall() {
-   apiService.get('StandardTextMessages')
-    .then((data) => {
-     vm.datas = data;
-    })
-    .then(()=>{
-	 drawKendoTable(vm.datas, kendoGrid)
-    })
-     .catch((err) => {
-	  console.log(err);
-     });
-  }
-
-
-
-  function drawKendoTable(datas, divId) {
-	divId.kendoGrid({
-	 dataSource: {
-	  data: datas,
-	  schema: {
-	   model: {
-		fields: {
-		 ID: {
-		  type: "string"
-		 },
-		 Text: {
-		  type: "text"
-		 },
-		 Date: {
-		  type: "date"
-		 },
- 
+			function detailInit(e) {
+				$("<div/>").appendTo(e.detailCell).kendoGrid({
+					dataSource: {
+						type: "json",
+						transport: {
+							read:{
+								url:"http://localhost:52273/api/StandardTextMessages",
+								data:{ format: "json"},
+								dataType: "json",
+							}
+						},
+						serverPaging: true,
+						serverSorting: true,
+						serverFiltering: true,
+						pageSize: 10,
+						filter: { field: "id", operator: "eq", value: e.data.id }
+					},
+					scrollable: false,
+					sortable: true,
+					pageable: true,
+					columns: [
+						{ field: "id", width: "110px" },
+						{ field: "text", title:"text", width: "410px" },
+						{ field: "creationdate", title: "date", width: "150px" }
+					]
+				});
+			}
 		}
-	   }
-	  },
-  //	pageSize: 5
-	 },
-	 height: 800,
-	 width: 500,
-	 groupable: true,
-	 sortable: true,
-	 pageable: {
-	  refresh: true,
-	  pageSizes: false,
-	  buttonCount: false,
-	  detailInit: detailInit,
-	  dataBound: function() {
-		  this.expandRow(this.tbody.find("tr.k-master-row").first());
-	  },
-
-	 },
-	 columns:[
-	  {
-	  field: "id",
-	  title: "ID",
-	  width: 80
-	 }, {
-	  field: "text",
-	  title: "Text"
-	 }, {
-	  field: "creationdate",
-	  title: "Date",
-	  width: 200
-	 }]
-	});
- 
-   
-   function detailInit(e) {
-	  $("<div/>").appendTo(e.detailCell).kendoGrid({
-		  dataSource: {
-			  type: "odata",
-			  transport: {
-				  read: "http://localhost:52273/api/StandardTextMessages"
-			  },
-			  serverPaging: true,
-			  serverSorting: true,
-			  serverFiltering: true,
-			  pageSize: 10,
-			  //filter: { field: "text", operator: "eq", value: e.data.Text }
-		  },
-		  scrollable: false,
-		  sortable: true,
-		  pageable: true,
-		  columns: [
-			  { field: "id", width: "110px" },
-			  { field: "text", title:"textShip Country", width: "110px" },
-			  { field: "creationdate", title:"creationdate" },
-			  
-		  ]
-	  });
-  }
-}
-   
-
-
-  //DRAW A KENDO TABLE 
-	 function drawKendoTable1(datas, divId) {
-	  divId.kendoGrid({
-	   dataSource: {
-		data: datas,
-		schema: {
-		 model: {
-		  fields: {
-		   ID: {
-			type: "string"
-		   },
-		   Text: {
-			type: "text"
-		   },
-		   Date: {
-			type: "date"
-		   },
-   
-		  }
-		 }
-		},
-	//	pageSize: 5
-	   },
-	   height: 800,
-	   width: 500,
-	   groupable: true,
-	   sortable: true,
-	   pageable: {
-		refresh: true,
-		pageSizes: false,
-		buttonCount: false,
-		detailInit: detailInit,
-		dataBound: function() {
-			this.expandRow(this.tbody.find("tr.k-master-row").first());
-		},
-
-	   },
-	   columns:[
-		{
-		field: "id",
-		title: "ID",
-		width: 80
-	   }, {
-		field: "text",
-		title: "Text"
-	   }, {
-		field: "creationdate",
-		title: "Date",
-		width: 200
-	   }]
-	  });
-   
-	 
-	 function detailInit(e) {
-		$("<div/>").appendTo(e.detailCell).kendoGrid({
-			dataSource: {
-				type: "odata",
-				transport: {
-					read: "http://localhost:52273/api/StandardTextMessages"
-				},
-				serverPaging: true,
-				serverSorting: true,
-				serverFiltering: true,
-				pageSize: 10,
-				//filter: { field: "text", operator: "eq", value: e.data.Text }
-			},
-			scrollable: false,
-			sortable: true,
-			pageable: true,
-			columns: [
-				{ field: "id", width: "110px" },
-				{ field: "text", title:"textShip Country", width: "110px" },
-				{ field: "creationdate", title:"creationdate" },
-				
-			]
-		});
-	}
- }
-	 
-	}
-   
-   }());
+}());
