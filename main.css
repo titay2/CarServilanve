@@ -40,7 +40,7 @@ body {
 }
 /*Top Clear button*/
 #clearBtn {
-    margin-right: -35px;
+    margin-right: -90px;
     margin-top: 38px;
     float: right;
 }
@@ -64,7 +64,7 @@ body {
 
 .navbar-nav > li {
     float: left;
-    padding-left: 10px;
+    padding-left: 5px;
 }
 
 .btn.outline.free {

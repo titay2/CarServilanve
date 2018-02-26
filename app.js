@@ -58,18 +58,8 @@
 	  })
 	  .state('carWorkshift', {
 	   url: '/carWorkshift',
-	   views:{
-		   '':{
-			   templateUrl:'components/carWorkshift/carshift.html',
-			   controller:'CarShiftCtrl',
-			   controllerAs:'vm'
-		   },
-		   'change@carWorkshift':{
-				templateUrl: 'components/carWorkshift/changecarshift.html',
-				controller:'ChangeCarShiftCtrl',
-				controllerAs: 'vm'
-		   }
-	   },
+	   controller:'ChangeCarShiftCtrl',
+	   templateUrl: 'components/carWorkshift/changecarshift.html',
 	  })
 	  .state('dispatch', {
 	   url: '/dispatch',
