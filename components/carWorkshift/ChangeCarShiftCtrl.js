@@ -7,9 +7,11 @@
   ChangeCarShiftCtrl.$inject = ['apiService', 'translateService', '$scope', '$state', '$log', '$translate'];
 
   function ChangeCarShiftCtrl(apiService, translateService, $scope, $state, $log, $translate) {
-      translateService.setLanguage();
+
 
       $(document).ready(function() {
+        translateService.setLanguage();
+
           var crudServiceBaseUrl = "http://localhost:52273/api/StandardTextMessages",
               dataSource = new kendo.data.DataSource({
                   transport: {
@@ -56,12 +58,18 @@
                               creationdate: {
                                   type: "date"
                               },
+                              printMessage:{
+                                  type:"boolean"
+                              }
 
                           }
                       }
                   }
               });
 
+
+
+              
 
           var grid = $("#grid").kendoGrid({
               dataSource: dataSource,
@@ -70,7 +78,8 @@
               // height: 550,
               sortable: true,
               //toolbar: ["create"],
-              columns: [{
+              columns: [
+                {
                   field: "id",
                   title: "ID",
                   width: 60
@@ -127,8 +136,11 @@
                   .kendoDateTimePicker({});
           }
 
+        });
+    
+         
 
-      });
+     // });
 
   }
 

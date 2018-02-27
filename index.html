@@ -63,17 +63,19 @@
                                 <label style="color: white;" for="vihecle" translate >VEHICLE</label>
                                 <input class="form-control" id="vihecle" placeholder="Vehicle"/>
                             </div>
-                            <div id ="clearLable">
-                                  
-                                    <button id="clearBtn" class="btn" type="button" translate >CLEAR</button>
-                                 </div>
-                            
+                            <div id ="clearLable">                                
+                                <button id="clearBtn" class="btn" type="button" translate >CLEAR</button>
+                            </div>
+            
+                        
+
+
                             <div class="topcorner">
                                     <label  style="color: white;" class="control-label" for="lang" placeholder="English" >&nbsp; <i class="fa fa-language"></i> {{'LANGUAGE' | translate}}</label>
                                     <select id="lang" class="form-control" ng-model="body.language">
-                                        <option  value="fi" > {{'Finnish' | translate}}</option>
-                                        <option  value="en" > {{'English' | translate}}</option>
-                                        <option  value="sw" > {{'Swedish' | translate}}</option>
+                                        <option  value="fi-FI" > {{'Finnish' | translate}}</option>
+                                        <option  value="en-US" > {{'English' | translate}}</option>
+                                        <option  value="sv-SE" > {{'Swedish' | translate}}</option>
                                     </select>
                             </div>
                         </div>
@@ -121,6 +123,8 @@
  <script  type="text/javascript" src="bower_components/angular/angular.js"></script>
  <script  type="text/javascript" src="bower_components/Kendo-ui/js/kendo.all.min.js"></script>
  <script  type="text/javascript" src="bower_components/Kendo-ui/js/kendo.core.min.js"></script>
+ <script  type="text/javascript" src="bower_components/Kendo-ui/js/cultures/kendo.culture.sv-SE.min.js"></script>
+ <script  type="text/javascript" src="bower_components/Kendo-ui/js/cultures/kendo.culture.fi-FI.min.js"></script>
  
 
   <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>

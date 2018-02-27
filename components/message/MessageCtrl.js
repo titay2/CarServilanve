@@ -42,7 +42,6 @@
 			function detailInit(e) {
 				$("<div/>").appendTo(e.detailCell).kendoGrid({
 					dataSource: {
-						type: "json",
 						transport: {
 							read:{
 								url:"http://localhost:52273/api/StandardTextMessages",
@@ -53,12 +52,12 @@
 						serverPaging: true,
 						serverSorting: true,
 						serverFiltering: true,
-						pageSize: 10,
+					
 						filter: { field: "id", operator: "eq", value: e.data.id }
 					},
 					scrollable: false,
 					sortable: true,
-					pageable: true,
+					pageable: false,
 					columns: [
 						{ field: "id", width: "110px" },
 						
