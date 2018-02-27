@@ -61,8 +61,7 @@
 					pageable: true,
 					columns: [
 						{ field: "id", width: "110px" },
-						{ field: "text", title:"text", width: "410px" },
-						{ field: "creationdate", title: "date", width: "150px" }
+						
 					]
 				});
 			}
