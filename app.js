@@ -26,7 +26,7 @@
 			suffix: '.json'
 		})
 		.useSanitizeValueStrategy()	
-		.useCookieStorage();
+		//.useCookieStorage();
 
 	 $stateProvider
 	  .state('carsinshift', {
