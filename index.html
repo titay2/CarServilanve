@@ -74,7 +74,7 @@
                                     <label  style="color: white;" class="control-label" for="lang" placeholder="English" >&nbsp; <i class="fa fa-language"></i> {{'LANGUAGE' | translate}}</label>
                                     <select id="lang" class="form-control" ng-model="body.language">
                                         <option  value="fi-FI" > {{'Finnish' | translate}}</option>
-                                        <option  value="en-US" > {{'English' | translate}}</option>
+                                        <option selected="selected" value="en-US" > {{'English' | translate}}</option>
                                         <option  value="sv-SE" > {{'Swedish' | translate}}</option>
                                     </select>
                             </div>
@@ -102,7 +102,7 @@
                                     <li class="col-md-16"><a ui-sref="carsinshift" translate>CarsIn </a></li>
                                     <li class="col-md-16"><a ui-sref="message" translate>Text </a></li>
                                     <li class="col-md-16"><a ui-sref="carWorkshift" translate>Carshift </a></li>                    
-                                    <li class="col-md-16"><a ui-sref="workshiftchange" translate>Groupshift </a></li> 
+                                    <li class="col-md-16"><a ui-sref="groupworkshift" translate>Groupshift </a></li> 
                                     <li class="col-md-16"><a ui-sref="restriction" translate>Active</a></li>
                                    
                             </ul>
@@ -147,6 +147,8 @@
   <script src="components/message/CreateMessageCtrl.js"></script>
   <script src="components/message/MessageCtrl.js"></script>
   <script src="components/carWorkshift/ChangeCarShiftCtrl.js"></script>
+  <script src="components/groupworkshift/GroupWorkShiftCtrl.js"></script>
+  
   
  
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>

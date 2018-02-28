@@ -12,8 +12,8 @@
 
     console.log("loadded");
     }
-      
-    
+  
+
 
      var root  = "http://localhost:52273/api/";
      

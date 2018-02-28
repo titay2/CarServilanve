@@ -8,8 +8,7 @@
 
   function ChangeCarShiftCtrl(apiService, translateService, $scope, $state, $log, $translate) {
 
-
-      $(document).ready(function() {
+    $(document).ready(function() {
         translateService.setLanguage();
 
           var crudServiceBaseUrl = "http://localhost:52273/api/StandardTextMessages",

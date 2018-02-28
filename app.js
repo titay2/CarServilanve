@@ -75,10 +75,11 @@
 	   controllerAs: 'vm'
    
 	  })
-	  .state('workshiftchange', {
-	   url: '/workshiftchange',
+	  .state('groupworkshift', {
+	   url: '/groupworkshift',
    
-	   templateUrl: 'components/workshiftChange/workshiftChange.html',
+	   templateUrl: 'components/groupworkshift/groupworkshift.html',
+	   controller: 'GroupWorkShiftCtrl',
 	   controllerAs: 'vm'
    
 	  })
