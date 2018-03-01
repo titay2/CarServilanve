@@ -8,6 +8,7 @@
     // GIVES AN EMPTY FORM FOR A NEW MESSAGE
     function CreateMessageCtrl(apiService, translateService, $scope, $state, $uibModal, $log, $translate) {
         translateService.setLanguage();
+        
         var vm = this;
         var $working = $(" input[class = 'working']");
         var $notworking = $(" input[class = 'notWorking']");

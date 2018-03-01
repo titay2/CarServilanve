@@ -19,14 +19,14 @@
 	function config($stateProvider, $urlRouterProvider, $translateProvider) {
 
 	$translateProvider 
-		.preferredLanguage('en')
-		.fallbackLanguage('en')
+		.preferredLanguage('en-US')
+		.fallbackLanguage('en-US')
 		.useStaticFilesLoader({
 			prefix:'../i18n/local-',
 			suffix: '.json'
 		})
 		.useSanitizeValueStrategy()	
-		//.useCookieStorage();
+		.useCookieStorage();
 
 	 $stateProvider
 	  .state('carsinshift', {

@@ -7,10 +7,37 @@
   ChangeCarShiftCtrl.$inject = ['apiService', 'translateService', '$scope', '$state', '$log', '$translate'];
 
   function ChangeCarShiftCtrl(apiService, translateService, $scope, $state, $log, $translate) {
-    translateService.setLanguage();
-   
-    createGrid();
 
+    let currentLang = $translate.use();
+    var baseUrl = 'https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.';
+
+    translateService.setLanguage();
+    $.getScript(baseUrl + currentLang + ".min.js", function () {
+        kendo.culture(currentLang)
+        createGrid();
+     });
+   
+  
+
+
+
+      
+        $("#lang").on('change', function (e) {
+         var optionSelected = $("option:selected", this);
+         var valueSelected = this.value;
+         currentLang = valueSelected
+         $.getScript(baseUrl + currentLang + ".min.js", function () {
+            kendo.culture(currentLang)
+            createGrid();
+         });
+              
+        });
+             
+
+          
+
+
+    
 
     function createGrid (){
         var crudServiceBaseUrl = "http://localhost:52273/api/StandardTextMessages",
@@ -150,18 +177,6 @@
         
   });
        
-
-       
-
-
-
-
-              
-
-         
-       
-
-          
  });
     
          
