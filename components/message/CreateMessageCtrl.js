@@ -12,7 +12,7 @@
         var vm = this;
         var $working = $(" input[class = 'working']");
         var $notworking = $(" input[class = 'notWorking']");
-        var deflang = 'en';
+   
 
         findall();
         findAreas()
@@ -26,9 +26,6 @@
             var val = opt.attr('id');
             $scope.body.OperatingCompany = val;
         })
-
-        //SET ENGLISH AS A DEFAULT LANGUAGE
-        $("#lang").val(deflang);
 
         $scope.body = {
             CarStart: "",

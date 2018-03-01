@@ -1,5 +1,5 @@
 {
-  "LANGUAGE":"KIELI",
+  "LANGUAGE":"Kieli",
   "English":"Englanti",
   "Finnish":"Suomi",
   "Swedish":"Ruotsi",
@@ -13,8 +13,8 @@
   "VEHICLE":"Auto",
   "CLEAR":"Tyhjennä",
   "CarInfo":"Auto tiedot",
-  "Dispatch":"Valitystila/Jonoasetukset",
-  "Zone":"Ruttutiedot/Autot",
+  "Dispatch":"Valitystila/ Jonoasetukset",
+  "Zone":"Ruttutiedot/ Autot",
   "CarsIn": "Ajovuorossa olevat autot",
   "Text":"Textiviestit",
   "Carshift":"Yksittäisten autojen vuoromuutokset",

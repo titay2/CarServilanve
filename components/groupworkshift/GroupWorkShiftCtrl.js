@@ -37,12 +37,12 @@
                     destroy: { url: "#"},
                     create: { url: "#"},
                     parameterMap: function(options, operation) {
-                        if (operation !== "read" && options.models) {
-                            return {
-                                models: kendo.stringify(options.models)
-                            };
-                        }
-                    } 
+                    if (operation !== "read" && options.models) {
+                        return {
+                            models: kendo.stringify(options.models)
+                        };
+                    }
+                } 
                 },
                 batch: true,
                 pageSize: 20,
@@ -64,7 +64,7 @@
                           {field: "togroup", title: "To Group"}, 
                           { command: ["destroy"], title: "&nbsp;", width: "200px" }
                         ],
-                        toolbar: [  {"name": "create"},],                     
+                        toolbar: ["create"],                     
                 dataSource: dataSource,
                 scrollable:true,
                 pageable: true,
