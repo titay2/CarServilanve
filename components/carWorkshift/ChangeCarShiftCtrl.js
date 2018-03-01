@@ -1,13 +1,11 @@
 (function() {
   'use strict';
   angular
-      .module('app')
-      .controller('ChangeCarShiftCtrl', ChangeCarShiftCtrl)
-
+  .module('app')
+  .controller('ChangeCarShiftCtrl', ChangeCarShiftCtrl)
   ChangeCarShiftCtrl.$inject = ['apiService', 'translateService', '$scope', '$state', '$log', '$translate'];
 
   function ChangeCarShiftCtrl(apiService, translateService, $scope, $state, $log, $translate) {
-
     let currentLang = $translate.use();
     var baseUrl = 'https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.';
 
@@ -15,50 +13,27 @@
     $.getScript(baseUrl + currentLang + ".min.js", function () {
         kendo.culture(currentLang)
         createGrid();
-     });
-   
-  
-
-
-
-      
-        $("#lang").on('change', function (e) {
-         var optionSelected = $("option:selected", this);
-         var valueSelected = this.value;
-         currentLang = valueSelected
-         $.getScript(baseUrl + currentLang + ".min.js", function () {
+    });
+    
+    $("#lang").on('change', function (e) {
+        var optionSelected = $("option:selected", this);
+        var valueSelected = this.value;
+        currentLang = valueSelected
+        $.getScript(baseUrl + currentLang + ".min.js", function () {
             kendo.culture(currentLang)
             createGrid();
-         });
-              
         });
-             
-
-          
-
-
+              
+    });
     
-
     function createGrid (){
         var crudServiceBaseUrl = "http://localhost:52273/api/StandardTextMessages",
         dataSource = new kendo.data.DataSource({
             transport: {
-                read: {
-                    url: crudServiceBaseUrl
-                        //dataType: "json"
-                },
-                update: {
-                    url: "#",
-                    //dataType: "jsonp"
-                },
-                destroy: {
-                    url: "#",
-                    //dataType: "jsonp"
-                },
-                create: {
-                    url: "#",
-                    //dataType: "jsonp"
-                },
+                read: { url: crudServiceBaseUrl },
+                update: { url: "#" },
+                destroy: { url: "#" },
+                create: { url: "#" },
                 parameterMap: function(options, operation) {
                     if (operation !== "read" && options.models) {
                         return {
@@ -70,65 +45,37 @@
             batch: true,
             pageSize: 20,
             schema: {
-
                 model: {
                     id: "id",
                     fields: {
-                        id: {
-                            editable: false,
-                            nullable: true
-                        },
-                        text: {
-                            validation: {
-                                required: true
-                            }
-                        },
-                        creationdate: {
-                            type: "date"
-                        },
-                        printMessage:{
-                            type:"boolean"
-                        }
-
+                        id: { editable: false, nullable: true },
+                        text: { validation: { required: true} },
+                        creationdate: { type: "date" },
+                        printMessage:{ type:"boolean" }
                     }
                 }
             }
-        });        
+        }); 
+
         var grid = $("#grid").kendoGrid({
             dataSource: dataSource,
             toolbar: kendo.template($("#template").html()),
-            pageable: true,
-            // height: 550,
+            pageable: true,       
             sortable: true,
-            //toolbar: ["create"],
-            columns: [
-              {
-                field: "id",
-                title: "ID",
-                width: 60
-            }, {
-                field: "text",
-                title: "Text",
-                width: 600
-            }, {
-                field: "creationdate",
-                title: "Date",
-                width: 200,
-                editor: customDateTimePickerEditor
-            }, {
-                command: ["edit", "destroy"],
-                title: "&nbsp;",
-                width: "200px"
-            }],
+            columns: [{field:"id", title:"ID", width: 60},
+                      {field:"text", title:"Text", width: 600 },
+                      {field:"creationdate", title: "Date", width: 200, editor: customDateTimePickerEditor },
+                      {command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
+                    ],
             editable: "inline"
         });
+        
         var dropDown = grid.find("#category").kendoDropDownList({
             dataTextField: "name",
             dataValueField: "operatingCompanyId",
             autoBind: false,
             optionLabel: "All",
             dataSource: {
-                // type: "json",
                 severFiltering: true,
                 transport: {
                     read: "http://localhost:52273/api/OperatingCompanies"
@@ -157,32 +104,7 @@
                 .appendTo(container)
                 .kendoDateTimePicker({});
         }
-
     }
-
-
-
-    $(document).ready(function() {
-
-  var baseUrl = 'https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.';
-  $("#lang").on('change', function (e) {
-   var optionSelected = $("option:selected", this);
-   var valueSelected = this.value;
-    
-     $.getScript(baseUrl + valueSelected + ".min.js", function () {
-
-        createGrid();
-     
-     });
-        
-  });
-       
- });
-    
-         
-
-     // });
-
   }
 
 }());
