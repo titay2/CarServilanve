@@ -40,26 +40,41 @@
 			});
 
 			function detailInit(e) {
+				console.log(e.data.id)
+				console.log("http://localhost:52273/api/StandardTextMessages/"+ e.data.id )
 				$("<div/>").appendTo(e.detailCell).kendoGrid({
+					
 					dataSource: {
 						transport: {
 							read:{
-								url:"http://localhost:52273/api/StandardTextMessages",
+								url:"http://localhost:52273/api/StandardTextMessages/"+ e.data.id ,
 								data:{ format: "json"},
 								dataType: "json",
 							}
 						},
-						serverPaging: true,
-						serverSorting: true,
-						serverFiltering: true,
+						schema: {
+							model: {
+								id:"id",
+								fields: {
+					  			id: { type :"text"},
+					  			text: {type : "text" },
+					  			creationdate: {type: "date" }
+								}
+							}
+						}
+						//serverPaging: true,
+						//serverSorting: true,
+						//serverFiltering: true,
 					
-						filter: { field: "id", operator: "eq", value: e.data.id }
+						//filter: { field: "id", operator: "eq", value: e.data.id }
 					},
 					scrollable: false,
 					sortable: true,
 					pageable: false,
 					columns: [
-						{ field: "id", width: "110px" },
+						{ field: "id",  width: 70}, 
+		  				{ field: "text", width: 590}, 
+		  				{ field: "creationdate",  width: 190}
 						
 					]
 				});
