@@ -40,8 +40,6 @@
 			});
 
 			function detailInit(e) {
-				console.log(e.data.id)
-				console.log("http://localhost:52273/api/StandardTextMessages/"+ e.data.id )
 				$("<div/>").appendTo(e.detailCell).kendoGrid({
 					
 					dataSource: {

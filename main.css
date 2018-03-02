@@ -175,6 +175,10 @@ ul {
 	flex-direction: column;
 	align-items: flex-start;
 }
+input[type="text"]{
+    font-family: Georgia, serif;
+    font-size:120%;
+}
 
 .form-container label {
 	display: flex;

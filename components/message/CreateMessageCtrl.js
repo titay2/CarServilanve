@@ -97,9 +97,9 @@
 
         //PICK RANGE FOR REPEATING A MESSAGE 		 
         function pickDate() {
-            $('input[name="datefilter"]').daterangepicker({
+            $('textarea[name="datefilter"]').daterangepicker({
                 autoUpdateInput: false,
-                timePicker: false,
+                timePicker: true,
                 timePicker24Hour: true,
                 startDate: moment(),
                 timePickerIncrement: 1,
@@ -107,12 +107,12 @@
                     cancelLabel: 'cancle'
                 }
             });
-            $('input[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format() + ' - ' + picker.endDate.format());
-                $scope.body.RepeatTimeStart = picker.startDate.format('llll');
-                $scope.body.RepeatTimeEnd = picker.endDate.format('llll');
+            $('textarea[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
+                $(this).val(picker.startDate.format('L h:mm') + ' - ' + picker.endDate.format('L h:mm'));
+                $scope.body.RepeatTimeStart = picker.startDate.format('L h:mm');
+                $scope.body.RepeatTimeEnd = picker.endDate.format('L h:mm');
             });
-            $('input[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
+            $('textarea[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('');
             });
 
