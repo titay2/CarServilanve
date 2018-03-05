@@ -70,9 +70,9 @@
 					sortable: true,
 					pageable: false,
 					columns: [
-						{ field: "id",  width: 70}, 
-		  				{ field: "text", width: 590}, 
-		  				{ field: "creationdate",  width: 190}
+						{ field: "id", title:"id", width: 70}, 
+		  				{ field: "text",title:"vehicle", width: 590}, 
+		  				{ field: "creationdate",title:"send time",  width: 190}
 						
 					]
 				});

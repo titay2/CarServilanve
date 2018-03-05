@@ -56,7 +56,7 @@
             apiService.post('SendTextMessages', $scope.body)
                 .then(data => {
                     $state.reload();
-                    location.reload();
+                   // location.reload();
                 })
                 .catch((err) => {
                     console.log(err);
@@ -98,19 +98,23 @@
         //PICK RANGE FOR REPEATING A MESSAGE 		 
         function pickDate() {
             $('textarea[name="datefilter"]').daterangepicker({
+                dateFormat: 'dd-mm-yy' ,
                 autoUpdateInput: false,
                 timePicker: true,
                 timePicker24Hour: true,
                 startDate: moment(),
                 timePickerIncrement: 1,
+               
                 locale: {
-                    cancelLabel: 'cancle'
+                    cancelLabel: 'cancle',
+                    dateFormat: 'DD-MM-YYYY'
+                   
                 }
             });
             $('textarea[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('L h:mm') + ' - ' + picker.endDate.format('L h:mm'));
-                $scope.body.RepeatTimeStart = picker.startDate.format('L h:mm');
-                $scope.body.RepeatTimeEnd = picker.endDate.format('L h:mm');
+                $(this).val(picker.startDate.format('DD/MM/YYYY h:mm')+ ' - ' + picker.endDate.format('DD/MM/YYYY h:mm'));
+                $scope.body.RepeatTimeStart = picker.startDate.format('DD/MM/YYYY h:mm');
+                $scope.body.RepeatTimeEnd = picker.endDate.format('DD/MM/YYYY h:mm');
             });
             $('textarea[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('');
