@@ -56,9 +56,7 @@
             <div class="form-group" >
                 <label translate>Repeat</label> 
                 <input  class="form-control" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeMin"/>
-                <input  class="hidden" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeStart"/>
-            
-                <textarea class="form-control" cols="300"  id="range" name="datefilter" value="" placeholder="time and date" ng-value="body.RepeatTimeEnd">  </textarea>
+                <textarea class="form-control" cols="300"  id="range" name="datefilter"  placeholder="time and date" ng-model="body.range">   </textarea>
             </div>
             <div class="form-group">
                 <label translate >Standard</label>
@@ -66,7 +64,7 @@
             </div>  
             <div class="form-group">
                 <label translate>new</label>
-                <textarea id="textHere" class="form-control" rows="7" cols="500" ng-model="body.Text" >  </textarea>
+                <textarea id="textHere" class="form-control" rows="7" cols="500" ng-model="body.Text" > </textarea>
             </div>
             <div  class="form-group">
                 <button type="button" class="btn btn-sm" translate>SAVE</button>

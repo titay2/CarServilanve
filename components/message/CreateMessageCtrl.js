@@ -112,9 +112,10 @@
                 }
             });
             $('textarea[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
-                $(this).val(picker.startDate.format('DD/MM/YYYY h:mm')+ ' - ' + picker.endDate.format('DD/MM/YYYY h:mm'));
+                $(this).val(picker.startDate.format('DD/MM/YYYY h:mm') + ' - ' + picker.endDate.format('DD/MM/YYYY h:mm'));
                 $scope.body.RepeatTimeStart = picker.startDate.format('DD/MM/YYYY h:mm');
                 $scope.body.RepeatTimeEnd = picker.endDate.format('DD/MM/YYYY h:mm');
+       
             });
             $('textarea[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('');
