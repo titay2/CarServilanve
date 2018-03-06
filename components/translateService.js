@@ -19,8 +19,8 @@
               var valueSelected = this.value;
               if (valueSelected === 'fi-FI') {
                   $translate.use('fi-FI');
-              } else if (valueSelected === 'en-US') {
-                  $translate.use('en-US');
+              } else if (valueSelected === 'en-GB') {
+                  $translate.use('en-GB');
               } else {
                   $translate.use('sv-SE');
               }

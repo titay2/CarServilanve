@@ -32,7 +32,7 @@
             var group = [{id: "1", startTime: "test", endTime: "test", groupname: "test", togroup: "test" }];
             dataSource = new kendo.data.DataSource({
                 transport: {
-                    read: { data: group },
+                    read: { url: "http://localhost:52273/api/WorkshiftCarGroup"},
                     update: { url: "#"},
                     destroy: { url: "#"},
                     create: { url: "#"},

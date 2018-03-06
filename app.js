@@ -19,8 +19,8 @@
 	function config($stateProvider, $urlRouterProvider, $translateProvider) {
 
 	$translateProvider 
-		.preferredLanguage('en-US')
-		.fallbackLanguage('en-US')
+		.preferredLanguage('en-GB')
+		.fallbackLanguage('en-GB')
 		.useStaticFilesLoader({
 			prefix:'../i18n/local-',
 			suffix: '.json'

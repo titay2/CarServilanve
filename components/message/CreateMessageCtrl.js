@@ -104,23 +104,19 @@
                 timePicker24Hour: true,
                 startDate: moment(),
                 timePickerIncrement: 1,
-               
                 locale: {
                     cancelLabel: 'cancle',
                     dateFormat: 'DD-MM-YYYY'
-                   
                 }
             });
             $('textarea[name="datefilter"]').on('apply.daterangepicker', function(ev, picker) {
                 $(this).val(picker.startDate.format('DD/MM/YYYY h:mm') + ' - ' + picker.endDate.format('DD/MM/YYYY h:mm'));
                 $scope.body.RepeatTimeStart = picker.startDate.format('DD/MM/YYYY h:mm');
                 $scope.body.RepeatTimeEnd = picker.endDate.format('DD/MM/YYYY h:mm');
-       
             });
             $('textarea[name="datefilter"]').on('cancel.daterangepicker', function(ev, picker) {
                 $(this).val('');
             });
-
         }
 
         //OPEM THE MODAL FOR THE STANDARD MESSAGES
@@ -135,11 +131,15 @@
                     }
                 }
             });
-
-
             //DISPLAY THE SELECTED ITEMS ON TWO CONTROLLER DIVS 
             modalInstance.result.then(function(selectedItem) {
-                $scope.body.Text = selectedItem;
+                if(selectedItem.text){
+                    $scope.body.Text = selectedItem.text;
+                }
+                if(selectedItem.id){
+                    $scope.body.CarEnd= selectedItem.id;
+                }
+               
             }, function() {
                 $log.info('Modal dismissed at: ' + new Date());
             });
@@ -161,7 +161,11 @@ angular.module('app').controller('ModalInstanceCtrl', function($scope, $uibModal
     }
     $scope.setSelected = function() {
         var selectd = this.item;
-        $uibModalInstance.close(selectd.text);
+        $uibModalInstance.close(selectd);
     };
+
+    $scope.deleteStd = function(){
+        alert('deleted!')
+    }
 
 });

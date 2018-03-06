@@ -30,7 +30,8 @@
         var crudServiceBaseUrl = "http://localhost:52273/api/StandardTextMessages",
         dataSource = new kendo.data.DataSource({
             transport: {
-                read: { url: crudServiceBaseUrl },
+                read: { 
+                    url: crudServiceBaseUrl },
                 update: { url: "#" },
                 destroy: { url: "#" },
                 create: { url: "#" },
@@ -43,14 +44,14 @@
                 }
             },
             batch: true,
-            pageSize: 20,
+            pageSize: 10,
             schema: {
                 model: {
                     id: "id",
                     fields: {
                         id: { editable: false, nullable: true },
                         text: { validation: { required: true} },
-                        creationdate: { type: "date" },
+                        creationdate: { type:"date" },
                         printMessage:{ type:"boolean" }
                     }
                 }
@@ -64,7 +65,7 @@
             sortable: true,
             columns: [{field:"id", title:"ID", width: 60},
                       {field:"text", title:"Text", width: 600 },
-                      {field:"creationdate", title: "Date", width: 200, editor: customDateTimePickerEditor },
+                      {field:"creationdate", title: "Date", width: 200,  format:"{0: dd/MM/yyyy h:mm}", editor: customDateTimePickerEditor },
                       {command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
                     ],
             editable: "inline"
@@ -102,7 +103,9 @@
         function customDateTimePickerEditor(container, options) {
             $('<input required name="' + options.field + '"/>')
                 .appendTo(container)
-                .kendoDateTimePicker({});
+                .kendoDateTimePicker({
+                   
+                });
         }
     }
   }

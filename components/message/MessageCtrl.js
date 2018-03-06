@@ -32,10 +32,12 @@
 					columns:[	
 		  				{ field: "id", title: "ID", width: 60}, 
 		  				{ field: "text", title: "Text", width: 600}, 
-		  				{ field: "creationdate", title: "Date", width: 200},
+		  				{ field: "creationdate", title: "Date", format:"{0: dd/MM/yyyy h:mm}"},
 		 			],
         			scrollable: true,
-					detailInit: detailInit
+					detailInit: detailInit,
+					resizable: true,
+					sortable:true
 				});
 			});
 
@@ -69,10 +71,12 @@
 					scrollable: false,
 					sortable: true,
 					pageable: false,
+					toolbar: ['create'],
 					columns: [
-						{ field: "id", title:"id", width: 70}, 
-		  				{ field: "text",title:"vehicle", width: 590}, 
-		  				{ field: "creationdate",title:"send time",  width: 190}
+						{ field: "id", title:"id"}, 
+		  				{ field: "text",title:"vehicle"}, 
+		  				{ field: "creationdate",title:"send time", format: "{0: dd/MM/yyyy h:mm}"},
+		  				{ command:  ["edit", "destroy"], title: "&nbsp;"}
 						
 					]
 				});
