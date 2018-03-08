@@ -36,13 +36,7 @@
                     update: { url: "#"},
                     destroy: { url: "#"},
                     create: { url: "#"},
-                    parameterMap: function(options, operation) {
-                    if (operation !== "read" && options.models) {
-                        return {
-                            models: kendo.stringify(options.models)
-                        };
-                    }
-                } 
+                    
                 },
                 batch: true,
                 pageSize: 20,

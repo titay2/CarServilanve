@@ -8,6 +8,9 @@
   function ChangeCarShiftCtrl(apiService, translateService, $scope, $state, $log, $translate) {
     let currentLang = $translate.use();
     var baseUrl = 'https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.';
+    // $("#Grid").data("kendoGrid").dataSource.read();
+    // $("#Grid").data("kendoGrid").refresh();
+
 
     translateService.setLanguage();
     $.getScript(baseUrl + currentLang + ".min.js", function () {
@@ -60,7 +63,8 @@
 
         var grid = $("#grid").kendoGrid({
             dataSource: dataSource,
-            toolbar: kendo.template($("#template").html()),
+           // toolbar: kendo.template($("#template").html()),
+            toolbar:['create'],
             pageable: true,       
             sortable: true,
             columns: [{field:"id", title:"ID", width: 60},

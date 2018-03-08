@@ -53,8 +53,8 @@
 	  .state('carInfo', {
 	   url: '/carInfo',
 	   templateUrl: 'components/carInfo/carInfo.html',
-	   controllerAs: 'vm'
-   
+	   controller:'CarInfoCtrl'
+	   
 	  })
 	  .state('carWorkshift', {
 	   url: '/carWorkshift',
