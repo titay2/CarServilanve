@@ -16,7 +16,8 @@
 
       $http.defaults.headers.common = {
           'Content-Type': 'application/json',
-          'dataType': "json"
+          'dataType': "json",
+          'async': "false",
       };
 
       var rootUrl = 'http://localhost:52273/api/';

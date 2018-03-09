@@ -1,24 +1,25 @@
-(function () {
+// (function () {
 
-	'use strict';
+	// 'use strict';
 
-	angular
-		.module('app')
-		.controller('IndexCtrl', IndexCtrl);
+	// angular
+	// 	.module('app')
+	// 	.controller('IndexCtrl', IndexCtrl);
 
-     IndexCtrl.$inject = [ '$scope', '$state','$translate'];
+    //  IndexCtrl.$inject = [ '$scope', '$state','$translate'];
 
-    function IndexCtrl( $scope,$translate) {
+    // function IndexCtrl( $scope,$translate) {
 
-    console.log("loadded");
-    }
+    // console.log("loadded");
+    // }
+  
   
 
-
+    
      var root  = "http://localhost:52273/api/";
      
 
-  
+     //console.log(product)
      findCallCenter();
      findArea();
 
@@ -65,8 +66,8 @@
          });
     }
 
-	function IndexCtrl(apiService, $scope, $state) {
-		var vm = this;
+	// function IndexCtrl(apiService, $scope, $state) {
+	// 	var vm = this;
 		
-	}
-}());
+	// }
+// }());

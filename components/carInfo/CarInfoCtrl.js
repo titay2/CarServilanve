@@ -8,68 +8,77 @@
 		 CarInfoCtrl.$inject = ['apiService', '$scope', '$state'];
 
  		function CarInfoCtrl(apiService, $scope, $state) {
-            $("#inputCenter").on('input', function() {
+           
+            $(document).ready(function() {
+                $("#inputCenter").on('input', function() {
                 var opt = $('option[value="' + $(this).val() + '"]');
                 var val = opt.attr('id');
+                
                 applyFilter("operatingCompanyId",val);
             })
 
+            })
+
+        var    dataSource = new kendo.data.DataSource({
+               
+                transport:{
+                    read:{
+                        url:"http://localhost:52273/api/Cars",
+                        data:{ format: "json"},
+                        dataType: "json",
+                    }
+                },
+                schema: {
+                    model: {						
+                        fields: {
+                            carId: {type: "number"},				  			
+                            systemId: {type: "number"},				  			
+                            carNumber: {type: "number"},				  			
+                            carRegisterNr: {type: "number"},				  			
+                            carPhoneNr: {type: "number"},				  			
+                            passengerCapacity: {type: "number"},				  			
+                            carBrandAndModel: {type: "text"},				  			
+                            carDispatchAttributes: {type: "text"},				  			
+                            operatingCompanyId: {type: "number"},				  			
+                            postingId: {type: "number"},				  			
+                            taxiCarCompanyId: {type: "number"},				  			
+                            driverCardNr: {type: "number"},				  			
+                            paymentTerminalId: {type: "number"},				  			
+                            notes: {type: "text"},				  			
+                            ownerName: {type: "text"},				  			
+                            carPagerPhone: {type: "number"},				  			
+                            bookingSendType: {type: "text"},				  			
+                            carBookingType: {type: "text"},				  			
+                            carBookingAttribute: {type: "text"},				  			
+                            isStationDevice: {type: "text"},				  			
+                            carType: {type: "text"},				  			
+                            vatRegNr: {type: "number"},				  			
+                            vatRegNr: {type: "number"},		  			
+                            tripDataSendTarget: {type: "text"},				  			
+                            ttdataSendTarget: {type: "text"},				  			
+                            startSuspend: {type: "date"},				  			
+                            finishSuspend: {type: "date"},				  			
+                            carEmailAddr: {type: "text"},				  			
+                            pagerActive: {type: "text"},				  			
+                            pagerActive: {type: "text"},				  			
+                            passengerRating: {type: "text"},				  			
+                            carPaymentDeviceType: {type: "text"},				  			
+                            editUserName: {type: "text"},				  			
+                            editTime: {type: "date"},				  			
+                            operatingCompany: {type: "text"},				  			
+                            posting: {type: "text"},				  			
+                            taxiCarCompany: {type: "text"},				  			
+                            tblCarBelongsToWorkShiftGroup: {type: "text"},				  			
+                        }
+                    }
+                }
+            });
+
+            
 
 
             $("#grid").kendoGrid({
-				dataSource:{
-					transport:{
-						read:{
-							url:"http://localhost:52273/api/Cars",
-							data:{ format: "json"},
-							dataType: "json",
-						}
-					},
-					schema: {
-						model: {						
-							fields: {
-                                carId: {type: "number"},				  			
-                                systemId: {type: "number"},				  			
-                                carNumber: {type: "number"},				  			
-                                carRegisterNr: {type: "number"},				  			
-                                carPhoneNr: {type: "number"},				  			
-                                passengerCapacity: {type: "number"},				  			
-                                carBrandAndModel: {type: "text"},				  			
-                                carDispatchAttributes: {type: "text"},				  			
-                                operatingCompanyId: {type: "number"},				  			
-                                postingId: {type: "number"},				  			
-                                taxiCarCompanyId: {type: "number"},				  			
-                                driverCardNr: {type: "number"},				  			
-                                paymentTerminalId: {type: "number"},				  			
-                                notes: {type: "text"},				  			
-                                ownerName: {type: "text"},				  			
-                                carPagerPhone: {type: "number"},				  			
-                                bookingSendType: {type: "text"},				  			
-                                carBookingType: {type: "text"},				  			
-                                carBookingAttribute: {type: "text"},				  			
-                                isStationDevice: {type: "text"},				  			
-                                carType: {type: "text"},				  			
-                                vatRegNr: {type: "number"},				  			
-                                vatRegNr: {type: "number"},		  			
-                                tripDataSendTarget: {type: "text"},				  			
-                                ttdataSendTarget: {type: "text"},				  			
-                                startSuspend: {type: "date"},				  			
-                                finishSuspend: {type: "date"},				  			
-                                carEmailAddr: {type: "text"},				  			
-                                pagerActive: {type: "text"},				  			
-                                pagerActive: {type: "text"},				  			
-                                passengerRating: {type: "text"},				  			
-                                carPaymentDeviceType: {type: "text"},				  			
-                                editUserName: {type: "text"},				  			
-                                editTime: {type: "date"},				  			
-                                operatingCompany: {type: "text"},				  			
-                                posting: {type: "text"},				  			
-                                taxiCarCompany: {type: "text"},				  			
-                                tblCarBelongsToWorkShiftGroup: {type: "text"},				  			
-                            }
-						}
-					}
-				},
+				dataSource:dataSource,
 				columns:[	
 		  			{ field: "carId", title: "Car"}, 
 		  			{ field: "driverCardNr", title: "*Driver ID"}, 
@@ -83,7 +92,8 @@
 		  			{ field: "editTime", title: "*Last Update", format:"{0: dd/MM/yyyy}"}, 
 		  			{ field: "editTime", title: "*Workshift Start", format:"{0: dd/MM/yyyy }"}, 
 		  			{ field: "creationdate", title: "Workshift end", format:"{0: dd/MM/yyyy }"},
-		 		],
+                 ],
+            
         		scrollable: true,
 				detailInit: detailInit,
 				resizable: true,
@@ -93,17 +103,18 @@
             
 
             function applyFilter(filterField, filterValue) {
-                console.log('here')
+            
 
                 // get the kendoGrid element.
-                var gridData = $("#grid").data("kendoGrid");
+                //var gridData = $("#grid").data("kendoGrid");
             
                 // get currently applied filters from the Grid.
-                var currFilterObj = gridData.dataSource.filter();
-            
+                var currFilterObj = dataSource.filter();
+                console.log(currFilterObj)
                 // get current set of filters, which is supposed to be array.
                 // if the oject we obtained above is null/undefined, set this to an empty array
                 var currentFilters = currFilterObj ? currFilterObj.filters : [];
+              //  var currentFilters =  [];
             
                 // iterate over current filters array. if a filter for "filterField" is already
                 // defined, remove it from the array
@@ -112,6 +123,7 @@
                     for (var i = 0; i < currentFilters.length; i++) {
                         if (currentFilters[i].field == filterField) {
                             currentFilters.splice(i, 1);
+                            console.log(currentFilters)
                             break;
                         }
                     }
@@ -129,7 +141,7 @@
                 }
             
                 // finally, the currentFilters array is applied back to the Grid, using "and" logic.
-                gridData.dataSource.filter({
+               dataSource.filter({
                     logic: "and",
                     filters: currentFilters
                 });

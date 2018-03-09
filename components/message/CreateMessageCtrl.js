@@ -19,7 +19,7 @@
         findShift()
 		pickDate();
 		
-
+       // console.log(JSON.parse(localStorage.getItem('product')));
         //GET THE NEW CALL CENTER VALUE 
         $("#inputCenter").on('input', function() {
             var opt = $('option[value="' + $(this).val() + '"]');
