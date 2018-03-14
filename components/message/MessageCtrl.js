@@ -5,42 +5,37 @@
 		.module('app')
  		.controller('MessageCtrl', MessageCtrl)
 
-		 MessageCtrl.$inject = ['apiService', '$scope', '$state'];
+		 MessageCtrl.$inject = ['apiService', 'translateService', '$scope', '$state', '$translate'];
 
- 		function MessageCtrl(apiService, $scope, $state) {
+ 		function MessageCtrl(apiService, translateService, $scope, $state, $translate) {
+			//translateService.setLanguage();
+
 			$(document).ready(function() {
 
+				var nom = "tehetena"
+				var msg= "hello"
 				
-
-				 var hubUrl ="http://localhost:52273/dbChanges";
-				// //var connection = $.hubConnection(hubUrl, { useDefaultPath: true});
-				// var connection = $.connection(hubUrl);
-				// connection.error(function(error) {
-				// 	console.warn(error);
-				// });
+			    var hubUrl ="http://127.0.0.1:8088/";
 				
-				// connection.start().done(function () {
-				// 	console.log("Connected, transport = " + connection.transport.name);
-				// 	console.log('Now connected, connection ID=' + $.connection.hub.id); 
+				var connection = $.hubConnection(hubUrl, { useDefaultPath: true});
+				var hub = connection.createHubProxy("MyHub");
 
-				// });
-				var connection = $.hubConnection(hubUrl, { useDefaultPath: false});
-				//var connection = $.hubConnection();
-
-				 //var LogNotifierHub = connection.createHubProxy('LogNotifierHub');
-				//  connection.on('Send', (data)=> {
-				// 	 console.log(data)
-				//  });
+				hub.on('addMessage', function(name, message){
+					console.log( name + ' said ' + message)
+				})
+				
+				
 				connection.start()
-					.done(function(){ console.log('Now connected, connection ID=' + connection.id); })
-					.fail(function(){ console.log('Could not connect!!'); });
+				
+					//.done(function(){ console.log(' connected!! connection ID=' + connection.id); })
+					.done(function (){
+						hub.invoke('Send',nom, msg )
+					})
+					
+					.fail(function(error){ console.log('Could not connect!!' + error); });
 
 				
-					// connection.on('broadcastMessage', (name, message) => {
-					// 	var liElement = document.createElement('li');
-					// 	liElement.innerHTML = '<strong>' + name + '</strong>:&nbsp;&nbsp;' + message;
-					// 	document.getElementById('discussion').appendChild(liElement);
-					//  });
+					
 			});
 
 			

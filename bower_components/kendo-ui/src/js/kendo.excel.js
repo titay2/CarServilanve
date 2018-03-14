@@ -1,5 +1,5 @@
 /** 
- * Kendo UI v2018.1.221 (http://www.telerik.com/kendo-ui)                                                                                                                                               
+ * Kendo UI v2018.1.312 (http://www.telerik.com/kendo-ui)                                                                                                                                               
  * Copyright 2018 Telerik AD. All rights reserved.                                                                                                                                                      
  *                                                                                                                                                                                                      
  * Kendo UI commercial licenses may be obtained at                                                                                                                                                      
@@ -102,7 +102,7 @@
                     return null;
                 }
                 var value = function (dataItem) {
-                    return getter(column.field)(dataItem);
+                    return getter(column.field, true)(dataItem);
                 };
                 var values = null;
                 if (column.values) {
@@ -111,7 +111,7 @@
                         values[item.value] = item.text;
                     });
                     value = function (dataItem) {
-                        return values[getter(column.field)(dataItem)];
+                        return values[getter(column.field, true)(dataItem)];
                     };
                 }
                 return $.extend({}, column, {

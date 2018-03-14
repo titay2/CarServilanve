@@ -1,5 +1,5 @@
 /** 
- * Kendo UI v2018.1.221 (http://www.telerik.com/kendo-ui)                                                                                                                                               
+ * Kendo UI v2018.1.312 (http://www.telerik.com/kendo-ui)                                                                                                                                               
  * Copyright 2018 Telerik AD. All rights reserved.                                                                                                                                                      
  *                                                                                                                                                                                                      
  * Kendo UI commercial licenses may be obtained at                                                                                                                                                      
@@ -33,7 +33,7 @@
     };
     (function ($, window, undefined) {
         var kendo = window.kendo = window.kendo || { cultures: {} }, extend = $.extend, each = $.each, isArray = $.isArray, proxy = $.proxy, noop = $.noop, math = Math, Template, JSON = window.JSON || {}, support = {}, percentRegExp = /%/, formatRegExp = /\{(\d+)(:[^\}]+)?\}/g, boxShadowRegExp = /(\d+(?:\.?)\d*)px\s*(\d+(?:\.?)\d*)px\s*(\d+(?:\.?)\d*)px\s*(\d+)?/i, numberRegExp = /^(\+|-?)\d+(\.?)\d*$/, FUNCTION = 'function', STRING = 'string', NUMBER = 'number', OBJECT = 'object', NULL = 'null', BOOLEAN = 'boolean', UNDEFINED = 'undefined', getterCache = {}, setterCache = {}, slice = [].slice;
-        kendo.version = '2018.1.221'.replace(/^\s+|\s+$/g, '');
+        kendo.version = '2018.1.312'.replace(/^\s+|\s+$/g, '');
         function Class() {
         }
         Class.extend = function (proto) {
@@ -66936,9 +66936,8 @@
             e.preventDefault();
         }
         function createDate(year, month, date) {
-            var leapYear = 1904;
-            var dateObject = new DATE(leapYear, month, date);
-            dateObject.setFullYear(year);
+            var dateObject = new DATE(year, month, date);
+            dateObject.setFullYear(year, month, date);
             return dateObject;
         }
         function getCalendarInfo(culture) {

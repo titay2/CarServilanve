@@ -1,22 +1,41 @@
 (function() {
-	'use strict';
+	//'use strict';
  
 	angular
 		.module('app')
  		.controller('CarInfoCtrl', CarInfoCtrl)
 
-		 CarInfoCtrl.$inject = ['apiService', '$scope', '$state'];
+		 CarInfoCtrl.$inject = ['apiService', 'translateService', '$scope', '$state', '$translate'];
 
- 		function CarInfoCtrl(apiService, $scope, $state) {
+ 		function CarInfoCtrl(apiService, translateService, $scope, $state, $translate) {
+			translateService.setLanguage();
+
+            if (sessionStorage.Filters) {                            
+              var  filter = sessionStorage.Filters;
+              var  gridFilter = $.parseJSON(filter);              
+            }
            
-            $(document).ready(function() {
-                $("#inputCenter").on('input', function() {
-                var opt = $('option[value="' + $(this).val() + '"]');
-                var val = opt.attr('id');
-                
-                applyFilter("operatingCompanyId",val);
-            })
 
+            $(document).ready(function() {
+
+               watchAndFilter('callCenterId',"operatingCompanyId" )
+
+
+
+                function watchAndFilter(watchThis,filterBy ){
+                    function getValue(){
+                        return window.localStorage.getItem(watchThis);
+                    }
+                    $scope.$watch(getValue, function(val){
+                        if (val ){
+                  
+                       var newValue   = ($.parseJSON(val))
+                          applyFilter(filterBy, newValue)
+                       
+                        }
+                    });
+                }
+               
             })
 
         var    dataSource = new kendo.data.DataSource({
@@ -71,127 +90,109 @@
                             tblCarBelongsToWorkShiftGroup: {type: "text"},				  			
                         }
                     }
+                },
+               // filter: gridFilter
+            });
+
+    $("#grid").kendoGrid({
+        dataSource:dataSource,
+        columns:[	
+              { field: "carId", title: "Car"}, 
+              { field: "driverCardNr", title: "*Driver ID"}, 
+              { field: "systemId", title: "*Zone ID"}, 
+              { field: "taxiCarCompanyId", title: "*TXM Status"}, 
+              { field: "operatingCompanyId", title: "*Dispatch Status"}, 
+              { field: "carDispatchAttributes", title: "*Dispatch Status"}, 
+              { field: "editTime", title: "*SFH time",format:"{0: dd/MM/yyyy}"}, 
+              { field: "posting", title: "*SFH Zone"}, 
+              { field: "editTime", title: "*changed Status",format:"{0: dd/MM/yyyy}"}, 
+              { field: "editTime", title: "*Last Update", format:"{0: dd/MM/yyyy}"}, 
+              { field: "editTime", title: "*Workshift Start", format:"{0: dd/MM/yyyy }"}, 
+              { field: "creationdate", title: "Workshift end", format:"{0: dd/MM/yyyy }"},
+         ],
+    
+        scrollable: true,
+        detailInit: detailInit,
+        resizable: true,
+        sortable:true
+    });
+
+    $("#clearLable").click(   
+          
+        function () {
+           console.log( 'drop all the filters!')
+        })     
+            
+
+    function applyFilter(filterField, filterValue) {    
+        var gridData = $("#grid").data("kendoGrid");
+        var currFilterObj = gridData.dataSource.filter();
+        var currentFilters = currFilterObj ? currFilterObj.filters : []
+      
+        if (currentFilters && currentFilters.length > 0) {
+            for (var i = 0; i < currentFilters.length; i++) {
+                if (currentFilters[i].field == filterField) {
+                    currentFilters.splice(i, 1);
+                    break;
                 }
+            }
+        }
+
+        if (filterValue != "0") {
+            currentFilters.push({
+                field: filterField,
+                operator: "eq",
+                value: filterValue
             });
+        }
+     
+        dataSource.filter({
+            logic: "and",
+            filters: currentFilters,
+        })
+      
+       
+      
+    }
 
-            
+   
 
-
-            $("#grid").kendoGrid({
-				dataSource:dataSource,
-				columns:[	
-		  			{ field: "carId", title: "Car"}, 
-		  			{ field: "driverCardNr", title: "*Driver ID"}, 
-		  			{ field: "systemId", title: "*Zone ID"}, 
-		  			{ field: "taxiCarCompanyId", title: "*TXM Status"}, 
-		  			{ field: "operatingCompanyId", title: "*Dispatch Status"}, 
-		  			{ field: "carDispatchAttributes", title: "*Dispatch Status"}, 
-		  			{ field: "editTime", title: "*SFH time",format:"{0: dd/MM/yyyy}"}, 
-		  			{ field: "posting", title: "*SFH Zone"}, 
-		  			{ field: "editTime", title: "*changed Status",format:"{0: dd/MM/yyyy}"}, 
-		  			{ field: "editTime", title: "*Last Update", format:"{0: dd/MM/yyyy}"}, 
-		  			{ field: "editTime", title: "*Workshift Start", format:"{0: dd/MM/yyyy }"}, 
-		  			{ field: "creationdate", title: "Workshift end", format:"{0: dd/MM/yyyy }"},
-                 ],
-            
-        		scrollable: true,
-				detailInit: detailInit,
-				resizable: true,
-				sortable:true
-            });
-             
-            
-
-            function applyFilter(filterField, filterValue) {
-            
-
-                // get the kendoGrid element.
-                //var gridData = $("#grid").data("kendoGrid");
-            
-                // get currently applied filters from the Grid.
-                var currFilterObj = dataSource.filter();
-                console.log(currFilterObj)
-                // get current set of filters, which is supposed to be array.
-                // if the oject we obtained above is null/undefined, set this to an empty array
-                var currentFilters = currFilterObj ? currFilterObj.filters : [];
-              //  var currentFilters =  [];
-            
-                // iterate over current filters array. if a filter for "filterField" is already
-                // defined, remove it from the array
-                // once an entry is removed, we stop looking at the rest of the array.
-                if (currentFilters && currentFilters.length > 0) {
-                    for (var i = 0; i < currentFilters.length; i++) {
-                        if (currentFilters[i].field == filterField) {
-                            currentFilters.splice(i, 1);
-                            console.log(currentFilters)
-                            break;
+    function detailInit(e) {
+        $("<div/>").appendTo(e.detailCell).kendoGrid({
+            dataSource: {
+                transport: {
+                    read:{
+                        url:"http://localhost:52273/api/Cars/"+ e.data.carId ,
+                        data:{ format: "json"},
+                        dataType: "json",
+                    }
+                },
+                schema: {
+                    model: {                        
+                        fields: {
+                            carId: {type: "number"},				  			
+                            systemId: {type: "number"},				  			                               				  			
+                            taxiCarCompanyId: {type: "number"},				  			
+                            driverCardNr: {type: "number"},				  			                               			  			
                         }
                     }
                 }
-            
-                // if "filterValue" is "0", meaning "-- select --" option is selected, we don't 
-                // do any further processing. That will be equivalent of removing the filter.
-                // if a filterValue is selected, we add a new object to the currentFilters array.
-                if (filterValue != "0") {
-                    currentFilters.push({
-                        field: filterField,
-                        operator: "eq",
-                        value: filterValue
-                    });
-                }
-            
-                // finally, the currentFilters array is applied back to the Grid, using "and" logic.
-               dataSource.filter({
-                    logic: "and",
-                    filters: currentFilters
-                });
-            
-            }
-            
-            
-            function clearFilters() {
-                var gridData = $("#TableGrid").data("kendoGrid");
-                gridData.dataSource.filter({});
-            }
+               
+            },
+            scrollable: false,
+            sortable: true,
+            pageable: false,          
+            columns: [
+                    { field: "carId", title: "Car"}, 
+                    { field: "driverCardNr", title: "*Driver ID"}, 
+                    { field: "systemId", title: "*Zone ID"}, 
+                    { field: "taxiCarCompanyId", title: "*TXM Status"} 
+            ]
+        });
+    }
 
         }
         
 
-        function detailInit(e) {
-            $("<div/>").appendTo(e.detailCell).kendoGrid({
-                dataSource: {
-                    transport: {
-                        read:{
-                            url:"http://localhost:52273/api/Cars/"+ e.data.carId ,
-                            data:{ format: "json"},
-                            dataType: "json",
-                        }
-                    },
-                    schema: {
-                        model: {                        
-                            fields: {
-                                carId: {type: "number"},				  			
-                                systemId: {type: "number"},				  			                               				  			
-                                taxiCarCompanyId: {type: "number"},				  			
-                                driverCardNr: {type: "number"},				  			                               			  			
-                            }
-                        }
-                    }
-                    //serverPaging: true,
-                    //serverSorting: true,
-                    //serverFiltering: true,
-                
-                    //filter: { field: "id", operator: "eq", value: e.data.id }
-                },
-                scrollable: false,
-                sortable: true,
-                pageable: false,          
-                columns: [
-                        { field: "carId", title: "Car"}, 
-                        { field: "driverCardNr", title: "*Driver ID"}, 
-                        { field: "systemId", title: "*Zone ID"}, 
-                        { field: "taxiCarCompanyId", title: "*TXM Status"} 
-                ]
-            });
-        }
+       
 }());

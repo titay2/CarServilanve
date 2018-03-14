@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-md-2">
                                 <label style="color: white; " for="SelectP" translate >AREA</label>
-                                <input list="area" class="form-control" placeholder="Area" ng-model="body.Posting"/>
+                                <input id="inputArea" list="area" class="form-control" placeholder="Area" ng-model="body.Posting"/>
                                 <datalist id="area"></datalist>
                             </div>
                             <div class="col-md-1">
@@ -63,10 +63,10 @@
                             </div>
                             <div class="col-md-1  ">
                                 <label style="color: white;" for="vihecle" translate >VEHICLE</label>
-                                <input class="form-control" id="vihecle" placeholder="Vehicle"/>
+                                <input class="form-control" id="vihecle" placeholder="Vehicle" ng-model="body.vihecle"/>
                             </div>
                             <div id ="clearLable">                                
-                                <button id="clearBtn" class="btn" type="button" translate >CLEAR</button>
+                                <button id="clearBtn" class="btn" type="button"  translate >CLEAR</button>
                             </div>
             
                         
@@ -154,8 +154,10 @@
   <script src="components/groupworkshift/GroupWorkShiftCtrl.js"></script>
   <script src="components/carInfo/CarInfoCtrl.js"></script>
   
-  
-  <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-1.1.3.min.js"></script>
+ 
+  <script src=" http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-2.2.2.min.js"></script>
+  <!-- <script src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-1.1.3.min.js"></script> -->
+  <!-- <script src="node_modules/@aspnet/signalr-client/dist/browser/signalr-client-1.0.0-alpha2-final.js"></script> -->
   <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
   <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
