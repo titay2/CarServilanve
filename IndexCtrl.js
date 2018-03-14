@@ -6,24 +6,21 @@ var areaFilter = JSON.parse(localStorage.getItem('areaFilter') || '[]' )
 var propertyFilter = JSON.parse(localStorage.getItem('propertyFilter') || '[]' )
 var vehicleFilter = JSON.parse(localStorage.getItem('vehicleFilter') || '[]' )
 
+findCallCenter();
+findArea();
 
-
- 
-
- findCallCenter();
- findArea();
-
-
- $("#inputCenter").on('input', function() {               
+$("#inputCenter").on('input', function() {               
     var opt = $('option[value="' + $(this).val() + '"]');
     var val = opt.attr('id'); 
     if ($.isNumeric(val)) {
         setFiletr('callCenterId', val)
     }
 })
+
 $("#inputArea").on('input', function() {  
     console.log( $(this).val() )     
 })
+
 $("#propertyInput").on('change', function() {
     var input = $(this)
    //if(input.next()){
@@ -31,44 +28,41 @@ $("#propertyInput").on('change', function() {
     console.log( input.val() )
    }     
 })
+
 $("#vihecle").on('change', function() {
    var input = $(this)
    //if(input.next()){
     if(input.focusout()){
-   
-     setFiletr('vehicleFilter',input.val())
-     console.log( localStorage.getItem('vehicleFilter'))
-   }
-    
+        setFiletr('vehicleFilter',input.val())
+        console.log( localStorage.getItem('vehicleFilter'))
+   }  
 })
-$("#clearLable").click(   
-          
-    function () {
-        $(this).data('clicked', true);
-       console.log( 'drop all the filters!')
-    })
 
-
- function findCallCenter() {
+$("#clearLable").click( function () {
+    localStorage.clear()
+    $('#inputCenter').val("");
+    $('#inputArea').val("");
+    $('#propertyInput').val("");
+    $('#vihecle').val("");
+})   
+ 
+function findCallCenter() {
     $.ajax({
         url: root + "OperatingCompanies" ,
         method: "GET",
         dataType: "json", 
         success: function (data) {
-           ;
             $(data).each(function () {
               var callCenter = "<option id= \"" + this.operatingCompanyId + "\"  value=\"" + this.name + "\">" + this.name + "</option>";
                 $("#callcenter").append(callCenter);
             });
-
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert("error: " + textStatus + ": " + errorThrown);
         }
     });
-
 }
-//fetch all areas 
+
 function findArea(){
     $.ajax({
         url: root + "Postings" ,
