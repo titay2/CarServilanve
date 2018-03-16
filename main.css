@@ -264,6 +264,10 @@ input[type=checkbox]
     float: left;
 }
 
+
+
+
+
 @media (min-width: 768px) {
     .col-sm-16 {
         width: 12.5%;
