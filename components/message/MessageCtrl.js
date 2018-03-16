@@ -63,7 +63,11 @@
 					document.getElementById('messages').appendChild(liElement);
 				}
 			
-				connection.start()
+				connection.start({ jsonp: true })
+
+
+
+
 		
 			});
 
