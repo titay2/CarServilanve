@@ -70,7 +70,8 @@
             $("#grid").kendoGrid({
                 dataSource:dataSource,
                 columns:[	
-                      { field: "carId", title: "Car"}, 
+                      { field: "carId", title: "Car", attributes: { "class": "driverCardNr" }},
+     
                       { field: "driverCardNr", title: "*Driver ID"}, 
                       { field: "systemId", title: "*Zone ID"}, 
                       { field: "taxiCarCompanyId", title: "*TXM Status"}, 
@@ -89,6 +90,25 @@
                 resizable: true,
                 sortable:true
             });
+
+            $("#grid").kendoDraggable({
+                filter: ".driverCardNr",
+                dragstart: function(e) {
+                    var draggedElement = e.currentTarget.closest("tr"), //get the DOM element that is being dragged
+                        dataItem = dataSource.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
+        
+                    console.log(dataItem);
+                    console.log(draggedElement);
+                    //console.log(draggedElement.closest(".K-master-row"));
+                },
+                hint: function(element) {
+                    return element.clone().css({
+                        // "opacity": 0.6,
+                        // "background-color": "#0cf"
+                    });
+                }
+            });
+        
 
             $("#clearLable").click(function () {    
                 $state.reload('carInfo');
