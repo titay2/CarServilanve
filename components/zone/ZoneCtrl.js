@@ -12,7 +12,7 @@
 
         translateService.setLanguage();
 
-        
+        // skeleton for the signalR data 
         
         function createGrid(){
             var group = [{id: "1", startTime: "test", endTime: "test", groupname: "test", togroup: "test" }];
