@@ -55,7 +55,7 @@
         $scope.create = () => {
             apiService.post('SendTextMessages', $scope.body)
                 .then(data => {
-                    $state.reload();
+                   //$state.reload();
                    // location.reload();
                 })
                 .catch((err) => {

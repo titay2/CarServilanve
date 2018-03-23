@@ -74,11 +74,11 @@
      
                       { field: "driverCardNr", title: "*Driver ID"}, 
                       { field: "systemId", title: "*Zone ID"}, 
-                      { field: "taxiCarCompanyId", title: "*TXM Status"}, 
+                      { field: "taxiCarCompanyId", title: "*TXM Status",attributes: { "class": "taxiCarCompanyId2" }}, 
                       { field: "operatingCompanyId", title: "*Dispatch Status"}, 
                       { field: "carDispatchAttributes", title: "*Dispatch Status"}, 
                       { field: "editTime", title: "*SFH time",format:"{0: dd/MM/yyyy}"}, 
-                      { field: "posting", title: "*SFH Zone"}, 
+                      { field: "posting", title: "*SFH Zone",attributes: { "class": "taxiCarCompanyId" }}, 
                       { field: "editTime", title: "*changed Status",format:"{0: dd/MM/yyyy}"}, 
                       { field: "editTime", title: "*Last Update", format:"{0: dd/MM/yyyy}"}, 
                       { field: "editTime", title: "*Workshift Start", format:"{0: dd/MM/yyyy }"}, 
@@ -96,10 +96,7 @@
                 dragstart: function(e) {
                     var draggedElement = e.currentTarget.closest("tr"), //get the DOM element that is being dragged
                         dataItem = dataSource.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
-        
-                    console.log(dataItem);
-                    console.log(draggedElement);
-                    //console.log(draggedElement.closest(".K-master-row"));
+                    console.log(dataItem.carId);
                 },
                 hint: function(element) {
                     return element.clone().css({
@@ -108,7 +105,21 @@
                     });
                 }
             });
-        
+            $("#grid").kendoDropTargetArea({
+                filter: ".taxiCarCompanyId, .taxiCarCompanyId2",
+                drop: onDrop
+            });
+          
+            function onDrop(e) {
+                var draggedElement = e.dropTarget.closest("tr"), //get the DOM element that is being dragged
+                dataItem = dataSource.getByUid(draggedElement.data("uid"));
+                var row = $(this).closest("tr"); //get corresponding dataItem from the DataSource instance
+                var colIdx = e.dropTarget.index();
+                var colName = $('#grid').find('th').eq(colIdx).text();
+              
+                console.log(colName);
+                console.log(dataItem);
+            }
 
             $("#clearLable").click(function () {    
                 $state.reload('carInfo');
