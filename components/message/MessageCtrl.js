@@ -60,13 +60,14 @@
 
 				   //const connection = new signalR.HubConnection('http://localhost:51116/logNotifierHub');
 				   function findall() {
-					apiService.get('LogTextMessages')
+					apiService.get('FleetStates/dispatchStatus')
 						.then((data) => {
-							var newdata =JSON.parse(data);
-							
-							console.log(newdata);
-							//console.log(newdata);
-
+							 var data1 =JSON.stringify(data);
+							 var data2 = $.parseJSON(data1)
+							// $.each(data2.d, function (i, v) {
+							// 	console.log(data2);
+							// });
+						
 						})
 						.catch((err) => {
 							console.log(err);
@@ -105,27 +106,44 @@
 					});
 				}
 				
-   const connection = new signalR.HubConnection('http://localhost:52273/logMessageHub');
+//    const connection = new signalR.HubConnection('http://localhost:52273/logMessageHub');
 
    
-   //createGrid()
-   findall()
-   connection.on("startSendingLog", (logMessageUpdate) => {
-	var jsondata = JSON.parse(logMessageUpdate);
-	console.log(logMessageUpdate)			
-	console.log(jsondata)			
-   });
+//    //createGrid()
+		findall()
+//    connection.on("startSendingLog", (logMessageUpdate) => {
+// 	var jsondata = JSON.parse(logMessageUpdate);
+// 	console.log(logMessageUpdate)			
+// 	console.log(jsondata)			
+//    });
    
    
-   try {
-	   connection
-	   .start()
-       .done(console.log(connection));
-   } catch(err){
-       (err => console.log(err));
-   }
+//    try {
+// 	   connection
+// 	   .start()
+//        .done(console.log(connection));
+//    } catch(err){
+//        (err => console.log(err));
+//    }
    
-				
+// var crudServiceBaseUrl = "http://localhost:52273/dispatchStatusHub";
+// const connection = new signalR.HubConnection(crudServiceBaseUrl);
+
+// connection.on("startSendingDispatch", (DispatchData) => {
+// 	var jsondata = JSON.parse(DispatchData);
+// 	console.log(DispatchData)			
+// 	console.log(jsondata)			
+//    });
+   
+   
+//    try {
+// 	   connection
+// 	   .start()
+//        .done(console.log(connection));
+//    } catch(err){
+//        (err => console.log(err));
+//    }
+   		
 
     
 			

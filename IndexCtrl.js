@@ -44,8 +44,54 @@ $("#clearLable").click( function () {
     $('#inputArea').val("");
     $('#propertyInput').val("");
     $('#vihecle').val("");
-})   
- 
+})  
+
+
+$.ajax({
+    url: root + "FleetStates/dispatchStatus" ,
+    method: "GET",
+    dataType: "json", 
+    success: function (data) {
+       
+        for (var DispatchCount in data) {
+            if (data.hasOwnProperty(DispatchCount)) {
+            if((data[DispatchCount]).dispatchStatus === 0){
+                     //console.log(data[DispatchCount])
+                    document.getElementById("freecars").innerHTML = (data[DispatchCount]).dispatchCount;
+                     
+                 }
+            }
+        }
+    },
+    error: function (jqXHR, textStatus, errorThrown) {
+        alert("error: " + textStatus + ": " + errorThrown);
+    }
+});		
+
+var crudServiceBaseUrl = "http://localhost:52273/dispatchStatusHub";
+const connection = new signalR.HubConnection(crudServiceBaseUrl);
+connection.on("startsendinglog", (Rowdata) => {
+    var data = JSON.parse(Rowdata)
+	 for (var DispatchCount in data) {
+            if (data.hasOwnProperty(DispatchCount)) {
+                if((data[DispatchCount]).DispatchStatus === 0){
+                    //console.log(data[DispatchCount])
+                   // document.getElementById("freecars").innerHTML = (data[DispatchCount]).DispatchCount;
+                    
+                }
+            }
+        }			
+   });
+   
+   
+   try {
+	   connection
+	   .start()
+       .done(console.log(connection));
+   } catch(err){
+       (err => console.log(err));
+   }
+   		
 function findCallCenter() {
     $.ajax({
         url: root + "OperatingCompanies" ,
