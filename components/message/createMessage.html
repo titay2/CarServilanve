@@ -125,9 +125,9 @@
                         </tr>
                     </thead>
                     <tbody >
-                        <tr ng-repeat="item in items | filter:search"  ng-click ="$event.preventDefault(); setSelected(); selected.item = item"  >
+                        <tr ng-repeat="item in items | filter:search"    >
                             <td >{{item.id}}<td>
-                            <td> {{item.text}}</td>
+                            <td ng-click ="$event.preventDefault(); setSelected(); selected.item = item"> {{item.text}}</td>
                             <td >{{item.creationdate}}</td>
                             <td ><button class="btn btn-sm" ng-click="deleteStd()">Delete</button></td>
                         </tr>         

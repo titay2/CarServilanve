@@ -168,7 +168,7 @@
                     filters: currentFilters,
                 })
             }
-            //DETAIL FOR THE TABLE MASTER DATA
+            //DETAIL FOR THE MASTER DATA
             function detailInit(e) {
                 $("<div/>").appendTo(e.detailCell).kendoGrid({
                     dataSource: {

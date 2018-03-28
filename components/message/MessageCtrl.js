@@ -59,22 +59,28 @@
 				// })
 
 				   //const connection = new signalR.HubConnection('http://localhost:51116/logNotifierHub');
-				   function findall() {
-					apiService.get('FleetStates/dispatchStatus')
-						.then((data) => {
-							 var data1 =JSON.stringify(data);
-							 var data2 = $.parseJSON(data1)
-							// $.each(data2.d, function (i, v) {
-							// 	console.log(data2);
-							// });
-						
-						})
-						.catch((err) => {
-							console.log(err);
-						});
-				}
+
+				   $.ajax({
+					url: root + "LogTextMessages" ,
+					method: "GET",
+					dataType: "json", 
+					success: function (data) {
+						for(var key in data){
+						   if (data.hasOwnProperty(key)){
+							   var value=data[key];
+							//    console.log(key )
+							//    console.log( value);
+						   }
+						}
+					},
+					error: function (jqXHR, textStatus, errorThrown) {
+						alert("error: " + textStatus + ": " + errorThrown);
+					}
+				});
+			  
+				  
 				   function createGrid (){
-					var crudServiceBaseUrl = "http://localhost:52273/api/LogTextMessages",
+					var crudServiceBaseUrl = "http://localhost:52273/api/LogTextMessages/455",
 					dataSource = new kendo.data.DataSource({
 						transport: {
 							read: { 
@@ -106,44 +112,29 @@
 					});
 				}
 				
-//    const connection = new signalR.HubConnection('http://localhost:52273/logMessageHub');
+   const connection = new signalR.HubConnection('http://localhost:52273/logMessageHub');
 
    
-//    //createGrid()
-		findall()
-//    connection.on("startSendingLog", (logMessageUpdate) => {
-// 	var jsondata = JSON.parse(logMessageUpdate);
-// 	console.log(logMessageUpdate)			
-// 	console.log(jsondata)			
-//    });
+   //createGrid()
+		
+   connection.on("startSendingLog", (logMessageUpdate) => {
+	var jsondata = JSON.parse(logMessageUpdate);
+	//console.log(logMessageUpdate)			
+	//console.log(jsondata)			
+   });
    
    
-//    try {
-// 	   connection
-// 	   .start()
-//        .done(console.log(connection));
-//    } catch(err){
-//        (err => console.log(err));
-//    }
+   try {
+	   connection
+	   .start().then(function(){
+		   createGrid();
+	   })
+       .done(console.log(connection));
+   } catch(err){
+       (err => console.log(err));
+   }
    
-// var crudServiceBaseUrl = "http://localhost:52273/dispatchStatusHub";
-// const connection = new signalR.HubConnection(crudServiceBaseUrl);
 
-// connection.on("startSendingDispatch", (DispatchData) => {
-// 	var jsondata = JSON.parse(DispatchData);
-// 	console.log(DispatchData)			
-// 	console.log(jsondata)			
-//    });
-   
-   
-//    try {
-// 	   connection
-// 	   .start()
-//        .done(console.log(connection));
-//    } catch(err){
-//        (err => console.log(err));
-//    }
-   		
 
     
 			

@@ -1,6 +1,7 @@
 
   
 var root  = "http://localhost:52273/api/";
+var crudServiceBaseUrl = "http://localhost:52273/dispatchStatusHub";
 var callCenterId = JSON.parse(localStorage.getItem('callCenterId') || '[]' )
 var areaFilter = JSON.parse(localStorage.getItem('areaFilter') || '[]' )
 var propertyFilter = JSON.parse(localStorage.getItem('propertyFilter') || '[]' )
@@ -9,6 +10,7 @@ var vehicleFilter = JSON.parse(localStorage.getItem('vehicleFilter') || '[]' )
 findCallCenter();
 findArea();
 
+// Save the navbar filter inputs to localstorage. 
 $("#inputCenter").on('input', function() {               
     var opt = $('option[value="' + $(this).val() + '"]');
     var val = opt.attr('id'); 
@@ -39,7 +41,7 @@ $("#vihecle").on('change', function() {
 })
 
 $("#clearLable").click( function () {
-    localStorage.clear()
+    //localStorage.clear()
     $('#inputCenter').val("");
     $('#inputArea').val("");
     $('#propertyInput').val("");
@@ -47,51 +49,40 @@ $("#clearLable").click( function () {
 })  
 
 
-$.ajax({
-    url: root + "FleetStates/dispatchStatus" ,
-    method: "GET",
-    dataType: "json", 
-    success: function (data) {
-       
-        for (var DispatchCount in data) {
-            if (data.hasOwnProperty(DispatchCount)) {
-            if((data[DispatchCount]).dispatchStatus === 0){
-                     //console.log(data[DispatchCount])
-                    document.getElementById("freecars").innerHTML = (data[DispatchCount]).dispatchCount;
-                     
-                 }
-            }
-        }
-    },
-    error: function (jqXHR, textStatus, errorThrown) {
-        alert("error: " + textStatus + ": " + errorThrown);
-    }
-});		
 
-var crudServiceBaseUrl = "http://localhost:52273/dispatchStatusHub";
+	
+//connect to the signalR websocketand update the latest changes to the UI in realtime.
+
 const connection = new signalR.HubConnection(crudServiceBaseUrl);
-connection.on("startsendinglog", (Rowdata) => {
+connection.on("startSendingDispatch", (Rowdata) => {
     var data = JSON.parse(Rowdata)
-	 for (var DispatchCount in data) {
-            if (data.hasOwnProperty(DispatchCount)) {
-                if((data[DispatchCount]).DispatchStatus === 0){
-                    //console.log(data[DispatchCount])
-                   // document.getElementById("freecars").innerHTML = (data[DispatchCount]).DispatchCount;
-                    
-                }
+	updateStatusBar(data)
+});
+    
+try {
+   connection
+   .start().then(function() {
+       $.ajax({
+            url: root + "FleetStates/dispatchStatus" ,
+            method: "GET",
+            dataType: "json", 
+            success: function (data) {
+                updateStatusBar(data)
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                alert("error: " + textStatus + ": " + errorThrown);
             }
-        }			
-   });
-   
-   
-   try {
-	   connection
-	   .start()
-       .done(console.log(connection));
-   } catch(err){
-       (err => console.log(err));
-   }
-   		
+        });
+    })
+    .done(console.log(connection));
+}
+catch(err){
+    (err => console.log(err));
+}
+
+
+           // FUNCTIONS
+//get data and populate the call center input option in the navbar. 
 function findCallCenter() {
     $.ajax({
         url: root + "OperatingCompanies" ,
@@ -108,7 +99,7 @@ function findCallCenter() {
         }
     });
 }
-
+//get data and populate the area input option in the navbar. 
 function findArea(){
     $.ajax({
         url: root + "Postings" ,
@@ -127,9 +118,26 @@ function findArea(){
          }
      });
 }
-
+//save data passed to localstorage.
 function setFiletr(storageField, inputValue){
-   
     localStorage.setItem(storageField, inputValue);
+}
+//change the numbers on the status buttons 
+function updateTheButton(status, num, id){
+    if(status.dispatchStatus === num){
+        document.getElementById(id).innerHTML = status.dispatchCount
+    }
+}
 
+// compare the Data to get the exact button to be updated
+function updateStatusBar(data){
+    for (var i in data) {
+        if (data.hasOwnProperty(i)) {
+            updateTheButton((data[i]), 0,"freecars" )
+            updateTheButton((data[i]), 1,"soonfh" )
+            updateTheButton((data[i]), 2,"occupied" )
+            updateTheButton((data[i]), 3,"notavailable" )
+            
+        }
+    }
 }
