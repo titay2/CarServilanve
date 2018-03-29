@@ -15,28 +15,28 @@ $("#inputCenter").on('input', function() {
     var opt = $('option[value="' + $(this).val() + '"]');
     var val = opt.attr('id'); 
     if ($.isNumeric(val)) {
-        setFiletr('callCenterId', val)
+        setFiletr('callCenterId', val);
     }
 })
 
 $("#inputArea").on('input', function() {  
-    console.log( $(this).val() )     
+    console.log( $(this).val() );
 })
 
 $("#propertyInput").on('change', function() {
-    var input = $(this)
+    var input = $(this);
    //if(input.next()){
     if(input.focusout()){
-    console.log( input.val() )
+    console.log( input.val() );
    }     
 })
 
 $("#vihecle").on('change', function() {
-   var input = $(this)
+   var input = $(this);
    //if(input.next()){
     if(input.focusout()){
-        setFiletr('vehicleFilter',input.val())
-        console.log( localStorage.getItem('vehicleFilter'))
+        setFiletr('vehicleFilter',input.val());
+        console.log( localStorage.getItem('vehicleFilter'));
    }  
 })
 
@@ -47,16 +47,12 @@ $("#clearLable").click( function () {
     $('#propertyInput').val("");
     $('#vihecle').val("");
 })  
-
-
-
 	
 //connect to the signalR websocketand update the latest changes to the UI in realtime.
-
 const connection = new signalR.HubConnection(crudServiceBaseUrl);
 connection.on("startSendingDispatch", (Rowdata) => {
     var data = JSON.parse(Rowdata)
-	updateStatusBar(data)
+	updateStatusBar(data);
 });
     
 try {
@@ -67,6 +63,7 @@ try {
             method: "GET",
             dataType: "json", 
             success: function (data) {
+                console.log(data);
                 updateStatusBar(data)
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -125,7 +122,7 @@ function setFiletr(storageField, inputValue){
 //change the numbers on the status buttons 
 function updateTheButton(status, num, id){
     if(status.dispatchStatus === num){
-        document.getElementById(id).innerHTML = status.dispatchCount
+        document.getElementById(id).innerHTML = status.dispatchCount;
     }
 }
 
@@ -133,10 +130,10 @@ function updateTheButton(status, num, id){
 function updateStatusBar(data){
     for (var i in data) {
         if (data.hasOwnProperty(i)) {
-            updateTheButton((data[i]), 0,"freecars" )
-            updateTheButton((data[i]), 1,"soonfh" )
-            updateTheButton((data[i]), 2,"occupied" )
-            updateTheButton((data[i]), 3,"notavailable" )
+            updateTheButton((data[i]), 0,"freecars" );
+            updateTheButton((data[i]), 1,"soonfh" );
+            updateTheButton((data[i]), 2,"occupied" );
+            updateTheButton((data[i]), 3,"notavailable" );
             
         }
     }
