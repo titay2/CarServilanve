@@ -2,7 +2,7 @@ body {
 	background: #fafafa;
 	color: #454544;
     line-height: 2.4285;
-    font-family: Georgia, serif;
+    font-family:Times, serif;
     font-size:168%;
 }
 /*controller view container */
@@ -23,7 +23,7 @@ body {
 }
 .nav > li > a {
     color: white;
-    font-family: Georgia, serif;
+    font-family: Times, serif;
     font-size:large;
 }
 .active {
@@ -50,7 +50,7 @@ body {
     padding-top: 6px;
     padding-bottom: 6px;
     color: white;
-    font-family: Georgia, serif;
+    font-family: Times, serif;
 }
 
 /*color codes for car status */
@@ -92,7 +92,7 @@ body {
     color: #111;
     width: 75px;
     padding: 4px 12px;
-    font-family: Georgia, serif;
+    font-family: Times, serif;
     font-size:large;
 }
 
@@ -171,7 +171,7 @@ ul {
 	align-items: flex-start;
 }
 input[type="text"]{
-    font-family: Georgia, serif;
+    font-family:Times, serif;
     font-size:120%;
 }
 

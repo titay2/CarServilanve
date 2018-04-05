@@ -22,39 +22,42 @@
 				  		values.push(data[key]);
 				    }
 				}
+				console.log(values)
 				var dataSource = new kendo.data.DataSource({
 				    data : keys,
 				    schema:{
 						model: {
 							fields: {
+								sendTime :{type :"date"},
 								text: { type: "text" },
-								sendCommandId: { type: "number" },
-								userId: { type: "text" },
+								//sendCommandId: { type: "number" },
+								userName: { type: "text" },
 							}
 						}
 					}
 				});
-				var dataSourcedetail = new kendo.data.DataSource({
-					data : values[0],
-					batch: true,
-					pageSize: 10,
-					schema: {
-						model: {
-							fields: {
-								 text: { type: "text" },
-								logId: { type: "number" },
-								systemId: { type: "number" },
-							}
-						}
-					}
-				}); 
+				// var dataSourcedetail = new kendo.data.DataSource({
+				// 	data : values[0],
+				// 	batch: true,
+				// 	pageSize: 10,
+				// 	schema: {
+				// 		model: {
+				// 			fields: {
+				// 				sendDateTime: { type: "date" },
+				// 				carnumber: { type: "number" },
+				// 				operatingCompanyId: { type: "number" },
+				// 				systemId: { type: "number" },
+				// 			}
+				// 		}
+				// 	}
+				// }); 
 				$("#grid").kendoGrid({
 					dataSource: dataSource,
 					pageable: true,       
 					sortable: true,
-					columns: [{field:"text", title:"Text"},
-							 {field:"sendCommandId", title:"Log Id"},
-							 {field:"userId", title: "System"}],
+					columns: [{field:"sendTime", title:"Send time", format:"{0: dd/MM/yyyy}"},
+							 {field: "text", title:"Text"},							 
+							 {field:"userName", title: "User Name"} ],
 					detailInit: function (e) {
 						var rowIndex = e.masterRow.index(".k-master-row");
 						$("<div/>").appendTo(e.detailCell).kendoGrid({
@@ -65,8 +68,9 @@
 								schema: {
 									model: {
 										fields: {
-											 text: { type: "text" },
-											logId: { type: "number" },
+											sendDateTime: { type: "date" },
+											carnumber: { type: "number" },
+											operatingCompanyId: { type: "number" },
 											systemId: { type: "number" },
 										}
 									}
@@ -76,8 +80,11 @@
 					    	sortable: true,
 					    	pageable: true,
 					    	columns: [
-								{ field: "logId", titla: "ID", width: 70 },
-								{ field: "text", title:"Text", width: 100 },]
+								{field:"sendDateTime", title:"Send time", format:"{0: h:mm}"},
+								{field: "carnumber", title:"Vehicle"},
+								{field: "operatingCompanyId", title:"Company"},
+								{field: "systemId", title:"System ID"},
+							]
 					    });
 				    },			  
 			    });
