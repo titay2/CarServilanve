@@ -94,7 +94,7 @@
 				alert("error: " + textStatus + ": " + errorThrown);
 			}
 		});
-		const connection = new signalR.HubConnection('http://localhost:52273/logMessageHub');
+		const connection = new signalR.HubConnection(crudServiceBaseUrl+ 'logMessageHub');
    		connection.on("startSendingLog", (logMessageUpdate) => {
 			var jsondata = JSON.parse(logMessageUpdate);
    		});

@@ -1,7 +1,8 @@
 
   
 var root = "http://semasp04.semel.ext/TestCarsurveillanceBackend/api/"
-var crudServiceBaseUrl = "http://localhost:52273/dispatchStatusHub";
+var crudServiceBaseUrl = "http://semasp04.semel.ext/TestCarsurveillanceBackend/signalR/";
+
 var callCenterId = JSON.parse(localStorage.getItem('callCenterId') || '[]' )
 var areaFilter = JSON.parse(localStorage.getItem('areaFilter') || '[]' )
 var propertyFilter = JSON.parse(localStorage.getItem('propertyFilter') || '[]' )
@@ -41,7 +42,7 @@ $("#vihecle").on('change', function() {
 })
 
 $("#clearLable").click( function () {
-    //localStorage.clear()
+    localStorage.clear()
     $('#inputCenter').val("");
     $('#inputArea').val("");
     $('#propertyInput').val("");
@@ -49,7 +50,7 @@ $("#clearLable").click( function () {
 })  
 	
 //connect to the signalR websocketand update the latest changes to the UI in realtime.
-const connection = new signalR.HubConnection(crudServiceBaseUrl);
+const connection = new signalR.HubConnection(crudServiceBaseUrl + "dispatchStatusHub");
 connection.on("startSendingDispatch", (Rowdata) => {
     var data = JSON.parse(Rowdata)
 	updateStatusBar(data);

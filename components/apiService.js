@@ -20,12 +20,12 @@
           'async': "false",
       };
 
-      var rootUrl = 'http://semasp04.semel.ext/TestCarsurveillanceBackend/api/';
+    //  var rootUrl = 'http://semasp04.semel.ext/TestCarsurveillanceBackend/api/';
       return service;
 
       function get(path, config) {
           var defer = $q.defer();
-          $http.get(rootUrl + path, config)
+          $http.get(root + path, config)
 
               .then(function(res) {
                   defer.resolve(res.data);
@@ -42,7 +42,7 @@
           var defer = $q.defer();
           console.log(body);
           console.log(config);
-          $http.post(rootUrl + path, body, config)
+          $http.post(root + path, body, config)
 
               .then(function(res) {
                   defer.resolve(res.data);

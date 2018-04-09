@@ -142,9 +142,9 @@
                 if(selectedItem.text){
                     $scope.body.Text = selectedItem.text;
                 }
-                if(selectedItem.id){
-                    $scope.body.CarEnd= selectedItem.id;
-                }
+                // if(selectedItem.id){
+                //     $scope.body.CarEnd= selectedItem.id;
+                // }
                
             }, function() {
                 $log.info('Modal dismissed at: ' + new Date());

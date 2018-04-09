@@ -22,7 +22,7 @@
 		.preferredLanguage('en-GB')
 		.fallbackLanguage('en-GB')
 		.useStaticFilesLoader({
-			prefix:'/i18n/local-',
+			prefix:'i18n/local-',
 			suffix: '.json'
 		})
 		.useSanitizeValueStrategy()	
