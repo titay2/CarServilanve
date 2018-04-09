@@ -16,7 +16,7 @@
                
                 transport:{
                     read:{
-                        url:"http://localhost:52273/api/Cars",
+                        url:root+ "Cars",
                         data:{ format: "json"},
                         dataType: "json",
                     }
@@ -174,7 +174,7 @@
                     dataSource: {
                         transport: {
                             read:{
-                                url:"http://localhost:52273/api/Cars/"+ e.data.carId ,
+                                url:root + "Cars"+ e.data.carId ,
                                 data:{ format: "json"},
                                 dataType: "json",
                             }

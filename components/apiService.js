@@ -20,7 +20,7 @@
           'async': "false",
       };
 
-      var rootUrl = 'http://localhost:52273/api/';
+      var rootUrl = 'http://semasp04.semel.ext/TestCarsurveillanceBackend/api/';
       return service;
 
       function get(path, config) {

@@ -8,7 +8,8 @@
     // GIVES AN EMPTY FORM FOR A NEW MESSAGE
     function CreateMessageCtrl(apiService, translateService, $scope, $state, $uibModal, $log, $translate) {
         translateService.setLanguage();
-        
+        let currentLang = $translate.use();
+        console.log(currentLang)
         var vm = this;
         var $working = $(" input[class = 'working']");
         var $notworking = $(" input[class = 'notWorking']");
@@ -55,7 +56,12 @@
         $scope.create = () => {
             apiService.post('SendTextMessages', $scope.body)
                 .then(data => {
-                   //$state.reload();
+                   $state.reload();
+                   //localStorage.clear()
+                    $('#inputCenter').val("");
+                    $('#inputArea').val("");
+                    $('#propertyInput').val("");
+                    $('#vihecle').val("");
                    // location.reload();
                 })
                 .catch((err) => {

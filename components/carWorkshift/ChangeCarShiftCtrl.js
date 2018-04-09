@@ -8,6 +8,7 @@
   function ChangeCarShiftCtrl(apiService, translateService, $scope, $state, $log, $translate) {
     let currentLang = $translate.use();
     var baseUrl = 'https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.';
+  //  var crudServiceBaseUrl = "http://semasp04.semel.ext/TestCarsurveillanceBackend/api/"
     // $("#Grid").data("kendoGrid").dataSource.read();
     // $("#Grid").data("kendoGrid").refresh();
 
@@ -30,11 +31,11 @@
     });
     
     function createGrid (){
-        var crudServiceBaseUrl = "http://localhost:52273/api/StandardTextMessages",
+        var ServiceBaseUrl = root+ "StandardTextMessages",
         dataSource = new kendo.data.DataSource({
             transport: {
                 read: { 
-                    url: crudServiceBaseUrl },
+                    url: ServiceBaseUrl },
                 update: { url: "#" },
                 destroy: { url: "#" },
                 create: { url: "#" },
@@ -83,7 +84,7 @@
             dataSource: {
                 severFiltering: true,
                 transport: {
-                    read: "http://localhost:52273/api/OperatingCompanies"
+                    read: crudServiceBaseUrl+ "OperatingCompanies"
                 }
             },
             change: function() {

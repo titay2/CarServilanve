@@ -1,6 +1,6 @@
 
   
-var root  = "http://localhost:52273/api/";
+var root = "http://semasp04.semel.ext/TestCarsurveillanceBackend/api/"
 var crudServiceBaseUrl = "http://localhost:52273/dispatchStatusHub";
 var callCenterId = JSON.parse(localStorage.getItem('callCenterId') || '[]' )
 var areaFilter = JSON.parse(localStorage.getItem('areaFilter') || '[]' )
