@@ -5,12 +5,54 @@
 		.module('app')
  		.controller('CarInfoCtrl', CarInfoCtrl)
 
-		 CarInfoCtrl.$inject = ['apiService', 'translateService', '$scope', '$state', '$translate'];
+		// CarInfoCtrl.$inject = ['apiService', 'translateService', 'HelloService', '$scope', '$state', '$translate'];
 
- 		function CarInfoCtrl(apiService, translateService, $scope, $state, $translate) {
-			translateService.setLanguage();
+ 		function CarInfoCtrl(apiService, translateService, $scope, $state, $translate, HelloService,jwtHelper) {
+            translateService.setLanguage();
             
-               watchAndFilter('callCenterId',"operatingCompanyId" )
+
+            
+            helloInitialize();
+            $scope.login = HelloService.login;
+            $scope.logout = helloLogout;
+        
+    
+
+    // Web Login and Logout using hello
+    function helloInitialize() {
+        console.log("hello service "+HelloService)
+        console.log("translateService "+translateService)
+        HelloService.initialize().then(function(authResponse) {
+            console.log(authResponse)
+            displayUserDetails(getUserData(authResponse))
+        });
+    }
+
+    function helloLogout() {
+            HelloService.logout();
+    }
+
+   
+
+    // Decode decode the token and diaplay the user details
+    function getUserData(response) {
+        var user = {};
+        user.token = response.access_token || response.token;
+        var data = jwtHelper.decodeToken(user.token);
+        console.log(data)
+        user.expires_in = new Date(response.expires * 1000) || response.expiresOn;
+        user.name = data.name;
+        user.email = data.emails ? data.emails[0] : '';
+        console.log(user.email )
+        user.id = data.sub;
+        return user;
+    };
+
+    function displayUserDetails(user) {
+        $scope.user = user;
+    }
+            
+               //watchAndFilter('callCenterId',"operatingCompanyId" )
      
             var dataSource = new kendo.data.DataSource({
                

@@ -9,7 +9,9 @@
 	  'daterangepicker',
 	  'pascalprecht.translate',
 	  'ngCookies',
-	  'kendo.directives'
+	  'kendo.directives',
+	  'ngHello', 
+	  'angular-jwt'
 	])
 	 .config(config);
    
