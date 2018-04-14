@@ -1,4 +1,4 @@
-
+(function() {
 angular
         .module('app')
         .service('HelloService', function HelloService( $q, hello) {
@@ -91,7 +91,7 @@ angular
     }
     })
 
-  
+})();
   
   
   

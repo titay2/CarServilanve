@@ -11,7 +11,8 @@
 	  'ngCookies',
 	  'kendo.directives',
 	  'ngHello', 
-	  'angular-jwt'
+	  'angular-jwt',
+	 
 	])
 	 .config(config);
    
@@ -19,7 +20,7 @@
 	config.$inject = ['$stateProvider', '$urlRouterProvider', '$translateProvider'];
 
 	function config($stateProvider, $urlRouterProvider, $translateProvider) {
-
+		
 	$translateProvider 
 		.preferredLanguage('en-GB')
 		.fallbackLanguage('en-GB')
@@ -85,6 +86,6 @@
 		controller: 'ZoneCtrl', 
 	    controllerAs: 'vm'
 	})
-	 $urlRouterProvider.otherwise('/message');
+	 $urlRouterProvider.otherwise('/carInfo');
 	}
 })();

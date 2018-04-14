@@ -97,14 +97,16 @@
                     <div class="collapse navbar-collapse" id="bottomNavbar">
                             <ul class="nav  nav-tabs">
                                     <li class="col-md-16"><a ui-sref="carInfo" translate>CarInfo</a></li>
-                                    <li class="col-md-16"><a ui-sref="dispatch" translate>Dispatch</a></li>
-                                    <li class="col-md-16"><a ui-sref="zone" translate>Zone </a></li>
-                                    <li class="col-md-16"><a ui-sref="carsinshift" translate>CarsIn </a></li>
-                                    <li class="col-md-16"><a ui-sref="message" translate>Text </a></li>
-                                    <li class="col-md-16"><a ui-sref="carWorkshift" translate>Carshift </a></li>                    
-                                    <li class="col-md-16"><a ui-sref="groupworkshift" translate>Groupshift </a></li> 
-                                    <li class="col-md-16"><a ui-sref="restriction" translate>Active</a></li>
-                                   
+                                    <li class="col-md-16"><a ui-sref="dispatch" ng-show="user.id" translate>Dispatch</a></li>
+                                    <li class="col-md-16"><a ui-sref="zone" ng-show="user.id" translate>Zone </a></li>
+                                    <li class="col-md-16"><a ui-sref="carsinshift" ng-show="user.id" translate>CarsIn </a></li>
+                                    <li class="col-md-16"><a ui-sref="message" ng-show="user.id" translate>Text </a></li>
+                                    <li class="col-md-16"><a ui-sref="carWorkshift" ng-show="user.id" translate>Carshift </a></li>                    
+                                    <li class="col-md-16"><a ui-sref="groupworkshift" ng-show="user.id" translate>Groupshift </a></li> 
+                                    <!-- <li class="col-md-16"><a ui-sref="restriction" translate>Active</a></li> -->
+                                    <button class="button button-block button-assertive" ng-click="HelloService.logout()" ng-show="user.id">
+                                        Logout
+                                      </button>
                             </ul>
                              
                     </div>
@@ -140,6 +142,7 @@
 <script type="text/javascript" src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.min.js"></script>  
 <script type="text/javascript" src="bower_components/angular-translate-storage-local/angular-translate-storage-local.min.js"></script>  
 <script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="app.run.js"></script>
 <script type="text/javascript" src="IndexCtrl.js"></script>
  
 <!--	Import component scripts-->
