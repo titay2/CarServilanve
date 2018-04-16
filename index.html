@@ -96,7 +96,7 @@
                     </div>
                     <div class="collapse navbar-collapse" id="bottomNavbar">
                             <ul class="nav  nav-tabs">
-                                    <li class="col-md-16"><a ui-sref="carInfo" translate>CarInfo</a></li>
+                                    <li class="col-md-16"><a ui-sref="carInfo" ng-show="user.id" translate>CarInfo</a></li>
                                     <li class="col-md-16"><a ui-sref="dispatch" ng-show="user.id" translate>Dispatch</a></li>
                                     <li class="col-md-16"><a ui-sref="zone" ng-show="user.id" translate>Zone </a></li>
                                     <li class="col-md-16"><a ui-sref="carsinshift" ng-show="user.id" translate>CarsIn </a></li>
@@ -104,9 +104,7 @@
                                     <li class="col-md-16"><a ui-sref="carWorkshift" ng-show="user.id" translate>Carshift </a></li>                    
                                     <li class="col-md-16"><a ui-sref="groupworkshift" ng-show="user.id" translate>Groupshift </a></li> 
                                     <!-- <li class="col-md-16"><a ui-sref="restriction" translate>Active</a></li> -->
-                                    <button class="button button-block button-assertive" ng-click="HelloService.logout()" ng-show="user.id">
-                                        Logout
-                                      </button>
+                                    <button class="btn" ng-click="HelloService.logout()" ng-show="user.id"> Logout </button> {{user.email| limitTo : 8 }}
                             </ul>
                              
                     </div>

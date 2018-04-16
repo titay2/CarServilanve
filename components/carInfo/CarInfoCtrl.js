@@ -16,8 +16,6 @@
             $scope.login = HelloService.login;
             $scope.logout = helloLogout;
         
-    
-
     // Web Login and Logout using hello
     function helloInitialize() {
         HelloService.initialize().then(function(authResponse) {
@@ -37,11 +35,9 @@
         var user = {};
         user.token = response.access_token || response.token;
         var data = jwtHelper.decodeToken(user.token);
-        
         user.expires_in = new Date(response.expires * 1000) || response.expiresOn;
         user.name = data.name;
         user.email = data.emails ? data.emails[0] : '';
-        //console.log(user.email )
         user.id = data.sub;
        
         return user;
