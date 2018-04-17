@@ -9,7 +9,7 @@
     function CreateMessageCtrl(apiService, translateService, $scope, $state, $uibModal, $log, $translate) {
         translateService.setLanguage();
         let currentLang = $translate.use();
-        console.log(currentLang)
+       
         var vm = this;
         var $working = $(" input[class = 'working']");
         var $notworking = $(" input[class = 'notWorking']");

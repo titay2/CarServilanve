@@ -1,14 +1,11 @@
 (function() {
 angular
         .module('app')
-        .service('HelloService', function HelloService( $q, hello) {
-  
-       // HelloService.$inject = ['$http', '$q']
-  
+        .service('HelloService', function HelloService( $q, hello, settings,$rootScope, $cookies) {
    
-       var tenantName= 'funutest.onmicrosoft.com';
-        var clientId= '75c0ddab-96b0-48c8-8ccb-1c068a6c62bd';
-       var policy= 'B2C_1_policy'
+       var tenantName= settings.adalB2C.tenantName;
+        var clientId= settings.adalB2C.clientId;
+       var policy= settings.adalB2C.policy;
        var network = 'adB2CSignInSignUp';
     this.initialize = function() {
         //initiate all policies
@@ -17,7 +14,8 @@ angular
             adB2CSignInSignUp:clientId,
             adB2CEditProfile:clientId
         }, {
-            redirect_uri: '../',
+            redirect_uri: '/',
+            //redirect_uri: 'https://semasp04.semel.ext/CarServilanve',
             scope: 'openid ' +clientId,
             response_type: 'token id_token'
         });
@@ -38,8 +36,8 @@ angular
             force: true
         });
     };
-
     this.logout = function() {
+        
         hello(network).logout({
             force: true
         });

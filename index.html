@@ -94,17 +94,18 @@
                             <span class="icon-bar"></span>
                         </button>
                     </div>
-                    <div class="collapse navbar-collapse" id="bottomNavbar">
+                    <div class="collapse navbar-collapse" id="bottomNavbar" >
+                            <!-- <div class="collapse navbar-collapse" id="bottomNavbar"  ng-show="user.id"> -->
                             <ul class="nav  nav-tabs">
                                     <li class="col-md-16"><a ui-sref="carInfo" ng-show="user.id" translate>CarInfo</a></li>
                                     <li class="col-md-16"><a ui-sref="dispatch" ng-show="user.id" translate>Dispatch</a></li>
-                                    <li class="col-md-16"><a ui-sref="zone" ng-show="user.id" translate>Zone </a></li>
+                                    <li class="col-md-16"><a ui-sref="zone" ng-show="user.id"   translate>Zone </a></li>
                                     <li class="col-md-16"><a ui-sref="carsinshift" ng-show="user.id" translate>CarsIn </a></li>
                                     <li class="col-md-16"><a ui-sref="message" ng-show="user.id" translate>Text </a></li>
                                     <li class="col-md-16"><a ui-sref="carWorkshift" ng-show="user.id" translate>Carshift </a></li>                    
                                     <li class="col-md-16"><a ui-sref="groupworkshift" ng-show="user.id" translate>Groupshift </a></li> 
                                     <!-- <li class="col-md-16"><a ui-sref="restriction" translate>Active</a></li> -->
-                                    <button class="btn" ng-click="HelloService.logout()" ng-show="user.id"> Logout </button> {{user.email| limitTo : 8 }}
+                                    {{user.email| limitTo : 8 }} <button class="btn" ng-show="user.id" ng-click="HelloService.logout()"> Logout </button>
                             </ul>
                              
                     </div>
@@ -142,11 +143,13 @@
 <script type="text/javascript" src="app.js"></script>
 <script type="text/javascript" src="app.run.js"></script>
 <script type="text/javascript" src="IndexCtrl.js"></script>
+
  
 <!--	Import component scripts-->
-
+<script type="text/javascript" src="settingValues.js"></script>
 <script src="components/apiService.js"></script>
 <script src="components/HelloService.js"></script>
+<script src="components/loginservice.js"></script>
 <script src="components/translateService.js"></script>
 <script src="components/message/CreateMessageCtrl.js"></script>
 <script src="components/message/MessageCtrl.js"></script>

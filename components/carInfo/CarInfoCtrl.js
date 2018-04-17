@@ -5,11 +5,12 @@
 		.module('app')
  		.controller('CarInfoCtrl', CarInfoCtrl)
 
-		// CarInfoCtrl.$inject = ['apiService', 'translateService', 'HelloService', '$scope', '$state', '$translate'];
+	//	CarInfoCtrl.$inject = ['apiService', 'translateService', 'HelloService', '$scope', '$state', '$translate','loginService'];
+        //var currentuser = JSON.parse(localStorage.getItem('user') || '' )
 
- 		function CarInfoCtrl(apiService, translateService, $scope, $state, $translate, HelloService,jwtHelper,$rootScope ) {
+ 		function CarInfoCtrl(apiService, translateService, $scope, $state, $translate, HelloService,jwtHelper,$rootScope, loginService ) {
             translateService.setLanguage();
-            
+           // loginservice.helloInitialize()
 
             
             helloInitialize();
@@ -25,8 +26,11 @@
     }
 
     function helloLogout() {
-            HelloService.logout();
+        localStorage.clear().then(HelloService.logout())
+        
     }
+   // console.log(users)
+    
 
    
 
@@ -39,13 +43,16 @@
         user.name = data.name;
         user.email = data.emails ? data.emails[0] : '';
         user.id = data.sub;
-       
+        localStorage.setItem('user',JSON.stringify(user));
+       // console.log(currentuser)
+       // console.log(user)
         return user;
     };
    
     function displayUserDetails(user) {
         $scope.user = user;
         $rootScope.user = user;
+       // console.log(currentuser)
     }
             
                //watchAndFilter('callCenterId',"operatingCompanyId" )

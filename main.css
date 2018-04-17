@@ -252,7 +252,10 @@ input[type=checkbox]
     padding-right: 10px;
     padding-left: 10px;
 }
-
+.landingpage{
+    font-family:Times, serif;
+    font-size:468%;
+}
 .col-xs-16 {
     width: 12.5%;
     float: left;

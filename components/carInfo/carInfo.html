@@ -1,7 +1,10 @@
 
-
-<button class="button button-block button-positive" ng-click="login()" ng-hide="user.id">
+<div id="landingpage" ng-hide="user.id"> 
+     you are not logged in yet click here to login ...
+  <button class="btn" ng-click="login()">
     Login
   </button>
+</div>
+
   
   <div id="grid" ng-show="user.id"></div>

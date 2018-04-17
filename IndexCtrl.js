@@ -1,7 +1,7 @@
 
   
-var root = "http://semasp04.semel.ext/TestCarsurveillanceBackend/api/"
-var crudServiceBaseUrl = "http://semasp04.semel.ext/TestCarsurveillanceBackend/signalR/";
+var root = "https://semasp04.semel.fi/TestCarsurveillanceBackend/api/"
+var crudServiceBaseUrl = "https://semasp04.semel.ext/TestCarsurveillanceBackend/signalR/";
 
 var callCenterId = JSON.parse(localStorage.getItem('callCenterId') || '[]' )
 var areaFilter = JSON.parse(localStorage.getItem('areaFilter') || '[]' )
@@ -11,6 +11,13 @@ var vehicleFilter = JSON.parse(localStorage.getItem('vehicleFilter') || '[]' )
 findCallCenter();
 findArea();
 
+// var user = JSON.parse(localStorage.getItem('user'))
+// var id = user.id;
+// console.log(id)
+
+// if (id){
+//     $('#bottomNavbar').show();
+// }
 // Save the navbar filter inputs to localstorage. 
 $("#inputCenter").on('input', function() {               
     var opt = $('option[value="' + $(this).val() + '"]');
