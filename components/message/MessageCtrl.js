@@ -12,56 +12,78 @@
 		// var usertest = JSON.parse(localStorage.getItem('user'))
 		// console.log(usertest.id)
 		
-		 $(document).ready(function() {
-                    var element = $("#grid").kendoGrid({
-                        dataSource: {
-                            type: "odata",
-                            transport: {
-                                read: root + "LogTextMessages" 
-                            },
-                            pageSize: 6,
-                            serverPaging: true,
-                            serverSorting: true
-                        },
-                        height: 600,
-                        sortable: true,
-                        pageable: true,
-                        detailInit: detailInit,
-                        
-                        columns: [
-                            {
-                                field: "textMessageSendCommands",
-                                title: "First Name"
-                            },
-                           
-                        ]
-                    });
-                });
+				$.ajax({
+					url: root + "LogTextMessages" ,
+					method: "GET",
+					dataType: "json",
+					success: function(data){
+						var values = []
+						for (var i = 0; i < data.length; i++) {
+							console.log(data.length)
+							values.push(data[i].logtextmessage);
 
-                function detailInit(e) {
-                    $("<div/>").appendTo(e.detailCell).kendoGrid({
-                        dataSource: {
-                            type: "odata",
-                            transport: {
-                                read:root + "LogTextMessages" 
-                            },
-                            serverPaging: true,
-                            serverSorting: true,
-                            serverFiltering: true,
-                            pageSize: 10,
-                            filter: { field: "textMessageSendCommands.text", operator: "eq", value: e.data.logtextmessage. text }
-                        },
-                        scrollable: false,
-                        sortable: true,
-                        pageable: true,
-                        columns: [
-                            { field: "OrderID", width: "110px" },
-                            { field: "ShipCountry", title:"Ship Country", width: "110px" },
-                            { field: "ShipAddress", title:"Ship Address" },
-                            { field: "ShipName", title: "Ship Name", width: "300px" }
-                        ]
-                    });
-                }
+							
+						}
+						function detailInit(e) {
+							var rowIndex = e.masterRow.index(".k-master-row");
+							console.log(values[rowIndex])
+								$("<div/>").appendTo(e.detailCell).kendoGrid({
+									dataSource:{
+										data : values[rowIndex],
+										batch: true,
+										pageSize: 10,
+										schema: {
+											model: {
+												fields: {
+													 sendDateTime: { type: "date" },
+													carnumber: { type: "number" },
+													operatingCompanyId: { type: "number" },
+													systemId: { type: "number" },
+												}
+											}
+										}
+									},
+									scrollable: false,
+					    	sortable: true,
+					    	pageable: true,
+					    	columns: [
+								{field:"sendDateTime", title:"Send time", format:"{0: h:mm}"},
+								{field: "carnumber", title:"Vehicle"},
+								{field: "operatingCompanyId", title:"Company"},
+								{field: "systemId", title:"System ID"},
+							]
+						})
+					}
+			
+						$(document).ready(function() {
+							var element = $("#grid").kendoGrid({
+								dataSource: {
+									dataType: "json",
+									transport: {
+										read:  root + "LogTextMessages"
+									},
+									
+								},
+								height: 950,
+								detailInit: detailInit,
+								columns: [
+									{
+										field: "textMessageSendCommands.sendCommandId",
+										// title: "ID",
+										width: "110px"
+									},
+								   
+								]
+							});
+						});
+
+
+					}
+				})
+
+				
+
+                
 		// $.ajax({
 		// 	url: root + "LogTextMessages" ,
 		// 	method: "GET",

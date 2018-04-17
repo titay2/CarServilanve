@@ -71,7 +71,6 @@ try {
             method: "GET",
             dataType: "json", 
             success: function (data) {
-                console.log(data);
                 updateStatusBar(data)
             },
             error: function (jqXHR, textStatus, errorThrown) {
@@ -79,7 +78,7 @@ try {
             }
         });
     })
-    .done(console.log(connection));
+    .done();
 }
 catch(err){
     (err => console.log(err));
