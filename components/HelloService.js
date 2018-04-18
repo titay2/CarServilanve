@@ -14,7 +14,7 @@ angular
             adB2CSignInSignUp:clientId,
             adB2CEditProfile:clientId
         }, {
-            redirect_uri: '/',
+            redirect_uri: '../',
             //redirect_uri: 'https://semasp04.semel.ext/CarServilanve',
             scope: 'openid ' +clientId,
             response_type: 'token id_token'

@@ -11,14 +11,7 @@ var vehicleFilter = JSON.parse(localStorage.getItem('vehicleFilter') || '[]' )
 findCallCenter();
 findArea();
 
-// var user = JSON.parse(localStorage.getItem('user'))
-// var id = user.id;
-// console.log(id)
-
-// if (id){
-//     $('#bottomNavbar').show();
-// }
-// Save the navbar filter inputs to localstorage. 
+               //SET FILTER VALUES TO LOCAL STORAGE. 
 $("#inputCenter").on('input', function() {               
     var opt = $('option[value="' + $(this).val() + '"]');
     var val = opt.attr('id'); 
@@ -28,35 +21,37 @@ $("#inputCenter").on('input', function() {
 })
 
 $("#inputArea").on('input', function() {  
-    console.log( $(this).val() );
+     var inp = $(this).val()
+    setFiletr('areaFilter', inp)
 })
 
 $("#propertyInput").on('change', function() {
     var input = $(this);
-   //if(input.next()){
+   var val =  input.val();
     if(input.focusout()){
-    console.log( input.val() );
+        setFiletr('propertyFilter', val)
    }     
 })
 
 $("#vihecle").on('change', function() {
    var input = $(this);
+   var val = input.val();
    //if(input.next()){
     if(input.focusout()){
-        setFiletr('vehicleFilter',input.val());
-        console.log( localStorage.getItem('vehicleFilter'));
+        setFiletr('vehicleFilter', val);
    }  
 })
 
 $("#clearLable").click( function () {
     localStorage.clear()
+    location.reload();
     $('#inputCenter').val("");
     $('#inputArea').val("");
     $('#propertyInput').val("");
     $('#vihecle').val("");
 })  
 	
-//connect to the signalR websocketand update the latest changes to the UI in realtime.
+              //CONNECT TO THE SIGNAR, LOAD THE FIRST INPUTS FROM THE API, GET CHANGES FROM SIGNALR AND UPDATE UI.
 const connection = new signalR.HubConnection(crudServiceBaseUrl + "dispatchStatusHub");
 connection.on("startSendingDispatch", (Rowdata) => {
     var data = JSON.parse(Rowdata)
@@ -84,9 +79,7 @@ catch(err){
     (err => console.log(err));
 }
 
-
-           // FUNCTIONS
-//get data and populate the call center input option in the navbar. 
+//POPULATE THE CALLCENTER INPUT OPTIONS WITH DATA FROM DATABASE  
 function findCallCenter() {
     $.ajax({
         url: root + "OperatingCompanies" ,
@@ -103,7 +96,7 @@ function findCallCenter() {
         }
     });
 }
-//get data and populate the area input option in the navbar. 
+//POPULATE THE AREA INPUT OPTIONS WITH DATA FROM DATABASE 
 function findArea(){
     $.ajax({
         url: root + "Postings" ,
@@ -122,18 +115,18 @@ function findArea(){
          }
      });
 }
-//save data passed to localstorage.
+//SETS DATA TO LOCALSTORAGE
 function setFiletr(storageField, inputValue){
-    localStorage.setItem(storageField, inputValue);
+    localStorage.setItem(storageField,JSON.stringify(inputValue) );
 }
-//change the numbers on the status buttons 
+//CHANGING THE VALUES ON THE STATUS BUTTONS
 function updateTheButton(status, num, id){
     if(status.dispatchStatus === num){
         document.getElementById(id).innerHTML = status.dispatchCount;
     }
 }
 
-// compare the Data to get the exact button to be updated
+// FINDS AND UPDATE THE EXACT BUTTON TO BE UPDATED
 function updateStatusBar(data){
     for (var i in data) {
         if (data.hasOwnProperty(i)) {
@@ -145,55 +138,3 @@ function updateStatusBar(data){
         }
     }
 }
-
-
-
-// ! function(t, define) {
-//     define("kendo.data.signalr.min", ["kendo.data.min"], t)
-// }(function() {
-//     return function(t) {
-//         var o = kendo.data.RemoteTransport.extend({
-//             init: function(t) {
-//                 var o, e = t && t.signalr ? t.signalr : {},
-//                     n = e.promise;
-//                 if (!n) throw Error('The "promise" option must be set.');
-//                // if ("function" != typeof n.done || "function" != typeof n.fail) throw Error('The "promise" option must be a Promise.');
-//                 if (typeof n.then != 'function')
-//                 if (this.promise = n, o = e.hub, !o) throw Error('The "hub" option must be set.');
-//                 if ("function" != typeof o.on || "function" != typeof o.invoke) throw Error('The "hub" option is not a valid SignalR hub proxy.');
-//                 this.hub = o, kendo.data.RemoteTransport.fn.init.call(this, t)
-//             },
-//             push: function(t) {
-//                 var o = this.options.signalr.client || {};
-//                 o.create && this.hub.on(o.create, t.pushCreate), o.update && this.hub.on(o.update, t.pushUpdate), o.destroy && this.hub.on(o.destroy, t.pushDestroy)
-//             },
-//             _crud: function(o, e) {
-//                 var n, i, r = this.hub,
-//                     s = this.options.signalr.server;
-//                 if (!s || !s[e]) throw Error(kendo.format('The "server.{0}" option must be set.', e));
-//                 n = [s[e]], i = this.parameterMap(o.data, e), t.isEmptyObject(i) || n.push(i), this.promise.done(function() {
-//                     r.invoke.apply(r, n).done(o.success).fail(o.error)
-//                 })
-//             },
-//             read: function(t) {
-//                 this._crud(t, "read")
-//             },
-//             create: function(t) {
-//                 this._crud(t, "create")
-//             },
-//             update: function(t) {
-//                 this._crud(t, "update")
-//             },
-//             destroy: function(t) {
-//                 this._crud(t, "destroy")
-//             }
-//         });
-//         t.extend(!0, kendo.data, {
-//             transports: {
-//                 signalr: o
-//             }
-//         })
-//     }(window.kendo.jQuery), window.kendo
-// }, "function" == typeof define && define.amd ? define : function(t, o, e) {
-//     (e || o)()
-// });

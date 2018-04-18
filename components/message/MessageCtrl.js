@@ -9,80 +9,60 @@
 		translateService.setLanguage();
 		loginService.helloInitialize();
 
-		// var usertest = JSON.parse(localStorage.getItem('user'))
-		// console.log(usertest.id)
-		
-				$.ajax({
-					url: root + "LogTextMessages" ,
-					method: "GET",
-					dataType: "json",
-					success: function(data){
-						var values = []
-						for (var i = 0; i < data.length; i++) {
-							console.log(data.length)
-							values.push(data[i].logtextmessage);
-
-							
-						}
-						function detailInit(e) {
-							var rowIndex = e.masterRow.index(".k-master-row");
-							console.log(values[rowIndex])
-								$("<div/>").appendTo(e.detailCell).kendoGrid({
-									dataSource:{
-										data : values[rowIndex],
-										batch: true,
-										pageSize: 10,
-										schema: {
-											model: {
-												fields: {
-													 sendDateTime: { type: "date" },
-													carnumber: { type: "number" },
-													operatingCompanyId: { type: "number" },
-													systemId: { type: "number" },
-												}
-											}
+				function detailInit(e) {
+					var rowIndex = e.masterRow.index(".k-master-row");
+						$("<div/>").appendTo(e.detailCell).kendoGrid({
+							dataSource:{
+								data : e.data.logtextmessage,
+								batch: true,
+								pageSize: 10,
+								schema: {
+									model: {
+										fields: {
+											 sendDateTime: { type: "date" },
+											carnumber: { type: "number" },
+											operatingCompanyId: { type: "number" },
+											systemId: { type: "number" },
 										}
-									},
-									scrollable: false,
-					    	sortable: true,
-					    	pageable: true,
-					    	columns: [
-								{field:"sendDateTime", title:"Send time", format:"{0: h:mm}"},
-								{field: "carnumber", title:"Vehicle"},
-								{field: "operatingCompanyId", title:"Company"},
-								{field: "systemId", title:"System ID"},
-							]
-						})
-					}
-			
-						$(document).ready(function() {
-							var element = $("#grid").kendoGrid({
-								dataSource: {
-									dataType: "json",
-									transport: {
-										read:  root + "LogTextMessages"
-									},
-									
-								},
-								height: 950,
-								detailInit: detailInit,
-								columns: [
-									{
-										field: "textMessageSendCommands.sendCommandId",
-										// title: "ID",
-										width: "110px"
-									},
-								   
-								]
-							});
-						});
-
-
-					}
+									}
+								}
+							},
+							scrollable: false,
+					sortable: true,
+					pageable: true,
+					columns: [
+						{field:"sendDateTime", title:"Send time", format:"{0: dd/MM/yyyy  h:mm}"},
+						{field: "carnumber", title:"Vehicle"},
+						{field: "operatingCompanyId", title:"Company"},
+						{field: "systemId", title:"System ID"},
+					]
 				})
-
-				
-
+			}
+	
+				$(document).ready(function() {
+					var element = $("#grid").kendoGrid({
+						dataSource: {
+							dataType: "json",
+							transport: {
+								read:  root + "LogTextMessages"
+							},
+							
+						},
+						height: 950,
+						detailInit: detailInit,
+						columns: [
+							{
+								field: "textMessageSendCommands.sendCommandId",
+								 title: "ID"
+							},
+							{
+								field: "textMessageSendCommands.text",
+								 title: "Message"
+							},
+						   
+						]
+					});
+				});
                 
 		// $.ajax({
 		// 	url: root + "LogTextMessages" ,

@@ -43,7 +43,7 @@
         user.name = data.name;
         user.email = data.emails ? data.emails[0] : '';
         user.id = data.sub;
-        localStorage.setItem('user',JSON.stringify(user));
+      //  localStorage.setItem('user',JSON.stringify(user));
        // console.log(currentuser)
        // console.log(user)
         return user;
@@ -55,7 +55,9 @@
        // console.log(currentuser)
     }
             
-               //watchAndFilter('callCenterId',"operatingCompanyId" )
+                watchAndFilter('callCenterId',"operatingCompanyId" );
+                watchAndFilter('vehicleFilter',"systemId" );
+                watchAndFilter('propertyFilter',"carDispatchAttributes" );
      
             var dataSource = new kendo.data.DataSource({
                
@@ -115,19 +117,18 @@
             $("#grid").kendoGrid({
                 dataSource:dataSource,
                 columns:[	
-                      { field: "carId", title: "Car", attributes: { "class": "driverCardNr" }},
+                      { field: "carNumber", title: "Car No", attributes: { "class": "driverCardNr" }},
      
-                      { field: "driverCardNr", title: "*Driver ID"}, 
+                      { field: "driverCardNr", title: "Driver ID"}, 
                       { field: "systemId", title: "*Zone ID"}, 
                       { field: "taxiCarCompanyId", title: "*TXM Status",attributes: { "class": "taxiCarCompanyId2" }}, 
                       { field: "operatingCompanyId", title: "*Dispatch Status"}, 
                       { field: "carDispatchAttributes", title: "*Dispatch Status"}, 
-                      { field: "editTime", title: "*SFH time",format:"{0: dd/MM/yyyy}"}, 
+                      { field: "editTime", title: "*SFH time",format:"{0: dd/MM/yyyy  h:mm}"}, 
                       { field: "posting", title: "*SFH Zone",attributes: { "class": "taxiCarCompanyId" }}, 
-                      { field: "editTime", title: "*changed Status",format:"{0: dd/MM/yyyy}"}, 
-                      { field: "editTime", title: "*Last Update", format:"{0: dd/MM/yyyy}"}, 
-                      { field: "editTime", title: "*Workshift Start", format:"{0: dd/MM/yyyy }"}, 
-                      { field: "creationdate", title: "Workshift end", format:"{0: dd/MM/yyyy }"},
+                      { field: "editTime", title: "*changed Status",format:"{0: dd/MM/yyyy  h:mm}"}, 
+                      { field: "editTime", title: "*Last Update", format:"{0: dd/MM/yyyy  h:mm}"}, 
+                      { field: "editTime", title: "*Workshift Start", format:"{0: dd/MM/yyyy  h:mm}"}, 
                     ],
             
                 scrollable: true,
@@ -178,7 +179,7 @@
                 }
                 $scope.$watch(getValue, function(val){
                     if (val ){
-              
+                        console.log(val)
                    var newValue   = ($.parseJSON(val))
                       applyFilter(filterBy, newValue)
                    
