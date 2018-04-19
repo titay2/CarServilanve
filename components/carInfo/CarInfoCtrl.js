@@ -14,11 +14,9 @@
     $translate,
     HelloService,
     jwtHelper,
-    $rootScope,
-    loginService
+    $rootScope
   ) {
     translateService.setLanguage();
-    // loginservice.helloInitialize()
 
     helloInitialize();
     $scope.login = HelloService.login;
@@ -27,7 +25,6 @@
     // Web Login and Logout using hello
     function helloInitialize() {
       HelloService.initialize().then(function(authResponse) {
-        //console.log(authResponse)
         displayUserDetails(getUserData(authResponse));
       });
     }
@@ -36,7 +33,6 @@
       localStorage.clear();
       HelloService.logout();
     }
-    // console.log(users)
 
     // Decode decode the token and diaplay the user details
     function getUserData(response) {
@@ -47,16 +43,12 @@
       user.name = data.name;
       user.email = data.emails ? data.emails[0] : "";
       user.id = data.sub;
-      //  localStorage.setItem('user',JSON.stringify(user));
-      // console.log(currentuser)
-      // console.log(user)
       return user;
     }
 
     function displayUserDetails(user) {
       $scope.user = user;
       $rootScope.user = user;
-      // console.log(currentuser)
     }
 
     watchAndFilter("callCenterId", "operatingCompanyId");

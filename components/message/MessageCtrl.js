@@ -22,7 +22,6 @@
     loginService.helloInitialize();
 
     function detailInit(e) {
-      var rowIndex = e.masterRow.index(".k-master-row");
       $("<div/>")
         .appendTo(e.detailCell)
         .kendoGrid({
@@ -43,7 +42,7 @@
           },
           scrollable: false,
           //sortable: true,
-          //pageable: true,
+          pageable: true,
           columns: [
             {
               field: "sendDateTime",

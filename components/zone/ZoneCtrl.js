@@ -7,7 +7,7 @@
     "$scope",
     "$state",
     "$translate",
-    "$log"
+    "loginService"
   ];
 
   function ZoneCtrl(
@@ -16,42 +16,61 @@
     $scope,
     $state,
     $translate,
-    $log
+    loginService
   ) {
-    let currentLang = $translate.use();
-    var baseUrl =
-      "https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.";
-
     translateService.setLanguage();
+    loginService.helloInitialize();
 
-    // skeleton for the signalR data
-
-    function createGrid() {
-      var group = [
+    $("#grid").kendoGrid({
+      columns: [
         {
-          id: "1",
-          startTime: "test",
-          endTime: "test",
-          groupname: "test",
-          togroup: "test"
-        }
-      ];
-      dataSource = new kendo.data.DataSource({
-        transport: {
-          //   read: { url: "http://localhost:52273/api/WorkshiftCarGroup"},
+          field: "zoneName",
+          title: "zone Name"
         },
-        batch: true,
-        pageSize: 20,
-        schema: {}
-      });
-      $("#grid").kendoGrid({
-        columns: [],
+        {
+          field: "freeCarCount",
+          title: "free cars"
+        }
+      ],
+      dataSource: {
+        dataType: "json",
+        transport: {
+          read: root + "ZonesAndCars"
+        }
+      },
+      detailTemplate: kendo.template($("#detail-template").html()),
+      detailInit: function(e) {
+        e.detailCell.find(".subgrid1").kendoGrid({
+          scrollable: false,
+          sortable: true,
+          pageable: true,
 
-        scrollable: true,
-        pageable: true,
-        pageSize: 2,
-        sortable: true
-      });
-    }
+          columns: [
+            { field: "carNumber", title: "Free Car number" },
+            {
+              field: "statusTime",
+              format: "{0: dd/MM/yyyy  h:mm}",
+              title: "Status time"
+            }
+          ],
+          dataSource: {
+            data: e.data.freeCarList,
+            pageSize: 5,
+            schema: {
+              model: {
+                fields: {
+                  statusTime: { type: "date" }
+                }
+              }
+            }
+          }
+        });
+
+        e.detailCell.find(".subgrid2").kendoGrid({
+          columns: [{ field: "car", title: "Other cars" }, { field: "num" }],
+          dataSource: [{ car: "Car1", num: 30 }, { car: "car2", num: 33 }]
+        });
+      }
+    });
   }
 })();
