@@ -1,252 +1,286 @@
 (function() {
-	//'use strict';
- 
-	angular
-		.module('app')
- 		.controller('CarInfoCtrl', CarInfoCtrl)
+  //'use strict';
 
-	//	CarInfoCtrl.$inject = ['apiService', 'translateService', 'HelloService', '$scope', '$state', '$translate','loginService'];
-        //var currentuser = JSON.parse(localStorage.getItem('user') || '' )
+  angular.module("app").controller("CarInfoCtrl", CarInfoCtrl);
 
- 		function CarInfoCtrl(apiService, translateService, $scope, $state, $translate, HelloService,jwtHelper,$rootScope, loginService ) {
-            translateService.setLanguage();
-           // loginservice.helloInitialize()
+  //	CarInfoCtrl.$inject = ['apiService', 'translateService', 'HelloService', '$scope', '$state', '$translate','loginService'];
+  //var currentuser = JSON.parse(localStorage.getItem('user') || '' )
 
-            
-            helloInitialize();
-            $scope.login = HelloService.login;
-            $scope.logout = helloLogout;
-        
+  function CarInfoCtrl(
+    apiService,
+    translateService,
+    $scope,
+    $state,
+    $translate,
+    HelloService,
+    jwtHelper,
+    $rootScope,
+    loginService
+  ) {
+    translateService.setLanguage();
+    // loginservice.helloInitialize()
+
+    helloInitialize();
+    $scope.login = HelloService.login;
+    $scope.logout = helloLogout;
+
     // Web Login and Logout using hello
     function helloInitialize() {
-        HelloService.initialize().then(function(authResponse) {
-            //console.log(authResponse)
-            displayUserDetails(getUserData(authResponse))
-        });
+      HelloService.initialize().then(function(authResponse) {
+        //console.log(authResponse)
+        displayUserDetails(getUserData(authResponse));
+      });
     }
 
     function helloLogout() {
-        localStorage.clear().then(HelloService.logout())
-        
+      localStorage.clear();
+      HelloService.logout();
     }
-   // console.log(users)
-    
-
-   
+    // console.log(users)
 
     // Decode decode the token and diaplay the user details
     function getUserData(response) {
-        var user = {};
-        user.token = response.access_token || response.token;
-        var data = jwtHelper.decodeToken(user.token);
-        user.expires_in = new Date(response.expires * 1000) || response.expiresOn;
-        user.name = data.name;
-        user.email = data.emails ? data.emails[0] : '';
-        user.id = data.sub;
+      var user = {};
+      user.token = response.access_token || response.token;
+      var data = jwtHelper.decodeToken(user.token);
+      user.expires_in = new Date(response.expires * 1000) || response.expiresOn;
+      user.name = data.name;
+      user.email = data.emails ? data.emails[0] : "";
+      user.id = data.sub;
       //  localStorage.setItem('user',JSON.stringify(user));
-       // console.log(currentuser)
-       // console.log(user)
-        return user;
-    };
-   
-    function displayUserDetails(user) {
-        $scope.user = user;
-        $rootScope.user = user;
-       // console.log(currentuser)
+      // console.log(currentuser)
+      // console.log(user)
+      return user;
     }
-            
-                watchAndFilter('callCenterId',"operatingCompanyId" );
-                watchAndFilter('vehicleFilter',"systemId" );
-                watchAndFilter('propertyFilter',"carDispatchAttributes" );
-     
-            var dataSource = new kendo.data.DataSource({
-               
-                transport:{
-                    read:{
-                        url:root+ "Cars",
-                        data:{ format: "json"},
-                        dataType: "json",
-                    }
-                },
-                schema: {
-                    model: {						
-                        fields: {
-                            // carId: {type: "number"},				  			
-                            // systemId: {type: "number"},				  			
-                            // carNumber: {type: "number"},				  			
-                            // carRegisterNr: {type: "number"},				  			
-                            // carPhoneNr: {type: "number"},				  			
-                            // passengerCapacity: {type: "number"},				  			
-                            // carBrandAndModel: {type: "text"},				  			
-                            // carDispatchAttributes: {type: "text"},				  			
-                            // operatingCompanyId: {type: "number"},				  			
-                            // postingId: {type: "number"},				  			
-                            // taxiCarCompanyId: {type: "number"},				  			
-                            // driverCardNr: {type: "number"},				  			
-                            // paymentTerminalId: {type: "number"},				  			
-                            // notes: {type: "text"},				  			
-                            // ownerName: {type: "text"},				  			
-                            // carPagerPhone: {type: "number"},				  			
-                            // bookingSendType: {type: "text"},				  			
-                            // carBookingType: {type: "text"},				  			
-                            // carBookingAttribute: {type: "text"},				  			
-                            // isStationDevice: {type: "text"},				  			
-                            // carType: {type: "text"},				  			
-                            // vatRegNr: {type: "number"},				  			
-                            // vatRegNr: {type: "number"},		  			
-                            // tripDataSendTarget: {type: "text"},				  			
-                            // ttdataSendTarget: {type: "text"},				  			
-                            startSuspend: {type: "date"},				  			
-                            finishSuspend: {type: "date"},				  			
-                            // carEmailAddr: {type: "text"},				  			
-                            // pagerActive: {type: "text"},				  			
-                            // pagerActive: {type: "text"},				  			
-                            // passengerRating: {type: "text"},				  			
-                            // carPaymentDeviceType: {type: "text"},				  			
-                            // editUserName: {type: "text"},				  			
-                            editTime: {type: "date"},				  			
-                            // operatingCompany: {type: "text"},				  			
-                            // posting: {type: "text"},				  			
-                            // taxiCarCompany: {type: "text"},				  			
-                            // tblCarBelongsToWorkShiftGroup: {type: "text"},				  			
-                        }
-                    }
-                },
-            });
-            //DRAW THE KENDO TABLE WITH THE DEFINED DATASOURCE
-            $("#grid").kendoGrid({
-                dataSource:dataSource,
-                columns:[	
-                      { field: "carNumber", title: "Car No", attributes: { "class": "driverCardNr" }},
-     
-                      { field: "driverCardNr", title: "Driver ID"}, 
-                      { field: "systemId", title: "*Zone ID"}, 
-                      { field: "taxiCarCompanyId", title: "*TXM Status",attributes: { "class": "taxiCarCompanyId2" }}, 
-                      { field: "operatingCompanyId", title: "*Dispatch Status"}, 
-                      { field: "carDispatchAttributes", title: "*Dispatch Status"}, 
-                      { field: "editTime", title: "*SFH time",format:"{0: dd/MM/yyyy  h:mm}"}, 
-                      { field: "posting", title: "*SFH Zone",attributes: { "class": "taxiCarCompanyId" }}, 
-                      { field: "editTime", title: "*changed Status",format:"{0: dd/MM/yyyy  h:mm}"}, 
-                      { field: "editTime", title: "*Last Update", format:"{0: dd/MM/yyyy  h:mm}"}, 
-                      { field: "editTime", title: "*Workshift Start", format:"{0: dd/MM/yyyy  h:mm}"}, 
-                    ],
-            
-                scrollable: true,
-                detailInit: detailInit,
-                resizable: true,
-                sortable:true
-            });
 
-            $("#grid").kendoDraggable({
-                filter: ".driverCardNr",
-                dragstart: function(e) {
-                    var draggedElement = e.currentTarget.closest("tr"), //get the DOM element that is being dragged
-                        dataItem = dataSource.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
-                    console.log(dataItem.carId);
-                },
-                hint: function(element) {
-                    return element.clone().css({
-                        // "opacity": 0.6,
-                        // "background-color": "#0cf"
-                    });
-                }
-            });
-            $("#grid").kendoDropTargetArea({
-                filter: ".taxiCarCompanyId, .taxiCarCompanyId2",
-                drop: onDrop
-            });
-          
-            function onDrop(e) {
-                var draggedElement = e.dropTarget.closest("tr"), //get the DOM element that is being dragged
-                dataItem = dataSource.getByUid(draggedElement.data("uid"));
-                var row = $(this).closest("tr"); //get corresponding dataItem from the DataSource instance
-                var colIdx = e.dropTarget.index();
-                var colName = $('#grid').find('th').eq(colIdx).text();
-              
-                console.log(colName);
-                console.log(dataItem);
-            }
+    function displayUserDetails(user) {
+      $scope.user = user;
+      $rootScope.user = user;
+      // console.log(currentuser)
+    }
 
-            $("#clearLable").click(function () {    
-                $state.reload('carInfo');
-                //$("#grid").data("kendoGrid").dataSource.filter({});
-            }) 
+    watchAndFilter("callCenterId", "operatingCompanyId");
+    watchAndFilter("vehicleFilter", "systemId");
+    watchAndFilter("propertyFilter", "carDispatchAttributes");
 
-            //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION
-            function watchAndFilter(watchThis,filterBy ){
-                function getValue(){
-                    return window.localStorage.getItem(watchThis);
-                }
-                $scope.$watch(getValue, function(val){
-                    if (val ){
-                        console.log(val)
-                   var newValue   = ($.parseJSON(val))
-                      applyFilter(filterBy, newValue)
-                   
-                    }
-                });
-            }
-            //TAKE FILTER VALUES FROM LOCALSTORAGE AND MODIFIES THE DATASOURCE ACCORDINGLY 
-            function applyFilter(filterField, filterValue) {    
-                var gridData = $("#grid").data("kendoGrid");
-                var currFilterObj = gridData.dataSource.filter();
-                var currentFilters = currFilterObj ? currFilterObj.filters : []
-              
-                if (currentFilters && currentFilters.length > 0) {
-                    for (var i = 0; i < currentFilters.length; i++) {
-                        if (currentFilters[i].field == filterField) {
-                            currentFilters.splice(i, 1);
-                            break;
-                        }
-                    }
-                }
-        
-                if (filterValue != "0") {
-                    currentFilters.push({
-                        field: filterField,
-                        operator: "eq",
-                        value: filterValue
-                    });
-                }
-             
-                dataSource.filter({
-                    logic: "and",
-                    filters: currentFilters,
-                })
-            }
-            //DETAIL FOR THE MASTER DATA
-            function detailInit(e) {
-                $("<div/>").appendTo(e.detailCell).kendoGrid({
-                    dataSource: {
-                        transport: {
-                            read:{
-                                url:root + "Cars"+ e.data.carId ,
-                                data:{ format: "json"},
-                                dataType: "json",
-                            }
-                        },
-                        schema: {
-                            model: {                        
-                                fields: {
-                                    carId: {type: "number"},				  			
-                                    systemId: {type: "number"},				  			                               				  			
-                                    taxiCarCompanyId: {type: "number"},				  			
-                                    driverCardNr: {type: "number"},				  			                               			  			
-                                }
-                            }
-                        }
-                       
-                    },
-                    scrollable: false,
-                    sortable: true,
-                    pageable: false,          
-                    columns: [
-                        { field: "carId", title: "Car"}, 
-                        { field: "driverCardNr", title: "*Driver ID"}, 
-                        { field: "systemId", title: "*Zone ID"}, 
-                        { field: "taxiCarCompanyId", title: "*TXM Status"} 
-                    ]
-                });
-            }
+    var dataSource = new kendo.data.DataSource({
+      transport: {
+        read: {
+          url: root + "Cars",
+          data: { format: "json" },
+          dataType: "json"
         }
-}());
+      },
+      schema: {
+        model: {
+          fields: {
+            // carId: {type: "number"},
+            // systemId: {type: "number"},
+            // carNumber: {type: "number"},
+            // carRegisterNr: {type: "number"},
+            // carPhoneNr: {type: "number"},
+            // passengerCapacity: {type: "number"},
+            // carBrandAndModel: {type: "text"},
+            // carDispatchAttributes: {type: "text"},
+            // operatingCompanyId: {type: "number"},
+            // postingId: {type: "number"},
+            // taxiCarCompanyId: {type: "number"},
+            // driverCardNr: {type: "number"},
+            // paymentTerminalId: {type: "number"},
+            // notes: {type: "text"},
+            // ownerName: {type: "text"},
+            // carPagerPhone: {type: "number"},
+            // bookingSendType: {type: "text"},
+            // carBookingType: {type: "text"},
+            // carBookingAttribute: {type: "text"},
+            // isStationDevice: {type: "text"},
+            // carType: {type: "text"},
+            // vatRegNr: {type: "number"},
+            // vatRegNr: {type: "number"},
+            // tripDataSendTarget: {type: "text"},
+            // ttdataSendTarget: {type: "text"},
+            startSuspend: { type: "date" },
+            finishSuspend: { type: "date" },
+            // carEmailAddr: {type: "text"},
+            // pagerActive: {type: "text"},
+            // pagerActive: {type: "text"},
+            // passengerRating: {type: "text"},
+            // carPaymentDeviceType: {type: "text"},
+            // editUserName: {type: "text"},
+            editTime: { type: "date" }
+            // operatingCompany: {type: "text"},
+            // posting: {type: "text"},
+            // taxiCarCompany: {type: "text"},
+            // tblCarBelongsToWorkShiftGroup: {type: "text"},
+          }
+        }
+      }
+    });
+    //DRAW THE KENDO TABLE WITH THE DEFINED DATASOURCE
+    $("#grid").kendoGrid({
+      dataSource: dataSource,
+      columns: [
+        {
+          field: "carNumber",
+          title: "Car No",
+          attributes: { class: "driverCardNr" }
+        },
+
+        { field: "driverCardNr", title: "Driver ID" },
+        { field: "systemId", title: "*Zone ID" },
+        {
+          field: "taxiCarCompanyId",
+          title: "*TXM Status",
+          attributes: { class: "taxiCarCompanyId2" }
+        },
+        { field: "operatingCompanyId", title: "*Dispatch Status" },
+        { field: "carDispatchAttributes", title: "*Dispatch Status" },
+        {
+          field: "editTime",
+          title: "*SFH time",
+          format: "{0: dd/MM/yyyy  h:mm}"
+        },
+        {
+          field: "posting",
+          title: "*SFH Zone",
+          attributes: { class: "taxiCarCompanyId" }
+        },
+        {
+          field: "editTime",
+          title: "*changed Status",
+          format: "{0: dd/MM/yyyy  h:mm}"
+        },
+        {
+          field: "editTime",
+          title: "*Last Update",
+          format: "{0: dd/MM/yyyy  h:mm}"
+        },
+        {
+          field: "editTime",
+          title: "*Workshift Start",
+          format: "{0: dd/MM/yyyy  h:mm}"
+        }
+      ],
+
+      scrollable: true,
+      detailInit: detailInit,
+      resizable: true,
+      sortable: true
+    });
+
+    $("#grid").kendoDraggable({
+      filter: ".driverCardNr",
+      dragstart: function(e) {
+        var draggedElement = e.currentTarget.closest("tr"), //get the DOM element that is being dragged
+          dataItem = dataSource.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
+        console.log(dataItem.carId);
+      },
+      hint: function(element) {
+        return element.clone().css({
+          // "opacity": 0.6,
+          // "background-color": "#0cf"
+        });
+      }
+    });
+    $("#grid").kendoDropTargetArea({
+      filter: ".taxiCarCompanyId, .taxiCarCompanyId2",
+      drop: onDrop
+    });
+
+    function onDrop(e) {
+      var draggedElement = e.dropTarget.closest("tr"), //get the DOM element that is being dragged
+        dataItem = dataSource.getByUid(draggedElement.data("uid"));
+      var row = $(this).closest("tr"); //get corresponding dataItem from the DataSource instance
+      var colIdx = e.dropTarget.index();
+      var colName = $("#grid")
+        .find("th")
+        .eq(colIdx)
+        .text();
+
+      console.log(colName);
+      console.log(dataItem);
+    }
+
+    $("#clearLable").click(function() {
+      $state.reload("carInfo");
+      //$("#grid").data("kendoGrid").dataSource.filter({});
+    });
+
+    //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION
+    function watchAndFilter(watchThis, filterBy) {
+      function getValue() {
+        return window.localStorage.getItem(watchThis);
+      }
+      $scope.$watch(getValue, function(val) {
+        if (val) {
+          console.log(val);
+          var newValue = $.parseJSON(val);
+          applyFilter(filterBy, newValue);
+        }
+      });
+    }
+    //TAKE FILTER VALUES FROM LOCALSTORAGE AND MODIFIES THE DATASOURCE ACCORDINGLY
+    function applyFilter(filterField, filterValue) {
+      var gridData = $("#grid").data("kendoGrid");
+      var currFilterObj = gridData.dataSource.filter();
+      var currentFilters = currFilterObj ? currFilterObj.filters : [];
+
+      if (currentFilters && currentFilters.length > 0) {
+        for (var i = 0; i < currentFilters.length; i++) {
+          if (currentFilters[i].field == filterField) {
+            currentFilters.splice(i, 1);
+            break;
+          }
+        }
+      }
+
+      if (filterValue != "0") {
+        currentFilters.push({
+          field: filterField,
+          operator: "eq",
+          value: filterValue
+        });
+      }
+
+      dataSource.filter({
+        logic: "and",
+        filters: currentFilters
+      });
+    }
+    //DETAIL FOR THE MASTER DATA
+    function detailInit(e) {
+      $("<div/>")
+        .appendTo(e.detailCell)
+        .kendoGrid({
+          dataSource: {
+            transport: {
+              read: {
+                url: root + "Cars" + e.data.carId,
+                data: { format: "json" },
+                dataType: "json"
+              }
+            },
+            schema: {
+              model: {
+                fields: {
+                  carId: { type: "number" },
+                  systemId: { type: "number" },
+                  taxiCarCompanyId: { type: "number" },
+                  driverCardNr: { type: "number" }
+                }
+              }
+            }
+          },
+          scrollable: false,
+          sortable: true,
+          pageable: false,
+          columns: [
+            { field: "carId", title: "Car" },
+            { field: "driverCardNr", title: "*Driver ID" },
+            { field: "systemId", title: "*Zone ID" },
+            { field: "taxiCarCompanyId", title: "*TXM Status" }
+          ]
+        });
+    }
+  }
+})();

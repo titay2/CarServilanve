@@ -1,19 +1,11 @@
 {
   "name": "message",
-  "authors": [
-    "Tehetena Mashresha <tehetena.mashresha@semel.fi>"
-  ],
+  "authors": ["Tehetena Mashresha <tehetena.mashresha@semel.fi>"],
   "description": "test application",
   "main": "",
   "license": "MIT",
   "homepage": "",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
+  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
   "dependencies": {
     "angular-ui-router": "~0.3.1",
     "jquery": "2.2.4",
@@ -22,7 +14,6 @@
     "angular-bootstrap": "^2.3.0",
     "angular-daterangepicker": "^0.2.2",
     "kendo-ui": "https://bower.telerik.com/bower-kendo-ui.git#~2018.1.221"
-
   },
   "resolutions": {
     "angular": "1.5.8"

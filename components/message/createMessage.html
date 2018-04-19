@@ -3,74 +3,74 @@
         <div class="form-container">
             <div class="checkbox-inline groupcheck">
                 <label class="groubLable" translate>Group</label>
-                <input type="checkbox" class="vanish"  ng-model="body.Group" />
+                <input type="checkbox" class="vanish" ng-model="body.Group" />
             </div>
-            <div class="carNumber" ng-hide="body.Group">  
+            <div class="carNumber" ng-hide="body.Group">
                 <div class="form-inline">
                     <div class="form-group">
                         <label translate>Car</label>
-                        <input type="text" class="form-control"  maxlength="5" size="5" placeholder="" ng-model="body.CarStart" ng-disabled="body.All"> --
-                        <input type="text" class="form-control"  maxlength="5" size="5" placeholder="" ng-model="body.CarEnd" ng-disabled="body.All">   
+                        <input type="text" class="form-control" maxlength="5" size="5" placeholder="" ng-model="body.CarStart" ng-disabled="body.All"> --
+                        <input type="text" class="form-control" maxlength="5" size="5" placeholder="" ng-model="body.CarEnd" ng-disabled="body.All">
                     </div>
                 </div>
             </div>
-            <div class="groupNo" ng-show = "body.Group">  
+            <div class="groupNo" ng-show="body.Group">
                 <div class="form-inline">
                     <div class="form-group">
                         <label translate>GroupName</label>
-                        <input type="text" class="form-control"  placeholder="Group Name" ng-model="body.WorkShiftGroup" ng-disabled="body.All">  
+                        <input type="text" class="form-control" placeholder="Group Name" ng-model="body.WorkShiftGroup" ng-disabled="body.All">
                     </div>
                 </div>
             </div>
             <div class="form-inline">
                 <div class="form-group">
                     <label translate>Zonenum</label>
-                    <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneStart" ng-disabled="body.All"> -- 
-                    <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.ZoneEnd" ng-disabled="body.All">   
-                </div>
-           </div>
-           <div class="form-inline">
-                <div class="form-group">
-                    <label translate>Drivers</label>
-                    <input type="text" class="form-control"  maxlength="4" size="4" placeholder=""ng-model="body.DriverStart" ng-disabled="body.All"> --        
-                    <input type="text" class="form-control"  maxlength="4" size="4" placeholder="" ng-model="body.DriverEnd " ng-disabled="body.All">   
+                    <input type="text" class="form-control" maxlength="4" size="4" placeholder="" ng-model="body.ZoneStart" ng-disabled="body.All"> --
+                    <input type="text" class="form-control" maxlength="4" size="4" placeholder="" ng-model="body.ZoneEnd" ng-disabled="body.All">
                 </div>
             </div>
-           <div class="form-group">
-                <label translate>AREA</label> 
-                <input ng-model="body.Posting" list= "allArea" class="form-control" ng-disabled="body.All"/>
+            <div class="form-inline">
+                <div class="form-group">
+                    <label translate>Drivers</label>
+                    <input type="text" class="form-control" maxlength="4" size="4" placeholder="" ng-model="body.DriverStart" ng-disabled="body.All"> --
+                    <input type="text" class="form-control" maxlength="4" size="4" placeholder="" ng-model="body.DriverEnd " ng-disabled="body.All">
+                </div>
+            </div>
+            <div class="form-group">
+                <label translate>AREA</label>
+                <input ng-model="body.Posting" list="allArea" class="form-control" ng-disabled="body.All" />
                 <datalist id="allArea">
                     <option ng-repeat="area in areas" valeu="{{area}}">{{area.postingName}}</option>
                 </datalist>
             </div>
             <div class="form-group">
                 <label translate>PROPERTY</label>
-                <input class="form-control" id="property" ng-model="body.Properties" ng-disabled="body.All"/>
+                <input class="form-control" id="property" ng-model="body.Properties" ng-disabled="body.All" />
             </div>
             <div class="form-group">
                 <label translate>OnShift</label>
-                <input class="form-control" id="shiftt" ng-model="body.DispatchStatus" list= "allShifts" ng-disabled="body.All"/>
+                <input class="form-control" id="shiftt" ng-model="body.DispatchStatus" list="allShifts" ng-disabled="body.All" />
                 <datalist id="allShifts">
                     <option ng-repeat="shift in shifts" value="{{shift.statusName}}">{{shift.statusName}}</option>
                 </datalist>
             </div>
-            <div class="form-group" >
-                <label translate>Repeat</label> 
-                <input  class="form-control" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeMin"/>
-                <textarea class="form-control" cols="300"  id="range" name="datefilter"  placeholder="time and date" ng-model="body.range">   </textarea>
+            <div class="form-group">
+                <label translate>Repeat</label>
+                <input class="form-control" id="xtimes" placeholder="X minutes" ng-model="body.RepeatTimeMin" />
+                <textarea class="form-control" cols="300" id="range" name="datefilter" placeholder="time and date" ng-model="body.range">   </textarea>
             </div>
             <div class="form-group">
-                <label translate >Standard</label>
+                <label translate>Standard</label>
                 <button type="button" class="btn btn-sm" ng-click="open()" translate>Choose</button>
-            </div>  
+            </div>
             <div class="form-group">
                 <label translate>new</label>
-                <textarea id="textHere" class="form-control" rows="7" cols="500" ng-model="body.Text" > </textarea>
+                <textarea id="textHere" class="form-control" rows="7" cols="500" ng-model="body.Text"> </textarea>
             </div>
-            <div  class="form-group">
+            <div class="form-group">
                 <button type="button" class="btn btn-sm" translate>SAVE</button>
                 <button class="button" type="submit" id="submit-msg" translate>SEND</button>
-            </div>          
+            </div>
         </div>
 </div>
 <div id="filter" class="col-md-3 col-xs-12 ">
@@ -78,24 +78,24 @@
         <li>
             <div class="checkbox-inline">
                 <input type="checkbox" class="working" ng-model="body.WorkShift" ng-disabled="body.All || body.NotWorkShift" />
-                <label translate >InWorkshift</label>
+                <label translate>InWorkshift</label>
             </div>
         </li>
         <li>
             <div class="checkbox-inline">
-                <input type="checkbox" class="notWorking" ng-model="body.NotWorkShift" ng-disabled="body.All || body.WorkShift"/>
-                <label translate >Notworkshift</label>
+                <input type="checkbox" class="notWorking" ng-model="body.NotWorkShift" ng-disabled="body.All || body.WorkShift" />
+                <label translate>Notworkshift</label>
             </div>
         </li>
         <li>
             <div class=" checkbox-inline ">
-                <input type="checkbox" class="allCars"  ng-model="body.All"  />
+                <input type="checkbox" class="allCars" ng-model="body.All" />
                 <label translate>AllCars</label>
             </div>
         </li>
         <li>
             <div class="checkbox-inline">
-                <input type="checkbox" ng-model= "body.Print" />
+                <input type="checkbox" ng-model="body.Print" />
                 <label translate>Forced</label>
             </div>
         </li>
@@ -105,12 +105,12 @@
                 <label translate>Secured</label>
             </div>
         </li>
-    </ul>     
-    
+    </ul>
+
 </div>
-    </form>
-    <div>
-        <script type="text/ng-template" id="myModalContent.html">
+</form>
+<div>
+    <script type="text/ng-template" id="myModalContent.html">
             <div class="modal-header">
                 <input class="form-control" placeholder="Search" ng-model="search.text" autofocus  ng-keypress="keyInput($event)" />
             </div>   
@@ -138,4 +138,4 @@
                 <div id= "here" ></div>
             </div>
         </script>
-    </div>
+</div>
