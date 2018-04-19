@@ -1,5 +1,8 @@
 {
   "LANGUAGE": "Language",
+  "LOGIN": "Login",
+  "LOGOUT": "Logout",
+  "HERE": "you are not logged in yet click here to login",
   "English": "English",
   "Finnish": "Finnish",
   "Swedish": "Swedish",

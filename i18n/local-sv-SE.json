@@ -1,5 +1,8 @@
 {
   "LANGUAGE": "SPRÅK",
+  "LOGIN": "logga in",
+  "LOGOUT": "logga ut",
+  "HERE": "Du är inte inloggad ännu, klicka här för att logga in",
   "English": "Engelsk",
   "Finnish": "Finsk",
   "Swedish": "Svenska",

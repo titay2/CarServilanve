@@ -1,5 +1,9 @@
 {
   "LANGUAGE": "Kieli",
+  "LOGIN": "Kirjaudu sisään",
+  "LOGOUT": "kirjautua ulos",
+  "HERE":
+    "et ole kirjautunut sisään vielä napsauttamalla tätä kirjautumalla sisään",
   "English": "Englanti",
   "Finnish": "Suomi",
   "Swedish": "Ruotsi",

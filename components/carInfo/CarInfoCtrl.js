@@ -126,7 +126,6 @@
           attributes: { class: "taxiCarCompanyId2" }
         },
         { field: "operatingCompanyId", title: "*Dispatch Status" },
-        { field: "carDispatchAttributes", title: "*Dispatch Status" },
         {
           field: "editTime",
           title: "*SFH time",
@@ -150,6 +149,16 @@
         {
           field: "editTime",
           title: "*Workshift Start",
+          format: "{0: dd/MM/yyyy  h:mm}"
+        },
+        {
+          field: "editTime",
+          title: "*Workshift end",
+          format: "{0: dd/MM/yyyy  h:mm}"
+        },
+        {
+          field: "editTime",
+          title: "*Group",
           format: "{0: dd/MM/yyyy  h:mm}"
         }
       ],
