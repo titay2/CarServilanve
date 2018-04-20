@@ -26,16 +26,13 @@
         .appendTo(e.detailCell)
         .kendoGrid({
           dataSource: {
-            data: e.data.logtextmessage,
+            data: e.data.Logtextmessage,
             //batch: true,
             pageSize: 10,
             schema: {
               model: {
                 fields: {
-                  sendDateTime: { type: "date" },
-                  carnumber: { type: "number" },
-                  operatingCompanyId: { type: "number" },
-                  systemId: { type: "number" }
+                  SendDateTime: { type: "date" }
                 }
               }
             }
@@ -45,211 +42,109 @@
           pageable: true,
           columns: [
             {
-              field: "sendDateTime",
+              field: "SendDateTime",
               title: "Send time",
               format: "{0: dd/MM/yyyy  h:mm}"
             },
-            { field: "carnumber", title: "Vehicle" },
-            { field: "operatingCompanyId", title: "Company" },
-            { field: "systemId", title: "System ID" }
+            { field: "Carnumber", title: "Vehicle" },
+            { field: "OperatingCompanyId", title: "Company" },
+            { field: "SystemId", title: "System ID" },
+            { field: "SendStatus", title: "Status" }
           ]
         });
     }
 
-    $(document).ready(function() {
-      var element = $("#grid").kendoGrid({
-        dataSource: {
-          dataType: "json",
-          transport: {
-            read: root + "LogTextMessages"
-          }
-        },
-        height: 950,
-        detailInit: detailInit,
-        columns: [
-          {
-            field: "textMessageSendCommands.sendCommandId",
-            title: "ID"
-          },
-          {
-            field: "textMessageSendCommands.text",
-            title: "Message"
-          }
-        ]
+    $.connection.hub.url = "http://localhost:8888/signalr";
+    var chat = $.connection.logMessageHub;
+
+    // Create a function that the hub can call to broadcast messages.
+    chat.client.logMessageUpdate = function(logMessage) {
+      // console.log(logMessage);
+    };
+    $.connection.hub.start().done(function() {
+      //console.log("Client Connected");
+      // Call the Send method on the hub.
+      chat.server.getAllLogMessages();
+      chat.server.getAllLogMessages().done(function(getAllLogs) {
+        console.log(getAllLogs);
       });
     });
 
-    // $.ajax({
-    // 	url: root + "LogTextMessages" ,
-    // 	method: "GET",
-    // 	dataType: "json",
-    // 	success: function (data) {
-    // 		var values = []
-    // 		var keys = []
-    // 		for(var key in data){
-    // 			if (data.hasOwnProperty(key)){
-    // 		  		var value=data[key]
-    // 		  		keys.push(key);
-    // 		  		values.push(data[key]);
-    // 		    }
-    // 		}
-    // 		console.log( values)
-    // 		console.log("keys" + key)
-    // 		var dataSource = new kendo.data.DataSource({
-    // 		    data : keys,
-    // 		    schema:{
-    // 				model: {
-    // 					fields: {
-    // 						sendTime :{type :"date"},
-    // 						text: { type: "text" },
-    // 						//sendCommandId: { type: "number" },
-    // 						userName: { type: "text" },
-    // 					}
-    // 				}
-    // 			}
-    // 		});
-    // 		// var dataSourcedetail = new kendo.data.DataSource({
-    // 		// 	data : values[0],
-    // 		// 	batch: true,
-    // 		// 	pageSize: 10,
-    // 		// 	schema: {
-    // 		// 		model: {
-    // 		// 			fields: {
-    // 		// 				sendDateTime: { type: "date" },
-    // 		// 				carnumber: { type: "number" },
-    // 		// 				operatingCompanyId: { type: "number" },
-    // 		// 				systemId: { type: "number" },
-    // 		// 			}
-    // 		// 		}
-    // 		// 	}
-    // 		// });
-    // 		$("#grid").kendoGrid({
-    // 			dataSource: dataSource,
-    // 			pageable: true,
-    // 			sortable: true,
-    // 			columns: [{field:"sendTime", title:"Send time", format:"{0: dd/MM/yyyy}"},
-    // 					 {field: "text", title:"Text"},
-    // 					 {field:"userName", title: "User Name"} ],
-    // 			detailInit: function (e) {
-    // 				var rowIndex = e.masterRow.index(".k-master-row");
-    // 				$("<div/>").appendTo(e.detailCell).kendoGrid({
-    // 					dataSource:{
-    // 						data : values[rowIndex],
-    // 						batch: true,
-    // 						pageSize: 10,
-    // 						schema: {
-    // 							model: {
-    // 								fields: {
-    // 									sendDateTime: { type: "date" },
-    // 									carnumber: { type: "number" },
-    // 									operatingCompanyId: { type: "number" },
-    // 									systemId: { type: "number" },
-    // 								}
-    // 							}
-    // 						}
-    // 				    },
-    // 			    	scrollable: false,
-    // 			    	sortable: true,
-    // 			    	pageable: true,
-    // 			    	columns: [
-    // 						{field:"sendDateTime", title:"Send time", format:"{0: h:mm}"},
-    // 						{field: "carnumber", title:"Vehicle"},
-    // 						{field: "operatingCompanyId", title:"Company"},
-    // 						{field: "systemId", title:"System ID"},
-    // 					]
-    // 			    });
-    // 		    },
-    // 	    });
+    // var hubUrl = "http://localhost:8888/signalr";
+    // var connection = $.hubConnection(hubUrl, { useDefaultPath: false });
+    var hub = $.connection.logMessageHub;
+    var hubStart = $.connection.hub.start({ jsonp: true });
 
-    // 	},
-    // 	error: function (jqXHR, textStatus, errorThrown) {
-    // 		alert("error: " + textStatus + ": " + errorThrown);
-    // 	}
-    // });
-    // const connection = new signalR.HubConnection(crudServiceBaseUrl+ 'logMessageHub');
-    // connection.on("startSendingLog", (logMessageUpdate) => {
-    // 	var jsondata = JSON.parse(logMessageUpdate);
-    // });
-    // try {
-    // 	connection
-    // 		.start()
-    //     	.done(console.log(connection));
-    // } catch(err){
-    //     (err => console.log(err));
-    //    }
+    $("#grid").kendoGrid({
+      height: 950,
+      // editable: true,
+      // sortable: true,
+      detailInit: detailInit,
+
+      dataSource: {
+        type: "signalr",
+        dataType: "json",
+        autoSync: true,
+        schema: {
+          model: {
+            fields: {
+              SendTime: {
+                type: "date",
+                from: "TextMessageSendCommands.SendTime"
+              }
+            }
+          }
+        },
+
+        // sort: [{ field: "SendTime"", dir: "desc" }],
+        transport: {
+          signalr: {
+            promise: hubStart,
+            hub: hub,
+            server: {
+              read: "getAllLogMessages"
+            },
+            client: {
+              read: "logMessageUpdate"
+            }
+          }
+        }
+      },
+      columns: [
+        {
+          field: "SendTime",
+          format: "{0: dd/MM/yyyy  h:mm}",
+          title: "Send Time"
+        },
+        {
+          field: "TextMessageSendCommands.Text",
+          title: "Text"
+        },
+        {
+          field: "TextMessageSendCommands.UserName",
+          title: "User Name"
+        },
+        {
+          field: "TextMessageSendCommands.Name",
+          title: "Message Name"
+        },
+        {
+          field: "TextMessageSendCommands.DisplayShowTime",
+          title: "Show Time"
+        },
+        {
+          field: "TextMessageSendCommands.PrintMessage",
+          title: "Print"
+        },
+        {
+          field: "TextMessageSendCommands.MessageShowType",
+          title: "Type"
+        },
+        {
+          field: "TextMessageSendCommands.QuarantedDelivery ",
+          title: "Secure Send"
+        }
+      ]
+    });
   }
 })();
-
-// to establish a connection without generated proxy
-//this is hub which is a collection of these methods
-/**
-    * var hubUrl = "https://demos.telerik.com/kendo-ui/service/signalr/hubs";
-           var connection = $.hubConnection(hubUrl, { useDefaultPath: false});
-           var hub = connection.createHubProxy("productHub");
-    * Plus on Connection method  
-    */
-//    var dataSource1 = new kendo.data.DataSource({
-// 	transport: {
-// 	read: { url: "http://localhost:52273/api/FleetStates/dispatchStatus"},
-
-// 	},
-// 	batch: true,
-// 	pageSize: 20,
-
-// });
-
-//    const connection = new signalR.HubConnection("http://localhost:52273/dispatchStatusHub");
-//    //const connection = new signalR.HubConnection('http://localhost:51116/logMessageHub');
-//    const button = document.getElementById("startStreaming");
-
-//    const hub = connection.on("startSendingDispatch", (logMessageUpdate) => {
-// 	   //startStreaming();
-// 	   console.log(JSON.parse(logMessageUpdate))
-// 	   return JSON.parse(logMessageUpdate)
-
-//    })
-
-// 	$.ajax({
-// 		 url: "http://localhost:52273/api/FleetStates/dispatchStatus" ,
-// 		 method: "GET",
-// 		 dataType: "json",
-// 		 success: function(data){
-// 			console.log(data)
-// 		 },
-// 		 error: function (jqXHR, textStatus, errorThrown) {
-// 			 alert("error: " + textStatus + ": " + errorThrown);
-// 		 }
-// 	 });
-
-//    try {
-
-// 	const hubStart = connection.start()
-// 	//.done();
-// 	var dataSource = new kendo.data.DataSource({
-// 		type: "signalr",
-
-// 		transport: {
-// 		 signalr: {
-// 		  promise:hubStart,
-// 		  hub: hub,
-// 		//   server: {read: "startSendingDispatch"},
-// 		//   client: {read: "startSendingDispatch"}
-// 		 }
-// 		}
-// 	   })
-
-//    } catch (err) {
-//        (err => showErr(err));
-//    }
-
-//    $("#grid").kendoGrid({
-// 	dataSource: dataSource1,
-// 	height: 850,
-// 	dataBound: function(){
-// 		console.log("API data source " + dataSource)
-// 	},
-// 	columns: [
-// 		{field:"dispatchCount", title:"dispatchCount"},
-// 		{field:"dispatchStatus", title:"dispatchStatus"},
-// 	   ]
-//    });
