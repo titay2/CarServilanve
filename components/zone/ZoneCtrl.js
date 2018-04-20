@@ -24,12 +24,16 @@
     $("#grid").kendoGrid({
       columns: [
         {
+          field: "zoneId",
+          title: "zone ID"
+        },
+        {
           field: "zoneName",
           title: "zone Name"
         },
         {
           field: "freeCarCount",
-          title: "free cars"
+          title: "count"
         }
       ],
       dataSource: {
