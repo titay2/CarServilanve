@@ -61,7 +61,7 @@
         schema: {
           model: {
             fields: {
-              groupName: { validation: { required: true } },
+              groupName: { defaultValue: { groupID: 148, groupName: "Inari" } },
               startTime: { type: "date" },
               endTime: { type: "date" }
             }
@@ -86,8 +86,9 @@
           },
           {
             field: "groupName",
-            title: "groupName",
-            editor: groupNameDropDownEditor
+            title: "Group",
+            editor: groupNameDropDownEditor,
+            template: "#=groupName#"
           },
           { field: "togroup", title: " To Group" },
           { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
@@ -111,9 +112,9 @@
           .kendoDropDownList({
             autoBind: false,
             dataTextField: "groupName",
-            dataValueField: "groupName",
+            dataValueField: "groupID",
             dataSource: {
-              type: "json",
+              // type: "json",
               transport: {
                 read: root + "WorkshiftCarGroup"
               }
@@ -121,10 +122,10 @@
           });
       }
 
-      grid.find(".k-grid-toolbar").on("click", ".k-pager-refresh", function(e) {
-        e.preventDefault();
-        grid.data("kendoGrid").dataSource.read();
-      });
+      // grid.find(".k-grid-toolbar").on("click", ".k-pager-refresh", function(e) {
+      //   e.preventDefault();
+      //   grid.data("kendoGrid").dataSource.read();
+      // });
     }
   }
 })();

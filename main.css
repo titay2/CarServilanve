@@ -2,7 +2,7 @@ body {
   background: #fafafa;
   color: #454544;
   line-height: 2.4285;
-  font-family: Times, serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   font-size: 168%;
 }
 /*controller view container */
@@ -25,7 +25,7 @@ body {
 }
 .nav > li > a {
   color: white;
-  font-family: Times, serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   font-size: large;
 }
 .active {
@@ -52,7 +52,7 @@ body {
   padding-top: 6px;
   padding-bottom: 6px;
   color: white;
-  font-family: Times, serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
 }
 
 /*color codes for car status */
@@ -94,7 +94,7 @@ body {
   color: #111;
   width: 75px;
   padding: 4px 12px;
-  font-family: Times, serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   font-size: large;
 }
 
@@ -248,7 +248,7 @@ input[type="checkbox"] {
   padding-left: 10px;
 }
 .landingpage {
-  font-family: Times, serif;
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
   font-size: 468%;
 }
 .col-xs-16 {

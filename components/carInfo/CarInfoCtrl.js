@@ -30,7 +30,10 @@
     }
 
     function helloLogout() {
-      localStorage.clear();
+      $("#inputCenter").val("");
+      $("#inputArea").val("");
+      $("#propertyInput").val("");
+      $("#vihecle").val("");
       HelloService.logout();
     }
 

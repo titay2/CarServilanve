@@ -27,11 +27,10 @@
 
     $("#grid").kendoGrid({
       height: 950,
-      scrollable: false,
+      //scrollable: true,
       sortable: true,
       resizable: true,
       detailInit: detailInit,
-
       dataSource: {
         type: "signalr",
         dataType: "json",
@@ -53,11 +52,6 @@
             hub: hub,
             server: {
               read: "getAllLogMessages"
-              // read: {
-              //   url: root + "LogTextMessages",
-              //   data: { format: "json" },
-              //   dataType: "json"
-              // }
             },
             client: {
               read: "logMessageUpdate"
