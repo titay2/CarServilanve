@@ -1,58 +1,19 @@
 (function() {
-  //'use strict';
+  "use strict";
 
   angular.module("app").controller("CarInfoCtrl", CarInfoCtrl);
-
-  //	CarInfoCtrl.$inject = ['apiService', 'translateService', 'HelloService', '$scope', '$state', '$translate','loginService'];
-  //var currentuser = JSON.parse(localStorage.getItem('user') || '' )
-
   function CarInfoCtrl(
     apiService,
     translateService,
     $scope,
     $state,
     $translate,
-    HelloService,
-    jwtHelper,
-    $rootScope
+    loginService,
+    filterService
   ) {
     translateService.setLanguage();
-
-    helloInitialize();
-    $scope.login = HelloService.login;
-    $scope.logout = helloLogout;
-
-    // Web Login and Logout using hello
-    function helloInitialize() {
-      HelloService.initialize().then(function(authResponse) {
-        displayUserDetails(getUserData(authResponse));
-      });
-    }
-
-    function helloLogout() {
-      $("#inputCenter").val("");
-      $("#inputArea").val("");
-      $("#propertyInput").val("");
-      $("#vihecle").val("");
-      HelloService.logout();
-    }
-
-    // Decode decode the token and diaplay the user details
-    function getUserData(response) {
-      var user = {};
-      user.token = response.access_token || response.token;
-      var data = jwtHelper.decodeToken(user.token);
-      user.expires_in = new Date(response.expires * 1000) || response.expiresOn;
-      user.name = data.name;
-      user.email = data.emails ? data.emails[0] : "";
-      user.id = data.sub;
-      return user;
-    }
-
-    function displayUserDetails(user) {
-      $scope.user = user;
-      $rootScope.user = user;
-    }
+    loginService.helloInitialize();
+    //filterService.watchAndFilter("callCenterId", "operatingCompanyId", "#grid");
 
     watchAndFilter("callCenterId", "operatingCompanyId");
     watchAndFilter("vehicleFilter", "systemId");
@@ -61,7 +22,7 @@
     var dataSource = new kendo.data.DataSource({
       transport: {
         read: {
-          url: root + "Cars",
+          url: root + "Cars/CarsDetails",
           data: { format: "json" },
           dataType: "json"
         }
@@ -69,44 +30,11 @@
       schema: {
         model: {
           fields: {
-            // carId: {type: "number"},
-            // systemId: {type: "number"},
-            // carNumber: {type: "number"},
-            // carRegisterNr: {type: "number"},
-            // carPhoneNr: {type: "number"},
-            // passengerCapacity: {type: "number"},
-            // carBrandAndModel: {type: "text"},
-            // carDispatchAttributes: {type: "text"},
-            // operatingCompanyId: {type: "number"},
-            // postingId: {type: "number"},
-            // taxiCarCompanyId: {type: "number"},
-            // driverCardNr: {type: "number"},
-            // paymentTerminalId: {type: "number"},
-            // notes: {type: "text"},
-            // ownerName: {type: "text"},
-            // carPagerPhone: {type: "number"},
-            // bookingSendType: {type: "text"},
-            // carBookingType: {type: "text"},
-            // carBookingAttribute: {type: "text"},
-            // isStationDevice: {type: "text"},
-            // carType: {type: "text"},
-            // vatRegNr: {type: "number"},
-            // vatRegNr: {type: "number"},
-            // tripDataSendTarget: {type: "text"},
-            // ttdataSendTarget: {type: "text"},
-            startSuspend: { type: "date" },
-            finishSuspend: { type: "date" },
-            // carEmailAddr: {type: "text"},
-            // pagerActive: {type: "text"},
-            // pagerActive: {type: "text"},
-            // passengerRating: {type: "text"},
-            // carPaymentDeviceType: {type: "text"},
-            // editUserName: {type: "text"},
-            editTime: { type: "date" }
-            // operatingCompany: {type: "text"},
-            // posting: {type: "text"},
-            // taxiCarCompany: {type: "text"},
-            // tblCarBelongsToWorkShiftGroup: {type: "text"},
+            soonForHireTime: { type: "date" },
+            changedStatus: { type: "date" },
+            lastUpdate: { type: "date" },
+            workShiftStart: { type: "date" },
+            workShiftEnd: { type: "date" }
           }
         }
       }
@@ -116,51 +44,51 @@
       dataSource: dataSource,
       columns: [
         {
-          field: "carNumber",
-          title: "Car No",
+          field: "vehicleNumber",
+          title: "Car Number",
           attributes: { class: "driverCardNr" }
         },
 
-        { field: "driverCardNr", title: "Driver ID" },
-        { field: "systemId", title: "Zone ID" },
+        { field: "driverId", title: "Driver ID" },
+        { field: "zoneId", title: "Zone ID" },
         {
-          field: "taxiCarCompanyId",
+          field: "textMessageStatus",
           title: "TXM Status",
           attributes: { class: "taxiCarCompanyId2" }
         },
-        { field: "operatingCompanyId", title: "Dispatch Status" },
+        { field: "dispatchStatus", title: "Dispatch Status" },
         {
-          field: "editTime",
-          title: "*SFH time",
+          field: "soonForHireTime",
+          title: "SFH time",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
-          field: "posting",
+          field: "soonForHireZone",
           title: "SFH Zone",
           attributes: { class: "taxiCarCompanyId" }
         },
         {
-          field: "editTime",
+          field: "changedStatus",
           title: "changed Status",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
-          field: "editTime",
+          field: "lastUpdate",
           title: "Last Update",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
-          field: "editTime",
+          field: "workShiftStart",
           title: "Workshift Start",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
-          field: "editTime",
+          field: "workShiftEnd",
           title: "Workshift end",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
-          field: "editTime",
+          field: "group",
           title: "Group",
           format: "{0: dd/MM/yyyy  h:mm}"
         }
@@ -168,8 +96,10 @@
 
       //scrollable: true,
       //detailInit: detailInit,
+      filterable: true,
       resizable: true,
-      sortable: true
+      sortable: true,
+      pageable: true
     });
 
     $("#grid").kendoDraggable({

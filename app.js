@@ -66,6 +66,7 @@
       .state("dispatch", {
         url: "/dispatch",
         templateUrl: "components/dispatch/dispatch.html",
+        controller: "DispatchCtrl",
         controllerAs: "vm"
       })
       .state("restriction", {
@@ -85,6 +86,6 @@
         controller: "ZoneCtrl",
         controllerAs: "vm"
       });
-    $urlRouterProvider.otherwise("/carInfo");
+    $urlRouterProvider.otherwise("/dispatch");
   }
 })();

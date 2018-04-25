@@ -1,14 +1,14 @@
 (function() {
   "use strict";
-  angular.module("app").factory("filterService", filterService);
-
-  function filterService($cookies, HelloService, jwtHelper, $rootScope) {
+  angular.module("app").service("filterService", filterService);
+  //filterService.$inject = ["$scope"];
+  function filterService($rootScope) {
     return {
-      watchAndFilter: function(watchThis, filterBy) {
+      watchAndFilter: function(watchThis, filterBy, id) {
         function getValue() {
           return window.localStorage.getItem(watchThis);
         }
-        $scope.$watch(getValue, function(val) {
+        $rootScope.$watch(getValue, function(val) {
           if (val) {
             var newValue = $.parseJSON(val);
             applyFilter(filterBy, newValue);
@@ -17,7 +17,7 @@
       }
     };
 
-    function applyFilter(filterField, filterValue) {
+    function applyFilter(filterField, filterValue, id) {
       var gridData = $("#grid").data("kendoGrid");
       var currFilterObj = gridData.dataSource.filter();
       var currentFilters = currFilterObj ? currFilterObj.filters : [];

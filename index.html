@@ -117,7 +117,7 @@
                             <a ui-sref="carInfo" ng-show="user.id" translate>CarInfo</a>
                         </li>
                         <li class="col-md-16">
-                            <a ui-sref="dispatch" ng-show="user.id" translate>Dispatch</a>
+                            <a ui-sref="dispatch" ng-hide="user.id" translate>Dispatch</a>
                         </li>
                         <li class="col-md-16">
                             <a ui-sref="zone" ng-show="user.id" translate>Zone </a>
@@ -186,6 +186,7 @@
     <script src="components/loginservice.js"></script>
     <script src="components/translateService.js"></script>
     <script src="components/message/CreateMessageCtrl.js"></script>
+    <script src="components/dispatch/DispatchCtrl.js"></script>
     <script src="components/message/MessageCtrl.js"></script>
     <script src="components/carWorkshift/ChangeCarShiftCtrl.js"></script>
     <script src="components/groupworkshift/GroupWorkShiftCtrl.js"></script>

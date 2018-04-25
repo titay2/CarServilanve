@@ -50,34 +50,34 @@ $("#clearLable").click(function() {
 });
 
 //CONNECT TO THE SIGNAR, LOAD THE FIRST INPUTS FROM THE API, GET CHANGES FROM SIGNALR AND UPDATE UI.
-const connection = new signalR.HubConnection(
-  crudServiceBaseUrl + "dispatchStatusHub"
-);
-connection.on("startSendingDispatch", Rowdata => {
-  var data = JSON.parse(Rowdata);
-  updateStatusBar(data);
-});
+// const connection = new signalR.HubConnection(
+//   crudServiceBaseUrl + "dispatchStatusHub"
+// );
+// connection.on("startSendingDispatch", Rowdata => {
+//   var data = JSON.parse(Rowdata);
+//   updateStatusBar(data);
+// });
 
-try {
-  connection
-    .start()
-    .then(function() {
-      $.ajax({
-        url: root + "FleetStates/dispatchStatus",
-        method: "GET",
-        dataType: "json",
-        success: function(data) {
-          updateStatusBar(data);
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-          alert("error: " + textStatus + ": " + errorThrown);
-        }
-      });
-    })
-    .done();
-} catch (err) {
-  err => console.log(err);
-}
+// try {
+//   connection
+//     .start()
+//     .then(function() {
+//       $.ajax({
+//         url: root + "FleetStates/dispatchStatus",
+//         method: "GET",
+//         dataType: "json",
+//         success: function(data) {
+//           updateStatusBar(data);
+//         },
+//         error: function(jqXHR, textStatus, errorThrown) {
+//           alert("error: " + textStatus + ": " + errorThrown);
+//         }
+//       });
+//     })
+//     .done();
+// } catch (err) {
+//   err => console.log(err);
+// }
 
 //POPULATE THE CALLCENTER INPUT OPTIONS WITH DATA FROM DATABASE
 function findCallCenter() {

@@ -7,7 +7,8 @@
     "$scope",
     "$state",
     "$log",
-    "$translate"
+    "$translate",
+    "loginService"
   ];
 
   function ChangeCarShiftCtrl(
@@ -16,7 +17,8 @@
     $scope,
     $state,
     $log,
-    $translate
+    $translate,
+    loginService
   ) {
     let currentLang = $translate.use();
     var baseUrl =
@@ -26,6 +28,7 @@
     // $("#Grid").data("kendoGrid").refresh();
 
     translateService.setLanguage();
+    loginService.helloInitialize();
     $.getScript(baseUrl + currentLang + ".min.js", function() {
       kendo.culture(currentLang);
       createGrid();

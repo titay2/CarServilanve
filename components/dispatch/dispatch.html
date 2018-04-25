@@ -1,1 +1,9 @@
-<h1>Dispatch</h1>
+<div id="landingpage" ng-hide="user.id">
+    <h4 translate>HERE</h4>
+    <button class="btn" ng-click="login()" translate>
+        LOGIN
+    </button>
+</div>
+<div ng-show="user.id">
+    <h1>Loged in successfuly </h1>
+</div>
