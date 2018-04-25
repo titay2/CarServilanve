@@ -104,7 +104,7 @@ function findCallCenter() {
   });
 }
 
-//POPULATE THE AREA INPUT OPTIONS WITH DATA FROM DATABASE
+//POPULATE THE AREA INPUT OPTIONS WITH DATA FROM DATABASE.
 function findArea() {
   $.ajax({
     url: root + "Postings",

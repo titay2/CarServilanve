@@ -86,7 +86,7 @@
           },
           {
             field: "groupName",
-            title: "Group",
+            title: "groupName",
             editor: groupNameDropDownEditor,
             template: "#=groupName#"
           },

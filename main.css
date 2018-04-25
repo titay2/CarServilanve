@@ -255,7 +255,11 @@ input[type="checkbox"] {
   width: 12.5%;
   float: left;
 }
-
+h3,
+.h3 {
+  font-size: 29px;
+  padding-left: 38%;
+}
 @media (min-width: 768px) {
   .col-sm-16 {
     width: 12.5%;

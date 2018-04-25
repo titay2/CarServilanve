@@ -37,7 +37,7 @@
         }
       ],
       dataSource: {
-        dataType: "json",
+        // dataType: "json",
         transport: {
           read: root + "ZonesAndCars"
         }

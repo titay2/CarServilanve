@@ -8,9 +8,9 @@
       $rootScope,
       $cookies
     ) {
-      var tenantName = settings.adalB2C.tenantName;
-      var clientId = settings.adalB2C.clientId;
-      var policy = settings.adalB2C.policy;
+      var tenantName = settings.adB2C.tenantName;
+      var clientId = settings.adB2C.clientId;
+      var policy = settings.adB2C.policy;
       var network = "adB2CSignInSignUp";
       this.initialize = function() {
         //initiate all policies
@@ -21,7 +21,7 @@
             adB2CEditProfile: clientId
           },
           {
-            redirect_uri: "/",
+            redirect_uri: "../",
             //redirect_uri: 'https://semasp04.semel.ext/CarServilanve',
             scope: "openid " + clientId,
             response_type: "token id_token"
@@ -72,8 +72,6 @@
           },
           refresh: true,
           scope_delim: " ",
-          // Don't even try submitting via form.
-          // This means no POST operations in <=IE9
           form: false
         };
         adB2CSignInSignUpPolicy[network].xhr = function(p) {

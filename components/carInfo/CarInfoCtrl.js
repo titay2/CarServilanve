@@ -122,13 +122,13 @@
         },
 
         { field: "driverCardNr", title: "Driver ID" },
-        { field: "systemId", title: "*Zone ID" },
+        { field: "systemId", title: "Zone ID" },
         {
           field: "taxiCarCompanyId",
-          title: "*TXM Status",
+          title: "TXM Status",
           attributes: { class: "taxiCarCompanyId2" }
         },
-        { field: "operatingCompanyId", title: "*Dispatch Status" },
+        { field: "operatingCompanyId", title: "Dispatch Status" },
         {
           field: "editTime",
           title: "*SFH time",
@@ -136,38 +136,38 @@
         },
         {
           field: "posting",
-          title: "*SFH Zone",
+          title: "SFH Zone",
           attributes: { class: "taxiCarCompanyId" }
         },
         {
           field: "editTime",
-          title: "*changed Status",
+          title: "changed Status",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
           field: "editTime",
-          title: "*Last Update",
+          title: "Last Update",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
           field: "editTime",
-          title: "*Workshift Start",
+          title: "Workshift Start",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
           field: "editTime",
-          title: "*Workshift end",
+          title: "Workshift end",
           format: "{0: dd/MM/yyyy  h:mm}"
         },
         {
           field: "editTime",
-          title: "*Group",
+          title: "Group",
           format: "{0: dd/MM/yyyy  h:mm}"
         }
       ],
 
-      scrollable: true,
-      detailInit: detailInit,
+      //scrollable: true,
+      //detailInit: detailInit,
       resizable: true,
       sortable: true
     });
@@ -260,7 +260,7 @@
             transport: {
               read: {
                 url: root + "Cars" + e.data.carId,
-                data: { format: "json" },
+                //data: { format: "json" },
                 dataType: "json"
               }
             },
@@ -277,7 +277,6 @@
           },
           scrollable: false,
           sortable: true,
-          pageable: false,
           columns: [
             { field: "carId", title: "Car" },
             { field: "driverCardNr", title: "*Driver ID" },

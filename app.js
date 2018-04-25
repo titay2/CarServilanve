@@ -30,7 +30,7 @@
       })
       .useSanitizeValueStrategy()
       .useCookieStorage();
-
+    //$urlRouterProvider.hashPrefix("");
     $stateProvider
       .state("carsinshift", {
         url: "/carsinshift",
