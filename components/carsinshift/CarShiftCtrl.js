@@ -43,18 +43,18 @@
     $("#grid").kendoGrid({
       dataSource: dataSource,
       columns: [
-        // {
-        //   field: "operatingCompanyID",
-        //   hidden: true
-        // },
-        // {
-        //   field: "carDispatchAttributes",
-        //   hidden: true
-        // },
-        // {
-        //   field: "postingID",
-        //   hidden: true
-        // },
+        {
+          field: "operatingCompanyID",
+          hidden: true
+        },
+        {
+          field: "carDispatchAttributes",
+          hidden: true
+        },
+        {
+          field: "postingID",
+          hidden: true
+        },
         { field: "vehicleNumber", title: "Car Number" },
         { field: "driverId", title: "Driver ID" },
         { field: "zoneId", title: "Zone ID" },

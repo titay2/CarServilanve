@@ -50,6 +50,7 @@
         pageSize: 10,
         schema: {
           model: {
+            id: "groupName",
             fields: {
               groupName: { type: "string" },
               startTime: { type: "date" },
