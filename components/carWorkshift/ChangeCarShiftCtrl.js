@@ -45,15 +45,15 @@
     });
 
     function createGrid() {
-      var ServiceBaseUrl = root + "StandardTextMessages",
+      var ServiceBaseUrl = root + "TemporaryWorkShift",
         dataSource = new kendo.data.DataSource({
           transport: {
             read: {
               url: ServiceBaseUrl
             },
-            update: { url: "#" },
-            destroy: { url: "#" },
-            create: { url: "#" },
+            // update: { url: "#" },
+            // destroy: { url: "#" },
+            // create: { url: "#" },
             parameterMap: function(options, operation) {
               if (operation !== "read" && options.models) {
                 return {
@@ -63,15 +63,30 @@
             }
           },
           batch: true,
-          pageSize: 10,
+          //pageSize: 10,
           schema: {
             model: {
               id: "id",
               fields: {
-                id: { editable: false, nullable: true },
-                text: { validation: { required: true } },
-                creationdate: { type: "date" },
-                printMessage: { type: "boolean" }
+                // carId: { editable: false },
+                // systemid: { editable: false },
+                carnumber: {
+                  // type: "number",
+                  // format: "#.#",
+                  // decimals: 0
+                },
+                groupName: { editable: false },
+                starttime: {
+                  type: "date",
+                  editable: true,
+                  validation: { required: true }
+                },
+                finishtime: {
+                  type: "date",
+                  editable: true,
+                  validation: { required: true }
+                },
+                workShiftState: { type: "boolean" }
               }
             }
           }
@@ -84,47 +99,30 @@
         pageable: true,
         sortable: true,
         columns: [
-          { field: "id", title: "ID", width: 60 },
-          { field: "text", title: "Text", width: 600 },
+          { field: "carnumber", title: "Vehicle" },
           {
-            field: "creationdate",
-            title: "Date",
-            width: 200,
+            field: "starttime",
+            title: "Start Time",
             format: "{0: dd/MM/yyyy h:mm}",
             editor: customDateTimePickerEditor
           },
+          {
+            field: "finishtime",
+            title: "Finish Time",
+            format: "{0: dd/MM/yyyy h:mm}",
+            editor: customDateTimePickerEditor
+          },
+          { field: "groupName", title: "Group Name" },
+          { field: "workShiftState", title: "Workshift State", hidden: true },
+
           { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
         ],
-        editable: "inline"
-      });
-
-      var dropDown = grid.find("#category").kendoDropDownList({
-        dataTextField: "name",
-        dataValueField: "operatingCompanyId",
-        autoBind: false,
-        optionLabel: "All",
-        dataSource: {
-          severFiltering: true,
-          transport: {
-            read: crudServiceBaseUrl + "OperatingCompanies"
-          }
-        },
-        change: function() {
-          var value = this.value();
-          if (value) {
-            grid.data("kendoGrid").dataSource.filter({
-              field: "operatingCompanyId",
-              operator: "eq",
-              value: parseInt(value)
-            });
-          } else {
-            grid.data("kendoGrid").dataSource.filter({});
+        editable: "popup",
+        autoBind: function edit(e) {
+          if (e.model.isNew() == false) {
+            $("#carnumber").attr("readonly", true);
           }
         }
-      });
-      grid.find(".k-grid-toolbar").on("click", ".k-pager-refresh", function(e) {
-        e.preventDefault();
-        grid.data("kendoGrid").dataSource.read();
       });
 
       function customDateTimePickerEditor(container, options) {

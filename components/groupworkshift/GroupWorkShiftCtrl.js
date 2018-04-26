@@ -42,22 +42,22 @@
     // check the validations with pasi and the initial table data origion
     function createGrid() {
       dataSource = new kendo.data.DataSource({
-        // transport: {
-        //   read: { url: root + "WorkshiftCarGroup" },
-        //   update: { url: root + "WorkshiftCarGroup" },
-        //   destroy: { url: "#" },
-        //   create: { url: "#" },
-        //   parameterMap: function(options, operation) {
-        //     if (operation !== "read" && options.models) {
-        //       return {
-        //         models: kendo.stringify(options.models)
-        //       };
-        //     }
-        //   }
-        // },
+        transport: {
+          read: { url: root + "WorkshiftGroupCalendar" },
+          update: { url: root + "CarGroup" },
+          // destroy: { url: "#" },
+          // create: { url: "#" },
+          parameterMap: function(options, operation) {
+            if (operation !== "read" && options.models) {
+              return {
+                models: kendo.stringify(options.models)
+              };
+            }
+          }
+        },
 
         batch: true,
-        pageSize: 20,
+        pageSize: 10,
         schema: {
           model: {
             fields: {
@@ -71,14 +71,14 @@
       var grid = $("#grid").kendoGrid({
         columns: [
           {
-            field: "startdate",
+            field: "startTime",
             title: "Start Time",
             type: "date",
             format: "{0: dd/MM/yyyy h:mm}",
             editor: customDateTimePickerEditor
           },
           {
-            field: "endtime",
+            field: "finishTime",
             title: "End time",
             type: "date",
             format: "{0: dd/MM/yyyy h:mm}",
@@ -90,15 +90,14 @@
             editor: groupNameDropDownEditor,
             template: "#=groupName#"
           },
-          { field: "togroup", title: " To Group" },
+          { field: "workShiftState", title: " To Group", hidden: true },
           { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
         ],
         toolbar: ["create"],
-        editable: "inline",
+        editable: "popup",
         dataSource: dataSource,
         scrollable: true,
         pageable: true,
-        pageSize: 2,
         sortable: true
       });
       function customDateTimePickerEditor(container, options) {
@@ -116,7 +115,7 @@
             dataSource: {
               // type: "json",
               transport: {
-                read: root + "WorkshiftCarGroup"
+                read: { url: root + "WorkshiftCarGroup" }
               }
             }
           });

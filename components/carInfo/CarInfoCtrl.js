@@ -15,8 +15,9 @@
     loginService.helloInitialize();
     //filterService.watchAndFilter("callCenterId", "operatingCompanyId", "#grid");
 
-    watchAndFilter("callCenterId", "operatingCompanyId");
-    watchAndFilter("vehicleFilter", "systemId");
+    watchAndFilter("callCenterId", "operatingCompanyID");
+    watchAndFilter("vehicleFilter", "vehicleNumber");
+    watchAndFilter("areaFilter", "postingID");
     watchAndFilter("propertyFilter", "carDispatchAttributes");
 
     var dataSource = new kendo.data.DataSource({
@@ -27,6 +28,7 @@
           dataType: "json"
         }
       },
+      pageSize: 15,
       schema: {
         model: {
           fields: {
@@ -37,7 +39,8 @@
             workShiftEnd: { type: "date" }
           }
         }
-      }
+      },
+      sort: { field: "vehicleNumber", dir: "asc" }
     });
     //DRAW THE KENDO TABLE WITH THE DEFINED DATASOURCE
     $("#grid").kendoGrid({
@@ -48,7 +51,14 @@
           title: "Car Number",
           attributes: { class: "driverCardNr" }
         },
-
+        {
+          field: "operatingCompanyID",
+          hidden: true
+        },
+        {
+          field: "postingID",
+          hidden: true
+        },
         { field: "driverId", title: "Driver ID" },
         { field: "zoneId", title: "Zone ID" },
         {

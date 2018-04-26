@@ -19,7 +19,8 @@ $("#inputCenter").on("input", function() {
 });
 
 $("#inputArea").on("input", function() {
-  var inp = $(this).val();
+  var opt = $('option[value="' + $(this).val() + '"]');
+  var inp = opt.attr("id");
   setFiletr("areaFilter", inp);
 });
 
@@ -113,7 +114,9 @@ function findArea() {
     success: function(data) {
       $(data).each(function() {
         var postingArea =
-          '<option value="' +
+          '<option id= "' +
+          this.postingId +
+          '" value="' +
           this.postingName +
           '">' +
           this.postingName +
