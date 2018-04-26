@@ -49,33 +49,28 @@
         dataSource = new kendo.data.DataSource({
           transport: {
             read: {
-              url: ServiceBaseUrl
-            },
+              url: ServiceBaseUrl,
+              dataType: "json"
+            }
             // update: { url: "#" },
             // destroy: { url: "#" },
             // create: { url: "#" },
-            parameterMap: function(options, operation) {
-              if (operation !== "read" && options.models) {
-                return {
-                  models: kendo.stringify(options.models)
-                };
-              }
-            }
+            // parameterMap: function(options, operation) {
+            //   if (operation !== "read" && options.models) {
+            //     return {
+            //       models: kendo.stringify(options.models)
+            //     };
+            //   }
+            // }
           },
           batch: true,
           //pageSize: 10,
           schema: {
             model: {
-              id: "id",
+              id: "carnumber",
               fields: {
-                // carId: { editable: false },
-                // systemid: { editable: false },
-                carnumber: {
-                  // type: "number",
-                  // format: "#.#",
-                  // decimals: 0
-                },
-                groupName: { editable: false },
+                carnumber: {},
+                groupName: {},
                 starttime: {
                   type: "date",
                   editable: true,
@@ -96,6 +91,7 @@
         dataSource: dataSource,
         // toolbar: kendo.template($("#template").html()),
         toolbar: ["create"],
+
         pageable: true,
         sortable: true,
         columns: [
@@ -112,15 +108,15 @@
             format: "{0: dd/MM/yyyy h:mm}",
             editor: customDateTimePickerEditor
           },
-          { field: "groupName", title: "Group Name" },
+          { field: "groupName", title: "Group Name/comment" },
           { field: "workShiftState", title: "Workshift State", hidden: true },
 
-          { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
+          { command: ["edit", "destroy"] }
         ],
         editable: "popup",
-        autoBind: function edit(e) {
+        edit: function(e) {
           if (e.model.isNew() == false) {
-            $("#carnumber").attr("readonly", true);
+            $('[name="carnumber"]').attr("readonly", true);
           }
         }
       });

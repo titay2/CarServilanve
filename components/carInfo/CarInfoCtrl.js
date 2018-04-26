@@ -28,7 +28,7 @@
           dataType: "json"
         }
       },
-      pageSize: 15,
+      pageSize: 10,
       schema: {
         model: {
           fields: {
@@ -53,6 +53,10 @@
         },
         {
           field: "operatingCompanyID",
+          hidden: true
+        },
+        {
+          field: "carDispatchAttributes",
           hidden: true
         },
         {

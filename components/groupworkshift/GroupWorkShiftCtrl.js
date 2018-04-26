@@ -1,15 +1,5 @@
 (function() {
   angular.module("app").controller("GroupWorkShiftCtrl", GroupWorkShiftCtrl);
-
-  GroupWorkShiftCtrl.$inject = [
-    "apiService",
-    "translateService",
-    "$scope",
-    "$state",
-    "$translate",
-    "loginService"
-  ];
-
   function GroupWorkShiftCtrl(
     apiService,
     translateService,
@@ -43,17 +33,17 @@
     function createGrid() {
       dataSource = new kendo.data.DataSource({
         transport: {
-          read: { url: root + "WorkshiftGroupCalendar" },
-          update: { url: root + "CarGroup" },
-          // destroy: { url: "#" },
-          // create: { url: "#" },
-          parameterMap: function(options, operation) {
-            if (operation !== "read" && options.models) {
-              return {
-                models: kendo.stringify(options.models)
-              };
-            }
-          }
+          read: { url: root + "WorkshiftGroupCalendar" }
+          // update: { url: root + "CarGroup" },
+          // // destroy: { url: "#" },
+          // // create: { url: "#" },
+          // parameterMap: function(options, operation) {
+          //   if (operation !== "read" && options.models) {
+          //     return {
+          //       models: kendo.stringify(options.models)
+          //     };
+          //   }
+          // }
         },
 
         batch: true,
@@ -61,7 +51,7 @@
         schema: {
           model: {
             fields: {
-              groupName: { defaultValue: { groupID: 148, groupName: "Inari" } },
+              groupName: { type: "string" },
               startTime: { type: "date" },
               endTime: { type: "date" }
             }
@@ -87,8 +77,8 @@
           {
             field: "groupName",
             title: "groupName",
-            editor: groupNameDropDownEditor,
-            template: "#=groupName#"
+            editor: groupNameDropDownEditor
+            // template: "#=groupName#"
           },
           { field: "workShiftState", title: " To Group", hidden: true },
           { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }

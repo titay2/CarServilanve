@@ -35,6 +35,7 @@
       .state("carsinshift", {
         url: "/carsinshift",
         templateUrl: "components/carsinshift/carsinshift.html",
+        controller: "CarShiftCtrl",
         controllerAs: "vm"
       })
 

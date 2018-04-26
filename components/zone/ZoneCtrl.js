@@ -36,11 +36,13 @@
           title: "count"
         }
       ],
+      pageable: true,
       dataSource: {
         // dataType: "json",
         transport: {
           read: root + "ZonesAndCars"
-        }
+        },
+        pageSize: 5
       },
       detailTemplate: kendo.template($("#detail-template").html()),
       detailInit: function(e) {
