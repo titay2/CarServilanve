@@ -8,10 +8,9 @@
     $translate,
     loginService
   ) {
-    let currentLang = $translate.use();
+    var currentLang = $translate.use();
     var baseUrl =
       "https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.";
-
     translateService.setLanguage();
     loginService.helloInitialize();
 
@@ -27,38 +26,59 @@
       $.getScript(baseUrl + currentLang + ".min.js", function() {
         kendo.culture(currentLang);
         createGrid();
+        $state.reload();
       });
     });
     // check the validations with pasi and the initial table data origion
     function createGrid() {
-      dataSource = new kendo.data.DataSource({
-        transport: {
-          read: { url: root + "WorkshiftGroupCalendar" }
-          // update: { url: root + "CarGroup" },
-          // // destroy: { url: "#" },
-          // // create: { url: "#" },
-          // parameterMap: function(options, operation) {
-          //   if (operation !== "read" && options.models) {
-          //     return {
-          //       models: kendo.stringify(options.models)
-          //     };
-          //   }
-          // }
-        },
+      //needs Id field
+      // dataSource1 = new kendo.data.DataSource({
+      //   transport: {
+      //     read: {
+      //       url: root + "WorkshiftGroupCalendar",
+      //       dataType: "json",
+      //       contentType: "application/json",
+      //       type: "GET"
+      //     },
+      //     update: {
+      //       url: root + "WorkshiftGroupCalendar/changeWorkshift",
+      //       dataType: "json",
+      //       contentType: "application/json",
+      //       type: "PUT"
+      //     },
+      //     destroy: {
+      //       url: root + "WorkshiftGroupCalendar/delete",
+      //       dataType: "json",
+      //       contentType: "application/json",
+      //       type: "DELETE"
+      //     },
+      //     create: {
+      //       url: root + "WorkshiftGroupCalendar",
+      //       dataType: "json",
+      //       contentType: "application/json",
+      //       type: "POST"
+      //     },
+      //     parameterMap: function(options, operation) {
+      //       if (operation !== "read" && options) {
+      //         var arr = options.models;
+      //         return kendo.stringify(arr[0]);
+      //       }
+      //     }
+      //   },
 
-        batch: true,
-        pageSize: 10,
-        schema: {
-          model: {
-            id: "groupName",
-            fields: {
-              groupName: { type: "string" },
-              startTime: { type: "date" },
-              endTime: { type: "date" }
-            }
-          }
-        }
-      });
+      //   batch: true,
+      //   pageSize: 10,
+      //   schema: {
+      //     model: {
+      //       // id: "groupName",
+      //       fields: {
+      //         groupName: { type: "string" },
+      //         startTime: { type: "date" },
+      //         finishTime: { type: "date" }
+      //       }
+      //     }
+      //   }
+      // });
       var grid = $("#grid").kendoGrid({
         columns: [
           {
@@ -86,7 +106,7 @@
         ],
         toolbar: ["create"],
         editable: "popup",
-        dataSource: dataSource,
+        dataSource: dataSource1,
         scrollable: true,
         pageable: true,
         sortable: true
@@ -102,7 +122,7 @@
           .kendoDropDownList({
             autoBind: false,
             dataTextField: "groupName",
-            dataValueField: "groupID",
+            dataValueField: "groupName",
             dataSource: {
               // type: "json",
               transport: {

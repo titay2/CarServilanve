@@ -18,7 +18,6 @@
     $translate,
     loginService
   ) {
-    $.connection.hub.url = "http://localhost:8888/signalr";
     var hub = $.connection.logMessageHub;
     var hubStart = $.connection.hub.start();
 

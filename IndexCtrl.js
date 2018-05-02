@@ -51,34 +51,14 @@ $("#clearLable").click(function() {
 });
 
 //CONNECT TO THE SIGNAR, LOAD THE FIRST INPUTS FROM THE API, GET CHANGES FROM SIGNALR AND UPDATE UI.
-// const connection = new signalR.HubConnection(
-//   crudServiceBaseUrl + "dispatchStatusHub"
-// );
-// connection.on("startSendingDispatch", Rowdata => {
-//   var data = JSON.parse(Rowdata);
-//   updateStatusBar(data);
-// });
-
-// try {
-//   connection
-//     .start()
-//     .then(function() {
-//       $.ajax({
-//         url: root + "FleetStates/dispatchStatus",
-//         method: "GET",
-//         dataType: "json",
-//         success: function(data) {
-//           updateStatusBar(data);
-//         },
-//         error: function(jqXHR, textStatus, errorThrown) {
-//           alert("error: " + textStatus + ": " + errorThrown);
-//         }
-//       });
-//     })
-//     .done();
-// } catch (err) {
-//   err => console.log(err);
-// }
+$.connection.hub.url = "http://localhost:8888/signalr";
+var chat = $.connection.dispatchStatusHub;
+chat.client.dispatchStatusUpdate = function(update) {
+  updateStatusBar(update);
+};
+$.connection.hub.start().done(function() {
+  chat.server.getFleetDispatchInfo().done(function(getAllLogs) {});
+});
 
 //POPULATE THE CALLCENTER INPUT OPTIONS WITH DATA FROM DATABASE
 function findCallCenter() {
@@ -136,8 +116,8 @@ function setFiletr(storageField, inputValue) {
 }
 //CHANGING THE VALUES ON THE STATUS BUTTONS
 function updateTheButton(status, num, id) {
-  if (status.dispatchStatus === num) {
-    document.getElementById(id).innerHTML = status.dispatchCount;
+  if (status.DispatchStatus === num) {
+    document.getElementById(id).innerHTML = status.DispatchCount;
   }
 }
 

@@ -22,7 +22,7 @@
     $translate
   ) {
     translateService.setLanguage();
-    let currentLang = $translate.use();
+    //let currentLang = $translate.use();
 
     var vm = this;
     var $working = $(" input[class = 'working']");
