@@ -23,9 +23,6 @@
     let currentLang = $translate.use();
     var baseUrl =
       "https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.";
-    //  var crudServiceBaseUrl = "http://semasp04.semel.ext/TestCarsurveillanceBackend/api/"
-    // $("#Grid").data("kendoGrid").dataSource.read();
-    // $("#Grid").data("kendoGrid").refresh();
 
     translateService.setLanguage();
     loginService.helloInitialize();
@@ -62,8 +59,14 @@
               type: "POST"
             },
             destroy: {
-              url: ServiceBaseUrl + "/delete",
-              dataType: "number",
+              url: function(e) {
+                var options = e.models;
+                var leng = options.length;
+                var thisrow = options[leng - 1];
+                var id = thisrow.workshiftId;
+                return ServiceBaseUrl + "/delete?WorkshiftId=" + id;
+              },
+              dataType: "json",
               contentType: "application/json",
               type: "DELETE"
             },
@@ -73,24 +76,15 @@
               contentType: "application/json",
               type: "PUT"
             },
-            // {
-            // $scope.delete = (id) => {
-            //   console.log(id);
-            //   apiService.get('category/remove?id=' + id)
-            //     .then((id) => {
-            //       $state.reload();
-            //     })
-            //     .catch((err) => {
-            //       console.log(err);
-            //     });
-            // };
-
-            // },
+            requestEnd: function(e) {
+              console.log(e);
+              if (e.type === "create" && e.response) {
+                console.log("Current request is 'create'.");
+              }
+            },
             error: function(e) {
               console.log("Errors: " + e.errors);
             },
-            // update: { url: "#" },
-            // destroy: { url: "#" },
             parameterMap: function(options, operation) {
               var arr = options.models;
               switch (operation) {
@@ -102,32 +96,25 @@
                   return kendo.stringify(arr[0]);
                   break;
                 case "update":
-                  // console.log(arr);
-                  return kendo.stringify(arr[0]);
+                  console.log(JSON.stringify(arr[0]));
+                  return JSON.stringify(arr[0]);
                   break;
                 case "destroy":
                   var len = options.models.length;
                   var curr = options.models[len - 1];
                   var id = curr.workshiftId;
-                  console.log(kendo.parseInt(id));
-                  return kendo.parseInt(id);
+                  return parseInt(id);
                   break;
               }
             }
           },
-          //     if (operation !== "read" && options.models) {
-          //       var arr = options.models;
-          //       console.log(JSON.stringify(arr[0]));
-          //       return kendo.stringify(arr[0]);
-          //     }
-          //   }
-          // },
           batch: true,
           //pageSize: 10,
           schema: {
             model: {
-              //id: "workshiftId",
+              id: "workshiftId",
               fields: {
+                workshiftId: { type: "number", editable: false },
                 ismanual: { type: "number", defaultValue: 1, editable: false },
                 carnumber: { type: "number" },
                 groupName: { type: "string" },
@@ -148,10 +135,12 @@
             }
           }
         });
+      dataSource.bind("requestEnd", dataSource_requestEnd);
+      dataSource.fetch();
 
       var grid = $("#grid").kendoGrid({
         dataSource: dataSource,
-        // toolbar: kendo.template($("#template").html()),
+
         toolbar: ["create"],
 
         pageable: true,
@@ -185,12 +174,15 @@
           { command: ["edit", "destroy"] }
         ],
         editable: "popup"
-        // edit: function(e) {
-        //   if (e.model.isNew() == false) {
-        //     $('[name="carnumber"]').attr("readonly", true);
-        //   }
-        // }
       });
+
+      //refresh Grid everytime a new record is updated
+      function dataSource_requestEnd(e) {
+        if (e.type == "create") {
+          dataSource.read();
+        }
+      }
+
       function ocDropDownEditor(container, options) {
         $('<input required name="' + options.field + '"/>')
           .appendTo(container)

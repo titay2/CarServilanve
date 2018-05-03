@@ -32,53 +32,54 @@
     // check the validations with pasi and the initial table data origion
     function createGrid() {
       //needs Id field
-      // dataSource1 = new kendo.data.DataSource({
-      //   transport: {
-      //     read: {
-      //       url: root + "WorkshiftGroupCalendar",
-      //       dataType: "json",
-      //       contentType: "application/json",
-      //       type: "GET"
-      //     },
-      //     update: {
-      //       url: root + "WorkshiftGroupCalendar/changeWorkshift",
-      //       dataType: "json",
-      //       contentType: "application/json",
-      //       type: "PUT"
-      //     },
-      //     destroy: {
-      //       url: root + "WorkshiftGroupCalendar/delete",
-      //       dataType: "json",
-      //       contentType: "application/json",
-      //       type: "DELETE"
-      //     },
-      //     create: {
-      //       url: root + "WorkshiftGroupCalendar",
-      //       dataType: "json",
-      //       contentType: "application/json",
-      //       type: "POST"
-      //     },
-      //     parameterMap: function(options, operation) {
-      //       if (operation !== "read" && options) {
-      //         var arr = options.models;
-      //         return kendo.stringify(arr[0]);
-      //       }
-      //     }
-      //   },
-
-      //   batch: true,
-      //   pageSize: 10,
-      //   schema: {
-      //     model: {
-      //       // id: "groupName",
-      //       fields: {
-      //         groupName: { type: "string" },
-      //         startTime: { type: "date" },
-      //         finishTime: { type: "date" }
-      //       }
-      //     }
-      //   }
-      // });
+      dataSource1 = new kendo.data.DataSource({
+        // transport: {
+        //   read: {
+        //     url: root + "WorkshiftGroupCalendar",
+        //     dataType: "json",
+        //     contentType: "application/json",
+        //     type: "GET"
+        //   },
+        //   update: {
+        //     url: root + "WorkshiftGroupCalendar/changeWorkshift",
+        //     dataType: "json",
+        //     contentType: "application/json",
+        //     type: "PUT"
+        //   },
+        //   destroy: {
+        //     url: root + "WorkshiftGroupCalendar/delete",
+        //     dataType: "json",
+        //     contentType: "application/json",
+        //     type: "DELETE"
+        //   },
+        //   create: {
+        //     url: root + "WorkshiftGroupCalendar",
+        //     dataType: "json",
+        //     contentType: "application/json",
+        //     type: "POST"
+        //   },
+        //   parameterMap: function(options, operation) {
+        //     if (operation !== "read" && options) {
+        //       var arr = options.models;
+        //       console.log(kendo.stringify(arr[0]));
+        //       console.log(JSON.stringify(arr[0]));
+        //       return JSON.stringify(arr[0]);
+        //     }
+        //   }
+        // },
+        // batch: true,
+        // pageSize: 10,
+        // schema: {
+        //   model: {
+        //     // id: "groupName",
+        //     fields: {
+        //       groupName: { type: "string" },
+        //       startTime: { type: "date" },
+        //       finishTime: { type: "date" }
+        //     }
+        //   }
+        // }
+      });
       var grid = $("#grid").kendoGrid({
         columns: [
           {
@@ -101,7 +102,7 @@
             editor: groupNameDropDownEditor
             // template: "#=groupName#"
           },
-          { field: "workShiftState", title: " To Group", hidden: true },
+          { field: "workShiftState", title: " To Group" },
           { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
         ],
         toolbar: ["create"],
