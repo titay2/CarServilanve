@@ -23,6 +23,9 @@
     let currentLang = $translate.use();
     var baseUrl =
       "https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.";
+    //  var crudServiceBaseUrl = "http://semasp04.semel.ext/TestCarsurveillanceBackend/api/"
+    // $("#Grid").data("kendoGrid").dataSource.read();
+    // $("#Grid").data("kendoGrid").refresh();
 
     translateService.setLanguage();
     loginService.helloInitialize();
@@ -116,7 +119,7 @@
               fields: {
                 workshiftId: { type: "number", editable: false },
                 ismanual: { type: "number", defaultValue: 1, editable: false },
-                carnumber: { type: "number" },
+                carnumber: {},
                 groupName: { type: "string" },
                 operatingCompanyId: { type: "number" },
                 starttime: {
@@ -130,14 +133,18 @@
                   editable: true,
                   validation: { required: true }
                 },
-                workShiftState: { type: "number" }
+                workShiftState: {}
               }
             }
           }
         });
       dataSource.bind("requestEnd", dataSource_requestEnd);
       dataSource.fetch();
-
+      $("#numeric").kendoNumericTextBox({
+        spinners: false,
+        format: "#",
+        decimals: 0
+      });
       var grid = $("#grid").kendoGrid({
         dataSource: dataSource,
 
@@ -147,7 +154,14 @@
         sortable: true,
         columns: [
           { field: "ismanual", title: "ismanual", hidden: true },
-          { field: "carnumber", title: "Vehicle" },
+          {
+            field: "carnumber",
+            title: "Vehicle"
+            // spinners: false,
+            // format: "#",
+            // decimals: 0
+            //format: "{0:n0}"
+          },
           {
             field: "operatingCompanyId",
             title: "Call Center",
@@ -175,8 +189,6 @@
         ],
         editable: "popup"
       });
-
-      //refresh Grid everytime a new record is updated
       function dataSource_requestEnd(e) {
         if (e.type == "create") {
           dataSource.read();

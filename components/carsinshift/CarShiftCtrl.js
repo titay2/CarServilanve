@@ -37,7 +37,7 @@
           }
         }
       },
-      sort: { field: "vehicleNumber", dir: "asc" }
+      sort: { field: "vehicleNumber", dir: "desc" }
     });
     //DRAW THE KENDO TABLE WITH THE DEFINED DATASOURCE
     $("#grid").kendoGrid({

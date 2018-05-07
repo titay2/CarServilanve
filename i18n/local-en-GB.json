@@ -38,8 +38,8 @@
   "Forced": "Forced Print",
   "Secured": "Secured Send",
   "Choose": "Choose Message",
-  "SAVE": "Save changes to the standard message",
-  "SEND": "SEND",
+  "SAVE": "Save as standard message",
+  "SEND": "Send Message",
   "Texttbl": "Text Message",
   "Creation": "Creaton Date"
 }
