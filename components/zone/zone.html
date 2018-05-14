@@ -1,5 +1,153 @@
-<script type="text/x-kendo-template" id="detail-template">    
+<!-- <script type="text/x-kendo-template" id="detail-template">    
     <div class="subgrid1"></div>
     <div class="subgrid2"></div>
 </script>
-<div id="grid"></div>
+<div id="grid"></div> -->
+
+<!-- <script id="rowTemplate" type="text/x-kendo-tmpl">
+    <tr data-uid="#: uid #">
+	<td>#: zoneId #</td>
+	<td>#: zoneName #</td>
+	<td>#: freeCarsCount #</td>
+   
+            # for (var i = 0; i < carsList.length; i++) { #
+				<td>
+					#: carsList[i].carString#
+                </td>
+			# } #
+        
+   </tr>
+</script>
+<div id="grid"></div> -->
+<div id="example">
+    <div id="grid"></div>
+    <div id="wnd">
+
+        <button ng-click="here()" class="k-button close-button">First in queue</button>
+    </div>
+
+
+    <script>
+
+
+
+        function generateColumns(response) {
+
+            var sampleDataItem = response[0];
+            var columns = [];
+            for (var property in sampleDataItem) {
+                if (property.indexOf("Car") != 0) {
+                    columns.push({ field: property, width: "100px", locked: true });
+                }
+                else {
+                    columns.push({
+                        field: property + ".carString",
+                        title: property, width: "110px",
+                        template: "# if (data." + property + ".dispatchStatus == null) { #" +
+                            "<span></span>" +
+                            "# } else { #" +
+                            "<span class='#:getClassByStatus(data." + property + ".dispatchStatus)#'>#:" + property + ".carString#</span>" +
+                            "# } #"
+                    });
+                }
+            }
+
+            return columns;
+        }
+
+
+        function getClassByStatus(status) {
+            switch (status) {
+                case 0:
+
+                    className = "cell-green";
+                    break;
+                case 1:
+                    className = "cell-blue";
+                    break;
+                case 2:
+                    className = "cell-red";
+                    break;
+                case 3:
+                    className = "cell-yellow";
+                    break;
+            }
+            return className;
+        }
+        function Refresh() {
+            $("#grid").data("kendoGrid").dataSource.read();
+            $("#grid").data("kendoGrid").refresh();
+        }
+
+        var wnd = $("#wnd")
+            .kendoWindow({
+                height: 100,
+                width: 160,
+                visible: false
+            })
+            .data("kendoWindow");
+
+        $(".close-button").click(function () {
+            $(this)
+                .closest("[data-role=window]")
+                .data("kendoWindow")
+                .close();
+            //or
+            //$(this).closest(".k-window-content").data("kendoWindow").close();
+        });
+
+        $("#grid").on("click", "td", function (e) {
+
+            var row = $(this).closest("tr");
+
+            //var selectedCells = this.select();
+            var colIdx = $("td", row).index(this);
+
+            var colName = $("#grid")
+                .find("th")
+                .eq(colIdx)
+                .text();
+
+            if (e.target.nodeName == "SPAN" || e.target.nodeName == "TD") {
+                if (e.target.firstElementChild) {
+                    if (e.target.innerText) {
+                        wnd.title(e.target.innerText);
+                        wnd.center().open();
+                    }
+                }
+                else {
+                    console.log("its a TD")
+                }
+            }
+        });
+
+        function applyFilter(filterField, filterValue) {
+            var gridData = $("#grid").data("kendoGrid");
+            console.log(gridData)
+            // var currFilterObj = gridData.dataSource.filter();
+            // var currentFilters = currFilterObj ? currFilterObj.filters : [];
+
+            // if (currentFilters && currentFilters.length > 0) {
+            //     for (var i = 0; i < currentFilters.length; i++) {
+            //         if (currentFilters[i].field == filterField) {
+            //             currentFilters.splice(i, 1);
+            //             break;
+            //         }
+            //     }
+            // }
+
+            // if (filterValue != "0") {
+            //     currentFilters.push({
+            //         field: filterField,
+            //         operator: "eq",
+            //         value: filterValue
+            //     });
+            // }
+
+            // dataSource.filter({
+            //     logic: "and",
+            //     filters: currentFilters
+            // });
+        }
+
+    </script>

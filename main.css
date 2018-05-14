@@ -235,7 +235,10 @@ input[type="checkbox"] {
 .topcorner {
   position: absolute;
   top: 0px;
-  right: 16px;
+  right: 76px;
+}
+.critical {
+  background-color: #fdd;
 }
 /*resizing the 8 sections on the bottom nav bar */
 .col-xs-16,

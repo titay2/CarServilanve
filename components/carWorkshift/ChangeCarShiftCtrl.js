@@ -119,7 +119,7 @@
               fields: {
                 workshiftId: { type: "number", editable: false },
                 ismanual: { type: "number", defaultValue: 1, editable: false },
-                carnumber: {},
+                //  carnumber: {},
                 groupName: { type: "string" },
                 operatingCompanyId: { type: "number" },
                 starttime: {

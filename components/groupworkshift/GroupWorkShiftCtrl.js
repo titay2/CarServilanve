@@ -33,52 +33,77 @@
     function createGrid() {
       //needs Id field
       dataSource1 = new kendo.data.DataSource({
-        // transport: {
-        //   read: {
-        //     url: root + "WorkshiftGroupCalendar",
-        //     dataType: "json",
-        //     contentType: "application/json",
-        //     type: "GET"
-        //   },
-        //   update: {
-        //     url: root + "WorkshiftGroupCalendar/changeWorkshift",
-        //     dataType: "json",
-        //     contentType: "application/json",
-        //     type: "PUT"
-        //   },
-        //   destroy: {
-        //     url: root + "WorkshiftGroupCalendar/delete",
-        //     dataType: "json",
-        //     contentType: "application/json",
-        //     type: "DELETE"
-        //   },
-        //   create: {
-        //     url: root + "WorkshiftGroupCalendar",
-        //     dataType: "json",
-        //     contentType: "application/json",
-        //     type: "POST"
-        //   },
-        //   parameterMap: function(options, operation) {
-        //     if (operation !== "read" && options) {
-        //       var arr = options.models;
-        //       console.log(kendo.stringify(arr[0]));
-        //       console.log(JSON.stringify(arr[0]));
-        //       return JSON.stringify(arr[0]);
-        //     }
-        //   }
-        // },
-        // batch: true,
-        // pageSize: 10,
-        // schema: {
-        //   model: {
-        //     // id: "groupName",
-        //     fields: {
-        //       groupName: { type: "string" },
-        //       startTime: { type: "date" },
-        //       finishTime: { type: "date" }
-        //     }
-        //   }
-        // }
+        transport: {
+          read: {
+            url: root + "WorkshiftGroupCalendar",
+            dataType: "json",
+            contentType: "application/json",
+            type: "GET"
+          },
+          update: {
+            url: function(e) {
+              var options = e.models;
+              var leng = options.length;
+              var thisrow = options[leng - 1];
+              console.lod(options);
+              console.lod(leng);
+              console.lod(thisrow);
+            }
+            // url: root + "WorkshiftGroupCalendar/changeWorkshift",
+            // dataType: "json",
+            // contentType: "application/json",
+            // type: "PUT"
+          },
+          destroy: {
+            url: root + "WorkshiftGroupCalendar/delete",
+            dataType: "json",
+            contentType: "application/json",
+            type: "DELETE",
+            complete: function(e) {
+              $("#grid")
+                .data("kendoGrid")
+                .dataSource.read();
+            }
+          },
+          create: {
+            url: root + "WorkshiftGroupCalendar",
+            dataType: "json",
+            contentType: "application/json",
+            type: "POST",
+            complete: function(e) {
+              $("#grid")
+                .data("kendoGrid")
+                .dataSource.read();
+            }
+          },
+          parameterMap: function(options, operation) {
+            if (operation !== "read" && options) {
+              var arr = options.models;
+              var len = options.models.length;
+              var curr = options.models[len - 1];
+
+              console.log(len);
+              console.log(JSON.stringify(arr));
+              return JSON.stringify(arr[0]);
+            }
+          }
+        },
+        batch: true,
+        pageSize: 10,
+        schema: {
+          model: {
+            id: "grouptechId",
+            fields: {
+              grouptechId: { type: "number", editable: false },
+              groupName: { type: "string" },
+              templateName: { type: "string" },
+              workShifRestrictions: { type: "string" },
+              startTime: { type: "date" },
+              finishTime: { type: "date" },
+              workShiftState: { type: "number" }
+            }
+          }
+        }
       });
       var grid = $("#grid").kendoGrid({
         columns: [
@@ -102,11 +127,12 @@
             editor: groupNameDropDownEditor
             // template: "#=groupName#"
           },
-          { field: "workShiftState", title: " To Group" },
+          { field: "grouptechId", title: "grouptechId" },
+          { field: "workShiftState", title: "Workshift level" },
           { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
         ],
         toolbar: ["create"],
-        editable: "popup",
+        editable: "inline",
         dataSource: dataSource1,
         scrollable: true,
         pageable: true,
@@ -120,7 +146,7 @@
       function groupNameDropDownEditor(container, options) {
         $('<input required name="' + options.field + '"/>')
           .appendTo(container)
-          .kendoDropDownList({
+          .kendoComboBox({
             autoBind: false,
             dataTextField: "groupName",
             dataValueField: "groupName",

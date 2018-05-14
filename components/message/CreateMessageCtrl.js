@@ -207,7 +207,15 @@
             $scope.body.Properties = setValues(data, 7);
           }
           if (setValues(data, 8) != null) {
+            var id = setValues(data, 8);
             $scope.body.OperatingCompany = setValues(data, 8);
+            apiService.get("OperatingCompanies").then(data => {
+              Object.keys(data).forEach(function(key) {
+                if (data[key].operatingCompanyId == id) {
+                  $("#inputCenter").val(data[key].name);
+                }
+              });
+            });
           }
           if (setValues(data, 9) != null) {
             $scope.body.Posting = setValues(data, 9);
