@@ -28,11 +28,96 @@
 
 
     <script>
+        var array = findZone()
+        drawGrid(array)
+        function findZone() {
+            var result;
+            $.ajax({
+                url: root + "ZonesAndCars",
+                method: "GET",
+                dataType: "json",
+                async: false,
+                success: function (data) {
+                    result = data;
+                }
+            });
+            return result;
+        }
+
+        function drawGrid(data) {
+            var gridData = flattenColumns(data);
+            var gridColumns = generateColumns(gridData);
+            $("#grid").kendoGrid({
+                selectable: "cell",
+                pageable: true,
+
+                columns: gridColumns,
+                scrollable: true,
+                pageable: {
+                    // pageSize: 15,
+                    refresh: true
+                },
+                dataSource: {
+                    data: gridData,
+                    schema: {
+                        model: {
+                            id: "zoneId"
+                        }
+                    }
+
+                },
+                dataBound: function (e) {
+                    var gridElement = this.element;
+                    gridElement
+                        .find(".cell-red")
+                        .closest("td")
+                        .css("background", "#ff3636");
+                    gridElement
+                        .find(".cell-blue")
+                        .closest("td")
+                        .css("background", "#db40c5");
+                    gridElement
+                        .find(".cell-green")
+                        .closest("td")
+                        .css("background", "#30d965");
+                    gridElement
+                        .find(".cell-yellow")
+                        .closest("td")
+                        .css("background", "#eef51b");
+                }
+            });
+        }
 
 
+        function flattenColumns(data) {
+            var max = 0;
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].carsList.length > max) {
+                    max = data[i].carsList.length;
+                }
+                var carColumnsLength = max;
+            }
+            for (var i = 0; i < data.length; i++) {
+                var cars = data[i].carsList;
+                if (cars) {
+                    for (var j = 0; j < carColumnsLength; j++) {
+                        if (cars[j]) {
+                            data[i]["Car" + j] = {
+                                carString: cars[j].carString,
+                                dispatchStatus: cars[j].dispatchStatus,
+                                operatingCompanyID: cars[j].operatingCompanyID
+                            };
+                        } else {
+                            data[i]["Car" + j] = { carString: null, dispatchStatus: null };
+                        }
+                    }
+                }
+                delete data[i].carsList;
+            }
+            return data;
+        }
 
         function generateColumns(response) {
-
             var sampleDataItem = response[0];
             var columns = [];
             for (var property in sampleDataItem) {
@@ -46,7 +131,7 @@
                         template: "# if (data." + property + ".dispatchStatus == null) { #" +
                             "<span></span>" +
                             "# } else { #" +
-                            "<span class='#:getClassByStatus(data." + property + ".dispatchStatus)#'>#:" + property + ".carString#</span>" +
+                            "<span data-operating-company-id='#:" + property + ".operatingCompanyID#' class='car-cell #:getClassByStatus(data." + property + ".dispatchStatus)#'>#:" + property + ".carString#</span>" +
                             "# } #"
                     });
                 }
@@ -54,12 +139,9 @@
 
             return columns;
         }
-
-
         function getClassByStatus(status) {
             switch (status) {
                 case 0:
-
                     className = "cell-green";
                     break;
                 case 1:
@@ -74,11 +156,6 @@
             }
             return className;
         }
-        function Refresh() {
-            $("#grid").data("kendoGrid").dataSource.read();
-            $("#grid").data("kendoGrid").refresh();
-        }
-
         var wnd = $("#wnd")
             .kendoWindow({
                 height: 100,
@@ -92,62 +169,15 @@
                 .closest("[data-role=window]")
                 .data("kendoWindow")
                 .close();
-            //or
-            //$(this).closest(".k-window-content").data("kendoWindow").close();
         });
-
-        $("#grid").on("click", "td", function (e) {
-
-            var row = $(this).closest("tr");
-
-            //var selectedCells = this.select();
-            var colIdx = $("td", row).index(this);
-
-            var colName = $("#grid")
-                .find("th")
-                .eq(colIdx)
-                .text();
-
-            if (e.target.nodeName == "SPAN" || e.target.nodeName == "TD") {
-                if (e.target.firstElementChild) {
-                    if (e.target.innerText) {
-                        wnd.title(e.target.innerText);
-                        wnd.center().open();
-                    }
-                }
-                else {
-                    console.log("its a TD")
-                }
+        $("#grid").on("click", ".k-grid-content td", function (e) {
+            var cell = $(this);
+            var span = cell.find(".car-cell");
+            if (span.length > 0) {
+                var operatingCompanyID = span.data().operatingCompanyId;
+                wnd.title(e.target.innerText);
+                wnd.center().open();
             }
         });
-
-        function applyFilter(filterField, filterValue) {
-            var gridData = $("#grid").data("kendoGrid");
-            console.log(gridData)
-            // var currFilterObj = gridData.dataSource.filter();
-            // var currentFilters = currFilterObj ? currFilterObj.filters : [];
-
-            // if (currentFilters && currentFilters.length > 0) {
-            //     for (var i = 0; i < currentFilters.length; i++) {
-            //         if (currentFilters[i].field == filterField) {
-            //             currentFilters.splice(i, 1);
-            //             break;
-            //         }
-            //     }
-            // }
-
-            // if (filterValue != "0") {
-            //     currentFilters.push({
-            //         field: filterField,
-            //         operator: "eq",
-            //         value: filterValue
-            //     });
-            // }
-
-            // dataSource.filter({
-            //     logic: "and",
-            //     filters: currentFilters
-            // });
-        }
 
     </script>

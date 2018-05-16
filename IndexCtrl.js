@@ -8,14 +8,16 @@ var vehicleFilter = JSON.parse(localStorage.getItem("vehicleFilter") || "[]");
 
 findCallCenter();
 findArea();
-
+var test = [];
 //SET FILTER VALUES TO LOCAL STORAGE.
 $("#inputCenter").on("input", function() {
   var opt = $('option[value="' + $(this).val() + '"]');
   var val = opt.attr("id");
   if ($.isNumeric(val)) {
+    test[0] = val;
     setFiletr("callCenterId", val);
   }
+  console.log(test);
 });
 
 $("#inputArea").on("input", function() {
@@ -70,12 +72,12 @@ chat.client.dispatchStatusUpdate = function(update_array) {
   //   return (
   //     n +
   //     (status.postingID == 91 &&
-  //       status.dispatchStatus == 0 &&
-  //       status.dispatchStatus == 0 &&
-  //       status.dispatchStatus == 0)
+  //       status.carNumber == 0 &&
+  //       status.carAndDriverAttributes == 0 &&
+  //       status.operatingCompanyID == 0)
   //   );
   // }, 0);
-  // console.log(array);
+
   // var result = array.filter(function(adata) {
   //   return adata.DispatchStatus == 0 ;
   // });
@@ -97,14 +99,6 @@ function updateStatus(data, num, id) {
     }
   }
 }
-
-// var zone = $.connection.zonesAndCarsHub;
-// zone.client.zonesAndCarsUpdate = function(update) {
-//   //console.log(update);
-// };
-// $.connection.hub.start().done(function() {
-//   zone.server.getAllZonesAndCarsInfo().done(function(getAllLogs) {});
-// });
 
 function findFleet() {
   var result;
