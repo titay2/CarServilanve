@@ -57,7 +57,7 @@
         {
           field: "carDispatchAttributes",
           // hidden: true
-          title: "Driver ID"
+          title: "Property"
         },
         {
           field: "postingID",
@@ -187,7 +187,6 @@
           value: filterValue
         });
       }
-
       dataSource.filter({
         logic: "and",
         filters: currentFilters

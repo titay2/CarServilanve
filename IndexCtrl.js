@@ -124,8 +124,9 @@ chat.client.dispatchStatusUpdate = function(update_array) {
         resultAttribute = result.filter(function(o) {
           if (o.carAndDriverAttributes !== null) {
             return (
-              o.carAndDriverAttributes.indexOf(filters.carAndDriverAttributes) >
-              -1
+              // o.carAndDriverAttributes.indexOf(filters.carAndDriverAttributes) >
+              // -1
+              o.carAndDriverAttributes === filters.carAndDriverAttributes
             );
           }
         });

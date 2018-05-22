@@ -25,7 +25,7 @@
       .preferredLanguage("en-GB")
       .fallbackLanguage("en-GB")
       .useStaticFilesLoader({
-        prefix: "i18n/local-",
+        prefix: "assets/i18n/local-",
         suffix: ".json"
       })
       .useSanitizeValueStrategy()

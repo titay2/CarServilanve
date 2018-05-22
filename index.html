@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Basic style -->
-    <link rel="icon" type="image/png" href="logo/logo.ico">
+    <link rel="icon" type="image/png" href="assets/logo/logo.ico">
 
     <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
@@ -39,7 +39,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand">
-                            <img src="logo/logo.png" alt="Semel Logo"> </a>
+                            <img src="assets/logo/logo.png" alt="Semel Logo"> </a>
                     </div>
 
                     <div class="collapse navbar-collapse" id="topNavbar">
@@ -152,9 +152,10 @@
 
 
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="node_modules/@aspnet/signalr/dist/browser/signalr.min.js"></script>
-    <script src="jquery.signalR-2.2.3.min.js"></script>
-    <script src="http://localhost:8888/signalr/hubs"></script>
+    <!-- <script src="node_modules/@aspnet/signalr/dist/browser/signalr.min.js"></script> -->
+    <script src="assets/jquery.signalR-2.2.3.min.js"></script>
+    <!-- <script src="http://localhost:8888/signalr/hubs"></script> -->
+    <script src="http://testcarsurveillancerpc.cloudapp.net:8080/signalr/hubs"></script>
 
     <script src="bower_components/moment/moment.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
@@ -182,11 +183,11 @@
 
     <!--	Import component scripts-->
     <script type="text/javascript" src="settingValues.js"></script>
-    <script src="components/apiService.js"></script>
-    <script src="components/filterService.js"></script>
-    <script src="components/HelloService.js"></script>
-    <script src="components/loginservice.js"></script>
-    <script src="components/translateService.js"></script>
+    <script src="components/services/apiService.js"></script>
+    <script src="components/services/filterService.js"></script>
+    <script src="components/services/HelloService.js"></script>
+    <script src="components/services/loginservice.js"></script>
+    <script src="components/services/translateService.js"></script>
     <script src="components/message/CreateMessageCtrl.js"></script>
     <script src="components/carsinshift/CarShiftCtrl.js"></script>
     <script src="components/dispatch/DispatchCtrl.js"></script>
