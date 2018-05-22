@@ -181,7 +181,11 @@
             editor: customDateTimePickerEditor
           },
 
-          { field: "groupName", title: "comment" },
+          {
+            field: "groupName",
+            title: "comment",
+            editor: groupNameDropDownEditor
+          },
 
           { field: "workShiftState", title: "Workshift State" },
 
@@ -198,7 +202,7 @@
       function ocDropDownEditor(container, options) {
         $('<input required name="' + options.field + '"/>')
           .appendTo(container)
-          .kendoDropDownList({
+          .kendoComboBox({
             autoBind: false,
             dataTextField: "name",
             dataValueField: "operatingCompanyId",
@@ -206,6 +210,21 @@
               type: "json",
               transport: {
                 read: { url: root + "OperatingCompanies" }
+              }
+            }
+          });
+      }
+      function groupNameDropDownEditor(container, options) {
+        $('<input required name="' + options.field + '"/>')
+          .appendTo(container)
+          .kendoComboBox({
+            autoBind: false,
+            dataTextField: "groupName",
+            dataValueField: "groupName",
+            dataSource: {
+              // type: "json",
+              transport: {
+                read: { url: root + "WorkshiftCarGroup" }
               }
             }
           });

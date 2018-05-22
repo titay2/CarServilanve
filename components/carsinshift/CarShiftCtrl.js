@@ -13,7 +13,6 @@
   ) {
     translateService.setLanguage();
     loginService.helloInitialize();
-    //filterService.watchAndFilter("callCenterId", "operatingCompanyId", "#grid");
 
     watchAndFilter("callCenterId", "operatingCompanyID");
     watchAndFilter("vehicleFilter", "vehicleNumber");
@@ -37,9 +36,9 @@
           }
         }
       },
-      sort: { field: "vehicleNumber", dir: "desc" }
+      sort: { field: "vehicleNumber", dir: "asc" }
     });
-    //DRAW THE KENDO TABLE WITH THE DEFINED DATASOURCE
+
     $("#grid").kendoGrid({
       dataSource: dataSource,
       columns: [
@@ -83,9 +82,6 @@
         },
         { field: "pager", title: "Pager" }
       ],
-
-      //scrollable: true,
-      //detailInit: detailInit,
       filterable: true,
       resizable: true,
       sortable: true,
@@ -93,8 +89,14 @@
     });
 
     $("#clearLable").click(function() {
-      $state.reload("carsinshift");
-      //$("#grid").data("kendoGrid").dataSource.filter({});
+      // $state.reload("carsinshift");
+      $("#grid")
+        .data("kendoGrid")
+        .dataSource.filter({});
+
+      // var dataSource = $("#grid").data("kendoGrid").dataSource;
+
+      // console.log(dataSource.filter());
     });
 
     //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION
@@ -104,7 +106,6 @@
       }
       $scope.$watch(getValue, function(val) {
         if (val) {
-          console.log(val);
           var newValue = $.parseJSON(val);
           applyFilter(filterBy, newValue);
         }

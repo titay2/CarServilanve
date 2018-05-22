@@ -34,8 +34,8 @@
 
     function post(path, body, config) {
       var defer = $q.defer();
-      console.log(body);
-      console.log(config);
+      // console.log(body);
+      // console.log(config);
       $http
         .post(root + path, body, config)
 
