@@ -45,14 +45,23 @@
               var options = e.models;
               var leng = options.length;
               var thisrow = options[leng - 1];
-              console.lod(options);
-              console.lod(leng);
-              console.lod(thisrow);
-            }
+              console.log(thisrow);
+              return (
+                root +
+                "/WorkshiftGroupCalendar/changeWorkshift?endTime=" +
+                thisrow.finishTime +
+                "&workShiftGroupName=" +
+                thisrow.groupName +
+                "&workShiftGroupId=" +
+                thisrow.grouptechId +
+                "&operatingCompanyId=" +
+                thisrow.operatingCompanyId
+              );
+            },
             // url: root + "WorkshiftGroupCalendar/changeWorkshift",
-            // dataType: "json",
-            // contentType: "application/json",
-            // type: "PUT"
+            dataType: "json",
+            contentType: "application/json",
+            type: "PUT"
           },
           destroy: {
             url: root + "WorkshiftGroupCalendar/delete",
@@ -77,7 +86,7 @@
             }
           },
           parameterMap: function(options, operation) {
-            if (operation !== "read" && options) {
+            if (operation !== "read" && operation !== "update" && options) {
               var arr = options.models;
               var len = options.models.length;
               var curr = options.models[len - 1];

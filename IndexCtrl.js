@@ -15,6 +15,7 @@ var filters = {
   carNumber: "",
   carAndDriverAttributes: ""
 };
+
 //SET FILTER VALUES TO LOCAL STORAGE.
 $("#inputCenter").on("input", function() {
   var opt = $('option[value="' + $(this).val() + '"]');
@@ -67,9 +68,10 @@ $("#clearLable").click(function() {
     carAndDriverAttributes: ""
   };
 });
-
 //CONNECT TO THE SIGNAR, LOAD THE FIRST INPUTS FROM THE API, GET CHANGES FROM SIGNALR AND UPDATE UI.
-$.connection.hub.url = "http://localhost:8888/signalr";
+//$.connection.hub.url = "http://localhost:8888/signalr";
+$.connection.hub.url =
+  "http://testcarsurveillancerpc.cloudapp.net:8080/signalr/hubs";
 var chat = $.connection.dispatchStatusHub;
 chat.client.dispatchStatusUpdate = function(update_array) {
   var array = findFleet();
@@ -158,15 +160,9 @@ chat.client.dispatchStatusUpdate = function(update_array) {
 $.connection.hub.start().done(function() {
   chat.server.getFleetDispatchInfo().done(function(getAllLogs) {});
 });
-// function getthefilter(data) {
-//   return data;
-// }
 
 function updateStatus(data, num, id) {
   var count;
-  // if (data.length == 0) {
-  //   document.getElementById(id).innerHTML = 0;
-  // } else {
   document.getElementById(id).innerHTML = 0;
   for (var i in data) {
     if (data.hasOwnProperty(i)) {

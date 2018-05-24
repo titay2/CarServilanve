@@ -25,7 +25,8 @@
 
     var zone = $.connection.zonesAndCarsHub;
     zone.client.zonesAndCarsUpdate = function(update) {
-      var update_array = JSON.parse(update);
+      //var update_array = JSON.parse(update);
+      // console.log(update);
       // $state.reload("zone");
       // console.log(update_array);
       // var parsedArray = [];

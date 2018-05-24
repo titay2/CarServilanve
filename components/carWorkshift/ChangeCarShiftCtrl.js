@@ -147,9 +147,7 @@
       });
       var grid = $("#grid").kendoGrid({
         dataSource: dataSource,
-
         toolbar: ["create"],
-
         pageable: true,
         sortable: true,
         columns: [

@@ -47,16 +47,16 @@
           hidden: true
         },
         {
-          field: "carDispatchAttributes",
-          hidden: true
+          field: "carDispatchAttributes"
+          //hidden: true
         },
         {
           field: "postingID",
           hidden: true
         },
         { field: "vehicleNumber", title: "Car Number" },
-        { field: "driverId", title: "Driver ID" },
-        { field: "zoneId", title: "Zone ID" },
+        //{ field: "driverId", title: "Driver ID" },
+        //{ field: "zoneId", title: "Zone ID" },
         { field: "zoneNumber", title: "Zone Number" },
         { field: "zone", title: "Zone name" },
         { field: "status", title: "Status" },
@@ -86,6 +86,8 @@
       resizable: true,
       sortable: true,
       pageable: true
+      // serverFiltering: true,
+      // serverPaging: true
     });
 
     $("#clearLable").click(function() {
@@ -125,13 +127,23 @@
           }
         }
       }
+      var ifprop = parseInt(filterValue);
 
       if (filterValue != "0") {
-        currentFilters.push({
-          field: filterField,
-          operator: "eq",
-          value: filterValue
-        });
+        if (filterField === "carDispatchAttributes") {
+          currentFilters.push({
+            field: filterField,
+            operator: "contains",
+            value: filterValue
+          });
+        } else {
+          console.log(filterField);
+          currentFilters.push({
+            field: filterField,
+            operator: "eq",
+            value: filterValue
+          });
+        }
       }
 
       dataSource.filter({
