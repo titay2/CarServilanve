@@ -2,7 +2,7 @@
   //'use strict';
 
   angular.module("app").controller("DispatchCtrl", DispatchCtrl);
-
+  // DispatchCtrl.$inject = ["$scope", " $state", " $rootScope"];
   function DispatchCtrl(
     apiService,
     translateService,
@@ -21,9 +21,14 @@
 
     // Web Login and Logout using hello
     function helloInitialize() {
-      HelloService.initialize().then(function(authResponse) {
-        displayUserDetails(getUserData(authResponse));
-      });
+      HelloService.initialize()
+        .then(function(authResponse) {
+          displayUserDetails(getUserData(authResponse));
+        })
+        .catch(function(error) {
+          // pass the error the the error service
+          console.log(error + "Not logged in!");
+        });
     }
 
     function helloLogout() {

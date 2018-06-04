@@ -46,6 +46,8 @@
               var leng = options.length;
               var thisrow = options[leng - 1];
               console.log(thisrow);
+              //No operating company id with the ger request
+              //therefore users have to guess the operatingcompanyid
               return (
                 root +
                 "/WorkshiftGroupCalendar/changeWorkshift?endTime=" +
@@ -91,9 +93,10 @@
               var len = options.models.length;
               var curr = options.models[len - 1];
 
-              console.log(len);
+              // console.log(curr);
               console.log(JSON.stringify(arr));
-              return JSON.stringify(arr[0]);
+              //no peimary key only POST gets excuted
+              // return JSON.stringify(arr[0]);
             }
           }
         },

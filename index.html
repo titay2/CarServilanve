@@ -42,7 +42,7 @@
                             <img src="assets/logo/logo.png" alt="Semel Logo"> </a>
                     </div>
 
-                    <div class="collapse navbar-collapse" id="topNavbar">
+                    <div class="collapse navbar-collapse" id="topNavbar" ng-show="user.id">
                         <!-- <div id="Topgrid"></div> -->
                         <ul class="nav navbar-nav">
                             <li>
@@ -89,7 +89,7 @@
                             <div class="topcorner">
                                 <label style="color: white;" class="control-label" for="lang" placeholder="English">&nbsp;
                                     <i class="fa fa-language"></i> {{'LANGUAGE' | translate}}</label>
-                                <select id="lang" class="form-control" ng-model="body.language" data-width="100px">
+                                <select id="lang" class="form-control" ng-model="body.language" data-width="90px">
                                     <option value="fi-FI"> {{'Finnish' | translate}}</option>
                                     <option value="en-GB"> {{'English' | translate}}</option>
                                     <option value="sv-SE"> {{'Swedish' | translate}}</option>
@@ -112,7 +112,7 @@
                     </button>
                 </div>
                 <div class="collapse navbar-collapse" id="bottomNavbar">
-                    <!-- <div class="collapse navbar-collapse" id="bottomNavbar"  ng-show="user.id"> -->
+                    <!-- <div class="collapse navbar-collapse" id="bottomNavbar"  > -->
                     <ul class="nav  nav-tabs">
                         <li class="col-md-16">
                             <a ui-sref="carInfo" ng-show="user.id" translate>CarInfo</a>
@@ -155,7 +155,8 @@
     <!-- <script src="node_modules/@aspnet/signalr/dist/browser/signalr.min.js"></script> -->
     <script src="assets/jquery.signalR-2.2.3.min.js"></script>
     <!-- <script src="http://localhost:8888/signalr/hubs"></script> -->
-    <script src="http://testcarsurveillancerpc.cloudapp.net:8080/signalr/hubs"></script>
+    <!-- <script src="http://testcarsurveillancerpc.cloudapp.net:8080/signalr/hubs"></script> -->
+    <script src="http://testcarsurveillanceworker.cloudapp.net:8080/signalr/hubs"></script>
 
     <script src="bower_components/moment/moment.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>

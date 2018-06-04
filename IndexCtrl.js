@@ -5,7 +5,7 @@ var callCenterId = JSON.parse(localStorage.getItem("callCenterId") || "[]");
 var areaFilter = JSON.parse(localStorage.getItem("areaFilter") || "[]");
 var propertyFilter = JSON.parse(localStorage.getItem("propertyFilter") || "[]");
 var vehicleFilter = JSON.parse(localStorage.getItem("vehicleFilter") || "[]");
-
+localStorage.clear();
 findCallCenter();
 findArea();
 
@@ -68,13 +68,18 @@ $("#clearLable").click(function() {
     carAndDriverAttributes: ""
   };
 });
+
 //CONNECT TO THE SIGNAR, LOAD THE FIRST INPUTS FROM THE API, GET CHANGES FROM SIGNALR AND UPDATE UI.
-//$.connection.hub.url = "http://localhost:8888/signalr";
+// $.connection.hub.url = "http://localhost:8888/signalr";
+// $.connection.hub.url =
+//   "http://testcarsurveillancerpc.cloudapp.net:8080/";
 $.connection.hub.url =
-  "http://testcarsurveillancerpc.cloudapp.net:8080/signalr/hubs";
+  "http://testcarsurveillanceworker.cloudapp.net:8080/signalr/hubs";
+
 var chat = $.connection.dispatchStatusHub;
 chat.client.dispatchStatusUpdate = function(update_array) {
   var array = findFleet();
+
   array = array.map(function(item) {
     var car = update_array.find(a => a.carID == item.carID);
     return car ? Object.assign(item, car) : item;

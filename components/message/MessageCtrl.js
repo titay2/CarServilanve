@@ -32,7 +32,6 @@
       detailInit: detailInit,
       dataSource: {
         type: "signalr",
-        //dataType: "json",
         autoSync: true,
         schema: {
           model: {

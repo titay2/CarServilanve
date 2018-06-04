@@ -235,7 +235,7 @@ input[type="checkbox"] {
 .topcorner {
   position: absolute;
   top: 0px;
-  right: 76px;
+  right: 56px;
 }
 .critical {
   background-color: #fdd;
