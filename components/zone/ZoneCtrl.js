@@ -26,63 +26,63 @@
     var zonehub = $.connection.zonesAndCarsHub;
     var zonehubStart = $.connection.hub.start();
 
-    $("#grid").kendoGrid({
-      columns: [
-        {
-          field: "ZoneId",
-          title: "zone ID"
-        },
-        {
-          field: "ZoneName",
-          title: "zone Name"
-        },
-        {
-          field: "FreeCarsCount",
-          title: "count"
-        },
-        {
-          field: "WaitTime",
-          title: "wait"
-        }
-      ],
-      pageable: true,
+    // $("#grid").kendoGrid({
+    //   columns: [
+    //     {
+    //       field: "ZoneId",
+    //       title: "zone ID"
+    //     },
+    //     {
+    //       field: "ZoneName",
+    //       title: "zone Name"
+    //     },
+    //     {
+    //       field: "FreeCarsCount",
+    //       title: "count"
+    //     },
+    //     {
+    //       field: "WaitTime",
+    //       title: "wait"
+    //     }
+    //   ],
+    //   pageable: true,
 
-      dataSource: {
-        type: "signalr",
-        autoSync: true,
-        transport: {
-          signalr: {
-            promise: zonehubStart,
-            hub: zonehub,
-            server: {
-              read: "getAllZonesAndCarsInfo"
-            },
-            client: {
-              read: "zonesAndCarsUpdate"
-            }
-          }
-        },
-        // schema: {
-        //   model: {
-        //     id: "zoneId"
-        //   }
-        // },
-        pageSize: 15
-      },
-      detailInit: function(e) {
-        var parentGrid = this;
-        $("<div/>")
-          .appendTo(e.detailCell)
-          .kendoGrid({
-            dataSource: parentGrid.dataItem(e.masterRow).CarsList,
-            columns: [
-              { field: "CarString" },
-              { field: "CarNumber" },
-              { field: "DispatchStatus" }
-            ]
-          });
-      }
-    });
+    //   dataSource: {
+    //     type: "signalr",
+    //     autoSync: true,
+    //     transport: {
+    //       signalr: {
+    //         promise: zonehubStart,
+    //         hub: zonehub,
+    //         server: {
+    //           read: "getAllZonesAndCarsInfo"
+    //         },
+    //         client: {
+    //           read: "zonesAndCarsUpdate"
+    //         }
+    //       }
+    //     },
+    //     // schema: {
+    //     //   model: {
+    //     //     id: "zoneId"
+    //     //   }
+    //     // },
+    //     pageSize: 15
+    //   },
+    //   detailInit: function(e) {
+    //     var parentGrid = this;
+    //     $("<div/>")
+    //       .appendTo(e.detailCell)
+    //       .kendoGrid({
+    //         dataSource: parentGrid.dataItem(e.masterRow).CarsList,
+    //         columns: [
+    //           { field: "CarString" },
+    //           { field: "CarNumber" },
+    //           { field: "DispatchStatus" }
+    //         ]
+    //       });
+    //   }
+    // });
 
     // var hubUrl = "url here";
     // var hub = new signalR.HubConnectionBuilder()

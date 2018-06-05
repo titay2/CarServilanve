@@ -5,7 +5,7 @@
     <title>Messages</title>
 
     <!-- Viewport settings-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
 
     <!-- Basic style -->
     <link rel="icon" type="image/png" href="assets/logo/logo.ico">
@@ -137,7 +137,7 @@
                         </li>
                         <!-- <li class="col-md-16"><a ui-sref="restriction" translate>Active</a></li> -->
                         <button class="btn" ng-show="user.id" ng-click="HelloService.logout()" translate> LOGOUT </button>
-                        <h4 ng-model="body.UserName">{{user.email| limitTo : 8 }}</h4>
+                        <!-- <h4 ng-model="body.UserName">{{user.email| limitTo : 8 }}</h4> -->
                     </ul>
 
                 </div>
@@ -161,7 +161,7 @@
     <script src="bower_components/moment/moment.js"></script>
     <script type="text/javascript" src="bower_components/angular/angular.js"></script>
     <script type="text/javascript" src="bower_components/Kendo-ui/js/kendo.all.min.js"></script>
-    <!-- <script type="text/javascript" src="bower_components/Kendo-ui/js/kendo.core.min.js"></script> -->
+    <script type="text/javascript" src="bower_components/Kendo-ui/js/kendo.core.min.js"></script>
     <script type="text/javascript" src="bower_components/Kendo-ui/js/cultures/kendo.culture.sv-SE.min.js"></script>
     <script type="text/javascript" src="bower_components/Kendo-ui/js/cultures/kendo.culture.fi-FI.min.js"></script>
     <script type="text/javascript" src="bower_components/Kendo-ui/js/cultures/kendo.culture.en-GB.min.js"></script>

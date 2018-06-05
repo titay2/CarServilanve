@@ -26,7 +26,6 @@
           displayUserDetails(getUserData(authResponse));
         })
         .catch(function(error) {
-          // pass the error the the error service
           console.log(error + "Not logged in!");
         });
     }

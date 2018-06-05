@@ -94,9 +94,9 @@
               var curr = options.models[len - 1];
 
               // console.log(curr);
-              console.log(JSON.stringify(arr));
+              console.log(JSON.stringify(arr[0]));
               //no peimary key only POST gets excuted
-              // return JSON.stringify(arr[0]);
+              return JSON.stringify(arr[0]);
             }
           }
         },
@@ -139,7 +139,7 @@
             editor: groupNameDropDownEditor
             // template: "#=groupName#"
           },
-          { field: "grouptechId", title: "grouptechId" },
+          { field: "grouptechId", title: "grouptechId", hidden: true },
           { field: "workShiftState", title: "Workshift level" },
           { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
         ],

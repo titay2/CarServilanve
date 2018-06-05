@@ -240,11 +240,11 @@ input[type="checkbox"] {
 .critical {
   background-color: #fdd;
 }
-/*resizing the 8 sections on the bottom nav bar */
-.col-xs-16,
-.col-sm-16,
-.col-md-16,
-.col-lg-16 {
+/* resizing the 8 sections on the bottom nav bar
+.col-xs-14,
+.col-sm-14,
+.col-md-14,
+.col-lg-14 {
   position: relative;
   min-height: 1px;
   padding-right: 10px;
@@ -254,7 +254,7 @@ input[type="checkbox"] {
   font-family: "Trebuchet MS", Helvetica, sans-serif;
   font-size: 468%;
 }
-.col-xs-16 {
+.col-xs-14 {
   width: 12.5%;
   float: left;
 }
@@ -264,22 +264,22 @@ h3,
   padding-left: 38%;
 }
 @media (min-width: 768px) {
-  .col-sm-16 {
+  .col-sm-14 {
     width: 12.5%;
     float: left;
   }
 }
 
 @media (min-width: 992px) {
-  .col-md-16 {
+  .col-md-14 {
     width: 12.5%;
     float: left;
   }
 }
 
 @media (min-width: 767px) {
-  .col-lg-16 {
+  .col-lg-14 {
     width: 12.5%;
     float: left;
   }
-}
+} */

@@ -24,7 +24,6 @@
     translateService.setLanguage();
     //let currentLang = $translate.use();
 
-    var vm = this;
     var $working = $(" input[class = 'working']");
     var $notworking = $(" input[class = 'notWorking']");
 

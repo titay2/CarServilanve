@@ -93,17 +93,17 @@
 
         function flattenColumns(data) {
             var max = 0;
-            // for (var i = 0; i < data.length; i++) {
-            //     if (data[i].carsList.length > max) {
-            //         max = data[i].carsList.length;
-            //     }
-            //     var carColumnsLength = max;
-            // }
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].carsList.length > max) {
+                    max = data[i].carsList.length;
+                }
+                var carColumnsLength = max;
+            }
             for (var i = 0; i < data.length; i++) {
                 var cars = data[i].carsList;
                 if (cars) {
-                    // for (var j = 0; j < carColumnsLength; j++) {
-                    for (var j = 0; j < 10; j++) {
+                    for (var j = 0; j < carColumnsLength; j++) {
+                        //for (var j = 0; j < 10; j++) {
                         if (cars[j]) {
                             data[i]["Car" + j] = {
                                 carString: cars[j].carString,

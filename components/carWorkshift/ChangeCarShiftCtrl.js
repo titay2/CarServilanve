@@ -121,7 +121,7 @@
                 ismanual: { type: "number", defaultValue: 1, editable: false },
                 //  carnumber: {},
                 groupName: { type: "string" },
-                operatingCompanyId: { type: "number" },
+                operatingCompanyID: { validation: { required: true } },
                 starttime: {
                   type: "date",
                   editable: true,
@@ -145,13 +145,22 @@
         format: "#",
         decimals: 0
       });
-      var grid = $("#grid").kendoGrid({
+
+      watchAndFilter("callCenterId", "operatingCompanyID");
+      $("#grid").kendoGrid({
         dataSource: dataSource,
         toolbar: ["create"],
         pageable: true,
         sortable: true,
+        filterable: true,
         columns: [
           { field: "ismanual", title: "ismanual", hidden: true },
+          {
+            field: "operatingCompanyID",
+            title: "Call Center",
+            //hidden: true,
+            editor: ocDropDownEditor
+          },
           {
             field: "carnumber",
             title: "Vehicle"
@@ -160,12 +169,7 @@
             // decimals: 0
             //format: "{0:n0}"
           },
-          {
-            field: "operatingCompanyId",
-            title: "Call Center",
-            hidden: true,
-            editor: ocDropDownEditor
-          },
+
           {
             field: "starttime",
             title: "Start Time",
@@ -191,6 +195,50 @@
         ],
         editable: "popup"
       });
+
+      //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION
+      function watchAndFilter(watchThis, filterBy) {
+        function getValue() {
+          return window.localStorage.getItem(watchThis);
+        }
+        $scope.$watch(getValue, function(val) {
+          if (val) {
+            var newValue = $.parseJSON(val);
+            applyFilter(filterBy, newValue);
+          }
+        });
+      }
+      //TAKE FILTER VALUES FROM LOCALSTORAGE AND MODIFIES THE DATASOURCE ACCORDINGLY
+      function applyFilter(filterField, filterValue) {
+        var gridData = $("#grid").data("kendoGrid");
+        var currFilterObj = gridData.dataSource.filter();
+        var currentFilters = currFilterObj ? currFilterObj.filters : [];
+
+        if (currentFilters && currentFilters.length > 0) {
+          for (var i = 0; i < currentFilters.length; i++) {
+            if (currentFilters[i].field == filterField) {
+              currentFilters.splice(i, 1);
+              break;
+            }
+          }
+        }
+
+        // var getPrpperty = parseInt (filterValue)
+
+        // if(filterValue )
+
+        if (filterValue != "0") {
+          currentFilters.push({
+            field: filterField,
+            operator: "eq",
+            value: filterValue
+          });
+        }
+        dataSource.filter({
+          logic: "and",
+          filters: currentFilters
+        });
+      }
       function dataSource_requestEnd(e) {
         if (e.type == "create") {
           dataSource.read();

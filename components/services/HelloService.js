@@ -21,7 +21,7 @@
             adB2CEditProfile: clientId
           },
           {
-            redirect_uri: "/",
+            redirect_uri: "http://localhost:8080",
             //redirect_uri: 'https://semasp04.semel.ext/CarServilanve',
             scope: "openid " + clientId,
             response_type: "token id_token"
@@ -71,6 +71,7 @@
               "/oauth2/v2.0/token"
           },
           refresh: true,
+          popUp: true,
           scope_delim: " ",
           form: false
         };
