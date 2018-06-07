@@ -20,140 +20,108 @@
   ) {
     translateService.setLanguage();
     loginService.helloInitialize();
-    $scope.here = function() {};
-    // watchAndFilter("callCenterId", "operatingCompanyID");
 
-    var zonehub = $.connection.zonesAndCarsHub;
-    var zonehubStart = $.connection.hub.start();
+    function findCars() {
+      var result;
+      $.ajax({
+        url: root + "Cars/CarsDetails",
+        method: "GET",
+        dataType: "json",
+        async: false,
+        success: function(data) {
+          result = data;
+        }
+      });
+      return result;
+    }
+    function setAll(obj, val) {
+      /* Duplicated with @Maksim Kalmykov
+          for(k in obj) if(obj.hasOwnProperty(k))
+              obj[k] = val;
+      */
+      Object.keys(obj).forEach(function(k) {
+        obj[k] = val;
+      });
+    }
+    function setNull(obj) {
+      setAll(obj, null);
+    }
 
-    // $("#grid").kendoGrid({
-    //   columns: [
-    //     {
-    //       field: "ZoneId",
-    //       title: "zone ID"
-    //     },
-    //     {
-    //       field: "ZoneName",
-    //       title: "zone Name"
-    //     },
-    //     {
-    //       field: "FreeCarsCount",
-    //       title: "count"
-    //     },
-    //     {
-    //       field: "WaitTime",
-    //       title: "wait"
-    //     }
-    //   ],
-    //   pageable: true,
-
-    //   dataSource: {
-    //     type: "signalr",
-    //     autoSync: true,
-    //     transport: {
-    //       signalr: {
-    //         promise: zonehubStart,
-    //         hub: zonehub,
-    //         server: {
-    //           read: "getAllZonesAndCarsInfo"
-    //         },
-    //         client: {
-    //           read: "zonesAndCarsUpdate"
-    //         }
-    //       }
-    //     },
-    //     // schema: {
-    //     //   model: {
-    //     //     id: "zoneId"
-    //     //   }
-    //     // },
-    //     pageSize: 15
-    //   },
-    //   detailInit: function(e) {
-    //     var parentGrid = this;
-    //     $("<div/>")
-    //       .appendTo(e.detailCell)
-    //       .kendoGrid({
-    //         dataSource: parentGrid.dataItem(e.masterRow).CarsList,
-    //         columns: [
-    //           { field: "CarString" },
-    //           { field: "CarNumber" },
-    //           { field: "DispatchStatus" }
-    //         ]
-    //       });
-    //   }
-    // });
-
-    // var hubUrl = "url here";
-    // var hub = new signalR.HubConnectionBuilder()
-    //    .withUrl(hubUrl, {
-    //        transport: signalR.HttpTransportType.LongPolling
-    //    })
-    //    .build();
-    // var hubStart = hub.start();
-
+    var cars = findCars();
+    var zoneList = array;
     var zone = $.connection.zonesAndCarsHub;
     zone.client.zonesAndCarsUpdate = function(update) {
-      //console.log(update);
-      // var update_array = JSON.parse(update);
-      //$state.reload("zone");
-      //console.log(update);
-      //   var parsedArray = [];
-      //   for (var i = 0; i < update_array.length; i++) {
-      //     parsedArray.push(update_array[i]);
-      //   }
-      // var data = parsedArray;
-      // console.log(parsedArray);
-      // var grid = $("#grid").data("kendoGrid").dataSource;
-      // for (var i = 0; i < data.length; i++) {
-      //   var gridd = $("#grid").data("kendoGrid");
-      //   if ($("#grid").data("kendoGrid")) {
-      //     var dataItem = grid.get(data[i].zoneId);
-      //     dataItem = data[i];
-      //     gridd.refresh;
-      //   }
-      // }
-      // var grid = $("#grid").data("kendoGrid").dataSource;
-      // var cars;
-      // for (var i = 0; i < data.length; i++) {
-      //   if (data[i].carsList !== null) {
-      //     cars = data[i].carsList;
-      //   }
-      //   if ($("#grid").data("kendoGrid")) {
-      //     var dataItem = grid.get(data[i].zoneId);
-      //     var carItem;
-      //     for (var key in dataItem) {
-      //       if (key.indexOf("Car") > -1) {
-      //         var item = dataItem[key];
-      //         if (isNaN(item) && item.carNumber !== undefined) {
-      //           catItem = item;
-      //         }
-      //       }
-      //     }
-      //     for (var k = 0; k < cars.length; k++) {
-      //       if ((catItem.carNumber = cars[k].carNumber)) {
-      //         catItem.carString = cars[k].carString;
-      //         catItem.dispatchStatus = cars[k].dispatchStatus;
-      //         catItem.postingId = cars[k].postingId;
-      //         catItem.operatingCompanyID = cars[k].operatingCompanyID;
-      //         var gridd = $("#grid").data("kendoGrid");
-      //         gridd.refresh();
-      //         console.log("changed!");
-      //         $("#grid")
-      //           .data("kendoGrid")
-      //           .dataSource.read();
-      //         //   }
-      //       } else {
-      //         console.log(cars[k].carNumber);
-      //       }
-      //     }
-      //   }
-      // }
+      var grid = $("#grid").data("kendoGrid");
+      var griddata = grid.dataSource;
+      var data = [];
+      // the signalR update send unchanged zone infrmation with ull values for carlist array
+      // therefore filter only the changed zones
+      for (var i = 0; i < update.length; i++) {
+        if (update[i].CarsList !== null) {
+          data.push(update[i]);
+        }
+      }
+      // Iterate through the update data and find the changed cars
+      for (var i = 0; i < data.length; i++) {
+        for (var j = 0; j < data[i].CarsList.length; j++) {
+          // get the updates cars old zone mumber
+          var filtercars = _.where(cars, {
+            vehicleNumber: data[i].CarsList[j].CarNumber
+          });
+          // If the zone number of the updated car is similar to its old zone number
+          // just update the status
+          if (filtercars[0].zoneId == data[i].ZoneId) {
+            if (grid) {
+              var dataItem = griddata.get(data[i].ZoneId);
+              var carItem;
+              for (var key in dataItem) {
+                if (key.indexOf("Car") > -1) {
+                  var item = dataItem[key];
+                  if (isNaN(item) && item.carNumber !== undefined) {
+                    carItem = item;
+                  }
+                }
+              }
+            }
+            if (
+              (carItem.carNumber =
+                data[i].CarsList[j].CarNumber &&
+                carItem.dispatchStatus !== data[i].CarsList[j].DispatchStatus)
+            ) {
+              carItem.dispatchStatus = data[i].CarsList[j].DispatchStatus;
+              $("#grid")
+                .data("kendoGrid")
+                .refresh();
+            }
+          } // If the zone number has change
+          else {
+            var oldData = griddata.get(filtercars[0].zoneId);
+            for (var key in oldData) {
+              if (key.indexOf("Car") > -1) {
+                var item = oldData[key];
+                if (isNaN(item) && item.carString !== null) {
+                  var oldcarItem = item;
+                  if (oldcarItem.carNumber == data[i].CarsList[j].CarNumber) {
+                    //setNull(oldcarItem);
+                    oldcarItem = null;
+                    $("#grid")
+                      .data("kendoGrid")
+                      .refresh();
+                  }
+                }
+              }
+            }
+            // console.log(oldcarItem);
+
+            // new zone
+          }
+        }
+      }
     };
 
     $.connection.hub.start().done(function() {
       zone.server.getAllZonesAndCarsInfo().done(function(data1) {
-        console.log(data1);
+        //  drawGrid(data1);
       });
     });
     function watchAndFilter(watchThis, filterBy) {

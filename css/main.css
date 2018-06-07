@@ -240,8 +240,12 @@ input[type="checkbox"] {
 .critical {
   background-color: #fdd;
 }
-/* resizing the 8 sections on the bottom nav bar
-.col-xs-14,
+h3 {
+  font-size: 29px;
+  padding-left: 38%;
+}
+/* resizing the 7 sections on the bottom nav bar */
+/* .col-xs-14,
 .col-sm-14,
 .col-md-14,
 .col-lg-14 {
@@ -257,13 +261,9 @@ input[type="checkbox"] {
 .col-xs-14 {
   width: 12.5%;
   float: left;
-}
-h3,
-.h3 {
-  font-size: 29px;
-  padding-left: 38%;
-}
-@media (min-width: 768px) {
+} */
+
+/* @media (min-width: 768px) {
   .col-sm-14 {
     width: 12.5%;
     float: left;

@@ -114,30 +114,33 @@
                 <div class="collapse navbar-collapse" id="bottomNavbar">
                     <!-- <div class="collapse navbar-collapse" id="bottomNavbar"  > -->
                     <ul class="nav  nav-tabs">
-                        <li class="col-md-16">
+                        <li class="col-md-14">
                             <a ui-sref="carInfo" ng-show="user.id" translate>CarInfo</a>
                         </li>
-                        <li class="col-md-16">
+                        <li class="col-md-14">
                             <a ui-sref="dispatch" ng-hide="user.id" translate>Dispatch</a>
                         </li>
-                        <li class="col-md-16">
+                        <li class="col-md-14">
                             <a ui-sref="zone" ng-show="user.id" translate>Zone </a>
                         </li>
-                        <li class="col-md-16">
+                        <li class="col-md-14">
                             <a ui-sref="carsinshift" ng-show="user.id" translate>CarsIn </a>
                         </li>
-                        <li class="col-md-16">
+                        <li class="col-md-14">
                             <a ui-sref="message" ng-show="user.id" translate>Text </a>
                         </li>
-                        <li class="col-md-16">
+                        <li class="col-md-14">
                             <a ui-sref="carWorkshift" ng-show="user.id" translate>Carshift </a>
                         </li>
-                        <li class="col-md-16">
+                        <li class="col-md-14">
                             <a ui-sref="groupworkshift" ng-show="user.id" translate>Groupshift </a>
                         </li>
                         <!-- <li class="col-md-16"><a ui-sref="restriction" translate>Active</a></li> -->
-                        <button class="btn" ng-show="user.id" ng-click="HelloService.logout()" translate> LOGOUT </button>
-                        <!-- <h4 ng-model="body.UserName">{{user.email| limitTo : 8 }}</h4> -->
+                        <li class="col-md-14">
+                            <button class="btn" ng-show="user.id" ng-click="HelloService.logout()" translate> LOGOUT </button>
+                            <!-- <h4 ng-model="body.UserName">{{user.email| limitTo : 8 }}</h4> -->
+                        </li>
+
                     </ul>
 
                 </div>
@@ -168,6 +171,7 @@
     <script type="text/javascript" src="bower_components/angular-jwt/dist/angular-jwt.min.js"></script>
     <script type="text/javascript" src="bower_components/hello/dist/hello.all.min.js"></script>
     <script type="text/javascript" src="bower_components/ng-hello/dist/ng-hello.min.js"></script>
+    <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
 
     <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>

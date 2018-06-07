@@ -30,7 +30,7 @@
     <script>
 
         var array = findZone()
-        // drawGrid(array)
+        drawGrid(array)
         function findZone() {
             var result;
             $.ajax({
@@ -102,8 +102,8 @@
             for (var i = 0; i < data.length; i++) {
                 var cars = data[i].carsList;
                 if (cars) {
-                    for (var j = 0; j < carColumnsLength; j++) {
-                        //for (var j = 0; j < 10; j++) {
+                    // for (var j = 0; j < carColumnsLength; j++) {
+                    for (var j = 0; j < 6; j++) {
                         if (cars[j]) {
                             data[i]["Car" + j] = {
                                 carString: cars[j].carString,

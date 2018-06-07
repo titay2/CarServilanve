@@ -59,7 +59,12 @@
               url: ServiceBaseUrl,
               dataType: "json",
               contentType: "application/json",
-              type: "POST"
+              type: "POST",
+              complete: function(e) {
+                $("#grid")
+                  .data("kendoGrid")
+                  .dataSource.read();
+              }
             },
             destroy: {
               url: function(e) {
@@ -71,16 +76,25 @@
               },
               dataType: "json",
               contentType: "application/json",
-              type: "DELETE"
+              type: "DELETE",
+              complete: function(e) {
+                $("#grid")
+                  .data("kendoGrid")
+                  .dataSource.read();
+              }
             },
             update: {
               url: ServiceBaseUrl + "/updateWorkShift",
               dataType: "json",
               contentType: "application/json",
-              type: "PUT"
+              type: "PUT",
+              complete: function(e) {
+                $("#grid")
+                  .data("kendoGrid")
+                  .dataSource.read();
+              }
             },
             requestEnd: function(e) {
-              console.log(e);
               if (e.type === "create" && e.response) {
                 console.log("Current request is 'create'.");
               }
@@ -94,20 +108,18 @@
                 case "read":
                   return kendo.stringify(options);
                   break;
-
                 case "create":
                   return kendo.stringify(arr[0]);
                   break;
                 case "update":
-                  console.log(JSON.stringify(arr[0]));
                   return JSON.stringify(arr[0]);
                   break;
-                case "destroy":
-                  var len = options.models.length;
-                  var curr = options.models[len - 1];
-                  var id = curr.workshiftId;
-                  return parseInt(id);
-                  break;
+                // case "destroy":
+                //   var len = options.models.length;
+                //   var curr = options.models[len - 1];
+                //   var id = curr.workshiftId;
+                //   return parseInt(id);
+                //   break;
               }
             }
           },
@@ -121,7 +133,23 @@
                 ismanual: { type: "number", defaultValue: 1, editable: false },
                 //  carnumber: {},
                 groupName: { type: "string" },
-                operatingCompanyID: { validation: { required: true } },
+                operatingCompanyId: {
+                  validation: { required: true }
+                  // defaultValue: function(e) {
+                  //   console.log(e);
+                  //   // if (typeof this.CategoryID === "function") {
+                  //   //   var grid = $("#grid").data("kendoGrid");
+                  //   //   var ds = grid.dataSource;
+                  //   //   var filter = ds.filter();
+
+                  //   //   if (filter && filter.filters[0].field === "CategoryID") {
+                  //   //     return filter.filters[0].value;
+                  //   //   } else {
+                  //   //     return 1;
+                  //   //   }
+                  //   // }
+                  // }
+                },
                 starttime: {
                   type: "date",
                   editable: true,
@@ -138,7 +166,6 @@
             }
           }
         });
-      dataSource.bind("requestEnd", dataSource_requestEnd);
       dataSource.fetch();
       $("#numeric").kendoNumericTextBox({
         spinners: false,
@@ -146,7 +173,7 @@
         decimals: 0
       });
 
-      watchAndFilter("callCenterId", "operatingCompanyID");
+      watchAndFilter("callCenterId", "operatingCompanyId");
       $("#grid").kendoGrid({
         dataSource: dataSource,
         toolbar: ["create"],
@@ -156,9 +183,11 @@
         columns: [
           { field: "ismanual", title: "ismanual", hidden: true },
           {
-            field: "operatingCompanyID",
+            field: "operatingCompanyId",
             title: "Call Center",
             //hidden: true,
+            // template:
+            //   "#if(operatingCompanyId == 1001) #  Active # }else{#  Inactive  #}#"
             editor: ocDropDownEditor
           },
           {
@@ -223,10 +252,6 @@
           }
         }
 
-        // var getPrpperty = parseInt (filterValue)
-
-        // if(filterValue )
-
         if (filterValue != "0") {
           currentFilters.push({
             field: filterField,
@@ -239,11 +264,6 @@
           filters: currentFilters
         });
       }
-      function dataSource_requestEnd(e) {
-        if (e.type == "create") {
-          dataSource.read();
-        }
-      }
 
       function ocDropDownEditor(container, options) {
         $('<input required name="' + options.field + '"/>')
@@ -253,7 +273,7 @@
             dataTextField: "name",
             dataValueField: "operatingCompanyId",
             dataSource: {
-              type: "json",
+              dataType: "json",
               transport: {
                 read: { url: root + "OperatingCompanies" }
               }
@@ -268,7 +288,6 @@
             dataTextField: "groupName",
             dataValueField: "groupName",
             dataSource: {
-              // type: "json",
               transport: {
                 read: { url: root + "WorkshiftCarGroup" }
               }

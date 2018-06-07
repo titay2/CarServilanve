@@ -96,7 +96,7 @@
               // console.log(curr);
               console.log(JSON.stringify(arr[0]));
               //no peimary key only POST gets excuted
-              return JSON.stringify(arr[0]);
+              /// return JSON.stringify(arr[0]);
             }
           }
         },

@@ -181,10 +181,9 @@
       }
 
       // var getPrpperty = parseInt (filterValue)
-
       // if(filterValue )
 
-      if (filterValue != "0") {
+      if (filterValue != 0) {
         currentFilters.push({
           field: filterField,
           operator: "eq",
