@@ -244,6 +244,12 @@ h3 {
   font-size: 29px;
   padding-left: 38%;
 }
+.landingpage {
+  font-family: "Trebuchet MS", Helvetica, sans-serif;
+  font-size: 468%;
+  height: 100vh;
+  background: #f00;
+}
 /* resizing the 7 sections on the bottom nav bar */
 /* .col-xs-14,
 .col-sm-14,
@@ -254,10 +260,7 @@ h3 {
   padding-right: 10px;
   padding-left: 10px;
 }
-.landingpage {
-  font-family: "Trebuchet MS", Helvetica, sans-serif;
-  font-size: 468%;
-}
+
 .col-xs-14 {
   width: 12.5%;
   float: left;
