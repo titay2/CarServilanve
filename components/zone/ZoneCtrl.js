@@ -78,119 +78,22 @@
 
     var zone = $.connection.zonesAndCarsHub;
     zone.client.zonesAndCarsUpdate = function(update) {
-      if ($(".k-loading-image")) {
-        console.log("loading");
+      console.log(update.length);
+      var grid = $("#grid").data("kendoGrid");
+      if (
+        !$(".k-loading-image").is(":visible") &&
+        grid.dataSource._pristineData.length !== 0
+      ) {
+        grid.dataSource.read();
+        grid.refresh();
       }
-      if ($("#grid").data("kendoGrid") && zoneDs._pristineData.length !== 0) {
-        for (var i = 0; i < update.length; i++) {
-          for (var j = 0; j < update[i].CarsList.length; j++) {
-            var car = carDs.get(update[i].CarsList[j].CarNumber);
-
-            if (car.zoneId == update[i].ZoneId) {
-              var myZone = zoneDs.get(update[i].ZoneId);
-
-              for (var k = 0; k < myZone.carsList.length; k++) {
-                if (
-                  (myZone.carsList[k].carNumber =
-                    update[i].CarsList[j].CarNumber &&
-                    myZone.carsList[k].dispatchStatus !==
-                      update[i].CarsList[j].DispatchStatus)
-                ) {
-                  // myZone.set(
-                  //   "dispatchStatus",
-                  //   update[i].CarsList[j].DispatchStatus
-                  // );
-                  // $("#grid")
-                  //   .data("kendoGrid")
-                  //   .refresh();
-                  // console.log("here!");
-                }
-              }
-              // var zone = zoneDs.get(update[i].ZoneId);
-              // for (var k = 0; k < zone.carsList; k++) {
-              //   console.log(zone.carsList[k].carNumber);
-              //   // if (
-              //   //   update[i].CarsList[j].CarNumber ==
-              //   //   zone.carsList[k].carNumber
-              //   // ) {
-              //   //   console.log(
-              //   //     update[i].CarsList[j].CarNumber +
-              //   //       " and " +
-              //   //       zone.carsList[k].carNumber
-              //   //   );
-              //   // }
-              // }
-              // console.log(zone);
-              // zone.set("dispatchStatus", update[i].CarsList[j].DispatchStatus);
-              // console.log(zone);
-              // console.log(zoneDs.get(update[i].ZoneId));
-            } else {
-              //console.log(car.zoneId + "and " + update[i].ZoneId);
-            }
-          }
-        }
-      }
-      // // Iterate through the update data and find the changed cars
-      // for (var i = 0; i < update.length; i++) {
-      //   for (var j = 0; j < update[i].CarsList.length; j++) {
-      //     // get the updates cars old zone mumber
-      //     var filtercars = _.where(cars, {
-      //       vehicleNumber: update[i].CarsList[j].CarNumber
-      //     });
-      //     // If the zone number of the updated car is similar to its old zone number
-      //     // just update the status
-      //     if (filtercars[0].zoneId == update[i].ZoneId) {
-      //       if (grid) {
-      //         var dataItem = griddata.get(update[i].ZoneId);
-      //         var carItem;
-      //         for (var key in dataItem) {
-      //           if (key.indexOf("Car") > -1) {
-      //             var item = dataItem[key];
-      //             if (isNaN(item) && item.carNumber !== undefined) {
-      //               carItem = item;
-      //             }
-      //           }
-      //         }
-      //       }
-      //       if (
-      //         (carItem.carNumber =
-      //           update[i].CarsList[j].CarNumber &&
-      //           carItem.dispatchStatus !== update[i].CarsList[j].DispatchStatus)
-      //       ) {
-      //         carItem.dispatchStatus = update[i].CarsList[j].DispatchStatus;
-      //         $("#grid")
-      //           .data("kendoGrid")
-      //           .refresh();
-      //       }
-      //     } // If the zone number has change
-      //     else {
-      //       var oldData = griddata.get(filtercars[0].zoneId);
-      //       for (var key in oldData) {
-      //         if (key.indexOf("Car") > -1) {
-      //           var item = oldData[key];
-      //           if (isNaN(item) && item.carString !== null) {
-      //             var oldcarItem = item;
-      //             if (oldcarItem.carNumber == update[i].CarsList[j].CarNumber) {
-      //               setNull(oldcarItem);
-      //               $("#grid")
-      //                 .data("kendoGrid")
-      //                 .refresh();
-      //             }
-      //           }
-      //         }
-      //       }
-      //       // console.log(oldcarItem);
-      //       // new zone
-      //     }
-      //   }
-      // }
     };
     $.connection.hub.start().done(function() {
       zone.server.getAllZonesAndCarsInfo().done(function() {});
     });
 
-    var hub = $.connection.zonesAndCarsHub;
-    var zoneHubStart = $.connection.hub.start();
+    // var hub = $.connection.zonesAndCarsHub;
+    // var zoneHubStart = $.connection.hub.start();
 
     // $("#grid").kendoGrid({
     //   dataSource: {
@@ -257,7 +160,7 @@
     //     gridElement
     //       .find(".0")
     //       .closest("button")
-    //       .css("background", "#ff3636");
+    //       .css("background", "#30d965");
     //     gridElement
     //       .find(".1")
     //       .closest("button")
@@ -265,7 +168,7 @@
     //     gridElement
     //       .find(".2")
     //       .closest("button")
-    //       .css("background", "#30d965");
+    //       .css("background", "#ff3636");
     //     gridElement
     //       .find(".3")
     //       .closest("button")

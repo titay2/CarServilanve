@@ -24,8 +24,6 @@
     var baseUrl =
       "https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.";
     //  var crudServiceBaseUrl = "http://semasp04.semel.ext/TestCarsurveillanceBackend/api/"
-    // $("#Grid").data("kendoGrid").dataSource.read();
-    // $("#Grid").data("kendoGrid").refresh();
 
     translateService.setLanguage();
     loginService.helloInitialize();
@@ -114,12 +112,6 @@
                 case "update":
                   return JSON.stringify(arr[0]);
                   break;
-                // case "destroy":
-                //   var len = options.models.length;
-                //   var curr = options.models[len - 1];
-                //   var id = curr.workshiftId;
-                //   return parseInt(id);
-                //   break;
               }
             }
           },
@@ -131,34 +123,17 @@
               fields: {
                 workshiftId: { type: "number", editable: false },
                 ismanual: { type: "number", defaultValue: 1, editable: false },
-                //  carnumber: {},
                 groupName: { type: "string" },
                 operatingCompanyId: {
                   validation: { required: true }
-                  // defaultValue: function(e) {
-                  //   console.log(e);
-                  //   // if (typeof this.CategoryID === "function") {
-                  //   //   var grid = $("#grid").data("kendoGrid");
-                  //   //   var ds = grid.dataSource;
-                  //   //   var filter = ds.filter();
-
-                  //   //   if (filter && filter.filters[0].field === "CategoryID") {
-                  //   //     return filter.filters[0].value;
-                  //   //   } else {
-                  //   //     return 1;
-                  //   //   }
-                  //   // }
-                  // }
                 },
                 starttime: {
                   type: "date",
-                  editable: true,
                   validation: { required: true },
                   format: "{0: dd/MM/yyyy h:mm}"
                 },
                 finishtime: {
                   type: "date",
-                  editable: true,
                   validation: { required: true }
                 },
                 workShiftState: {}
@@ -180,12 +155,19 @@
         pageable: true,
         sortable: true,
         filterable: true,
+        edit: function(e) {
+          if (e.model.isNew() == false) {
+            $("input[name=operatingCompanyId]")
+              .parent()
+              .hide();
+          }
+        },
         columns: [
           { field: "ismanual", title: "ismanual", hidden: true },
           {
             field: "operatingCompanyId",
             title: "Call Center",
-            //hidden: true,
+            hidden: true,
             // template:
             //   "#if(operatingCompanyId == 1001) #  Active # }else{#  Inactive  #}#"
             editor: ocDropDownEditor

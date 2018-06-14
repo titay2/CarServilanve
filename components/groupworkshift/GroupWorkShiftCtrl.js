@@ -41,32 +41,29 @@
             type: "GET"
           },
           update: {
+            url: root + "WorkshiftGroupCalendar/changeWorkshift",
+            dataType: "json",
+            contentType: "application/json",
+            type: "PUT",
+            complete: function(e) {
+              $("#grid")
+                .data("kendoGrid")
+                .dataSource.read();
+            }
+          },
+          destroy: {
             url: function(e) {
+              console.log(e);
               var options = e.models;
               var leng = options.length;
               var thisrow = options[leng - 1];
-              console.log(thisrow);
-              //No operating company id with the ger request
-              //therefore users have to guess the operatingcompanyid
+              var id = thisrow.workshiftGroupCalendarId;
               return (
                 root +
-                "/WorkshiftGroupCalendar/changeWorkshift?endTime=" +
-                thisrow.finishTime +
-                "&workShiftGroupName=" +
-                thisrow.groupName +
-                "&workShiftGroupId=" +
-                thisrow.grouptechId +
-                "&operatingCompanyId=" +
-                thisrow.operatingCompanyId
+                "WorkshiftGroupCalendar/delete?workshiftGroupCal_Id=" +
+                id
               );
             },
-            // url: root + "WorkshiftGroupCalendar/changeWorkshift",
-            dataType: "json",
-            contentType: "application/json",
-            type: "PUT"
-          },
-          destroy: {
-            url: root + "WorkshiftGroupCalendar/delete",
             dataType: "json",
             contentType: "application/json",
             type: "DELETE",
@@ -88,15 +85,18 @@
             }
           },
           parameterMap: function(options, operation) {
-            if (operation !== "read" && operation !== "update" && options) {
-              var arr = options.models;
-              var len = options.models.length;
-              var curr = options.models[len - 1];
-
-              // console.log(curr);
-              console.log(JSON.stringify(arr[0]));
-              //no peimary key only POST gets excuted
-              /// return JSON.stringify(arr[0]);
+            var arr = options.models;
+            switch (operation) {
+              case "read":
+                return kendo.stringify(options);
+                break;
+              case "create":
+                return kendo.stringify(arr[0]);
+                break;
+              case "update":
+                console.log(kendo.stringify(arr[0]));
+                return JSON.stringify(arr[0]);
+                break;
             }
           }
         },
@@ -104,15 +104,17 @@
         pageSize: 10,
         schema: {
           model: {
-            id: "grouptechId",
+            id: "workshiftGroupCalendarId",
             fields: {
-              grouptechId: { type: "number", editable: false },
+              workshiftGroupCalendarId: { type: "number", editable: false },
               groupName: { type: "string" },
               templateName: { type: "string" },
               workShifRestrictions: { type: "string" },
               startTime: { type: "date" },
               finishTime: { type: "date" },
-              workShiftState: { type: "number" }
+              workShiftState: { type: "number" },
+              operatingCompanyId: { type: "number" },
+              workShiftGroupId: { type: "number" }
             }
           }
         }
@@ -120,12 +122,19 @@
       var grid = $("#grid").kendoGrid({
         columns: [
           {
+            field: "operatingCompanyId",
+            title: "Call Center",
+            hidden: true,
+            editor: ocDropDownEditor
+          },
+          {
             field: "startTime",
             title: "Start Time",
             type: "date",
             format: "{0: dd/MM/yyyy h:mm}",
             editor: customDateTimePickerEditor
           },
+
           {
             field: "finishTime",
             title: "End time",
@@ -137,28 +146,49 @@
             field: "groupName",
             title: "groupName",
             editor: groupNameDropDownEditor
-            // template: "#=groupName#"
           },
-          { field: "grouptechId", title: "grouptechId", hidden: true },
           { field: "workShiftState", title: "Workshift level" },
           { command: ["edit", "destroy"], title: "&nbsp;", width: "200px" }
         ],
         toolbar: ["create"],
-        editable: "inline",
+        editable: "popup",
         dataSource: dataSource1,
         scrollable: true,
         pageable: true,
-        sortable: true
+        sortable: true,
+        edit: function(e) {
+          if (e.model.isNew() == false) {
+            $("input[name=operatingCompanyId]")
+              .parent()
+              .hide();
+          }
+        }
       });
       function customDateTimePickerEditor(container, options) {
         $('<input required name="' + options.field + '"/>')
           .appendTo(container)
           .kendoDateTimePicker({});
       }
+      function ocDropDownEditor(container, options) {
+        $('<input required name="' + options.field + '"/>')
+          .appendTo(container)
+          .kendoDropDownList({
+            autoBind: false,
+            dataTextField: "name",
+            dataValueField: "operatingCompanyId",
+            dataSource: {
+              dataType: "json",
+              transport: {
+                read: { url: root + "OperatingCompanies" }
+              }
+            }
+          });
+      }
       function groupNameDropDownEditor(container, options) {
         $('<input required name="' + options.field + '"/>')
           .appendTo(container)
-          .kendoComboBox({
+          // .kendoComboBox({
+          .kendoDropDownList({
             autoBind: false,
             dataTextField: "groupName",
             dataValueField: "groupName",

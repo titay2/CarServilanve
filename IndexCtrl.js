@@ -70,11 +70,11 @@ $("#clearLable").click(function() {
 });
 
 //CONNECT TO THE SIGNAR, LOAD THE FIRST INPUTS FROM THE API, GET CHANGES FROM SIGNALR AND UPDATE UI.
-// $.connection.hub.url = "http://localhost:8888/signalr";
+$.connection.hub.url = "http://localhost:8888/signalr";
 // $.connection.hub.url =
 //   "http://testcarsurveillancerpc.cloudapp.net:8080/";
-$.connection.hub.url =
-  "http://testcarsurveillanceworker.cloudapp.net:8080/signalr/hubs";
+// $.connection.hub.url =
+//   "http://testcarsurveillanceworker.cloudapp.net:8080/signalr/hubs";
 
 var chat = $.connection.dispatchStatusHub;
 chat.client.dispatchStatusUpdate = function(update_array) {
