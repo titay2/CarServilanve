@@ -9,15 +9,17 @@
     $state,
     $translate,
     loginService,
-    filterService
+    filterService,
+    kendoDataSourceService
   ) {
     translateService.setLanguage();
     loginService.helloInitialize();
 
-    watchAndFilter("callCenterId", "operatingCompanyID");
-    watchAndFilter("vehicleFilter", "vehicleNumber");
-    watchAndFilter("areaFilter", "postingID");
-    watchAndFilter("propertyFilter", "carDispatchAttributes");
+    var gridElement = $("#grid");
+
+    function resizeGrid() {
+      gridElement.data("kendoGrid").resize();
+    }
 
     var dataSource = new kendo.data.DataSource({
       transport: {
@@ -27,7 +29,7 @@
           dataType: "json"
         }
       },
-      pageSize: 10,
+      pageSize: 25,
       schema: {
         model: {
           fields: {
@@ -41,7 +43,11 @@
       },
       sort: { field: "vehicleNumber", dir: "asc" }
     });
-
+    var carDs = kendoDataSourceService.getCarDataSourse;
+    $(window).resize(function() {
+      resizeGrid();
+      console.log("here");
+    });
     $("#grid").kendoGrid({
       dataSource: dataSource,
       columns: [
@@ -112,39 +118,42 @@
       sortable: true,
       pageable: true
     });
+    watchAndFilter("callCenterId", "operatingCompanyID");
+    watchAndFilter("vehicleFilter", "vehicleNumber");
+    watchAndFilter("areaFilter", "postingID");
+    watchAndFilter("propertyFilter", "carDispatchAttributes");
+    // $("#grid").kendoDraggable({
+    //   filter: ".driverCardNr",
+    //   dragstart: function(e) {
+    //     var draggedElement = e.currentTarget.closest("tr"), //get the DOM element that is being dragged
+    //       dataItem = dataSource.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
+    //     console.log(dataItem.carId);
+    //   },
+    //   hint: function(element) {
+    //     return element.clone().css({
+    //       // "opacity": 0.6,
+    //       // "background-color": "#0cf"
+    //     });
+    //   }
+    // });
+    // $("#grid").kendoDropTargetArea({
+    //   filter: ".taxiCarCompanyId, .taxiCarCompanyId2",
+    //   drop: onDrop
+    // });
 
-    $("#grid").kendoDraggable({
-      filter: ".driverCardNr",
-      dragstart: function(e) {
-        var draggedElement = e.currentTarget.closest("tr"), //get the DOM element that is being dragged
-          dataItem = dataSource.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
-        console.log(dataItem.carId);
-      },
-      hint: function(element) {
-        return element.clone().css({
-          // "opacity": 0.6,
-          // "background-color": "#0cf"
-        });
-      }
-    });
-    $("#grid").kendoDropTargetArea({
-      filter: ".taxiCarCompanyId, .taxiCarCompanyId2",
-      drop: onDrop
-    });
+    // function onDrop(e) {
+    //   var draggedElement = e.dropTarget.closest("tr"), //get the DOM element that is being dragged
+    //     dataItem = dataSource.getByUid(draggedElement.data("uid"));
+    //   var row = $(this).closest("tr"); //get corresponding dataItem from the DataSource instance
+    //   var colIdx = e.dropTarget.index();
+    //   var colName = $("#grid")
+    //     .find("th")
+    //     .eq(colIdx)
+    //     .text();
 
-    function onDrop(e) {
-      var draggedElement = e.dropTarget.closest("tr"), //get the DOM element that is being dragged
-        dataItem = dataSource.getByUid(draggedElement.data("uid"));
-      var row = $(this).closest("tr"); //get corresponding dataItem from the DataSource instance
-      var colIdx = e.dropTarget.index();
-      var colName = $("#grid")
-        .find("th")
-        .eq(colIdx)
-        .text();
-
-      console.log(colName);
-      console.log(dataItem);
-    }
+    //   console.log(colName);
+    //   console.log(dataItem);
+    // }
 
     $("#clearLable").click(function() {
       //$state.reload("carInfo");
@@ -179,9 +188,6 @@
           }
         }
       }
-
-      // var getPrpperty = parseInt (filterValue)
-      // if(filterValue )
 
       if (filterValue != 0) {
         currentFilters.push({

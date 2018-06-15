@@ -8,7 +8,8 @@
   function kendoDataSourceService($http, dataService) {
     return {
       getCarDataSourse: getCarDataSourse(),
-      getZoneDataSourse: getZoneDataSourse()
+      getZoneDataSourse: getZoneDataSourse(),
+      getCarsInWorkShiftDs: getCarsInWorkShiftDs()
     };
 
     function getCarsUrl() {
@@ -17,13 +18,11 @@
     function getZonesUrl() {
       return "ZonesAndCars";
     }
-
+    function getCarsInWorkShiftUrl() {
+      return "WorkshiftCarGroup/CarsInWorkshift";
+    }
     // Using autobind in kendo widgets can cause them to request datasources before angular has loaded all services?
     // Make sure angular has loaded first. Use autobind with caution.
-    // activate();
-    // function activate() {
-    //   common.$log.info(serviceId + " activated");
-    // }
 
     var carsDs;
     function getCarDataSourse() {
@@ -64,6 +63,40 @@
 
       return carsDs;
     }
+
+    var CarsInWoShDs;
+
+    function getCarsInWorkShiftDs() {
+      if (!CarsInWoShDs) {
+        CarsInWoShDs = new kendo.data.DataSource({
+          type: "json",
+          serverFiltering: false,
+          transport: {
+            read: {
+              url: root + getCarsInWorkShiftUrl(),
+              data: { format: "json" },
+              dataType: "json"
+            }
+          },
+          // pageSize: 10,
+          schema: {
+            model: {
+              fields: {
+                statusChange: { type: "date" },
+                workShiftStart: { type: "date" },
+                workShiftEnd: { type: "date" }
+              }
+            }
+          },
+          sort: { field: "vehicleNumber", dir: "asc" }
+        });
+      }
+      if (CarsInWoShDs.data().length == 0) {
+        CarsInWoShDs.read();
+      }
+      return CarsInWoShDs;
+    }
+
     var ZoneDs;
 
     function getZoneDataSourse() {

@@ -9,7 +9,8 @@
     $state,
     $translate,
     loginService,
-    filterService
+    filterService,
+    kendoDataSourceService
   ) {
     translateService.setLanguage();
     loginService.helloInitialize();
@@ -19,28 +20,30 @@
     watchAndFilter("areaFilter", "postingID");
     watchAndFilter("propertyFilter", "carDispatchAttributes");
 
-    var dataSource = new kendo.data.DataSource({
-      transport: {
-        read: {
-          url: root + "WorkshiftCarGroup/CarsInWorkshift",
-          dataType: "json"
-        }
-      },
-      pageSize: 10,
-      schema: {
-        model: {
-          fields: {
-            statusChange: { type: "date" },
-            workShiftStart: { type: "date" },
-            workShiftEnd: { type: "date" }
-          }
-        }
-      },
-      sort: { field: "vehicleNumber", dir: "asc" }
-    });
+    var CarsInWorkShiftDs = kendoDataSourceService.getCarsInWorkShiftDs;
+
+    // var dataSource = new kendo.data.DataSource({
+    //   transport: {
+    //     read: {
+    //       url: root + "WorkshiftCarGroup/CarsInWorkshift",
+    //       dataType: "json"
+    //     }
+    //   },
+    //   pageSize: 10,
+    //   schema: {
+    //     model: {
+    //       fields: {
+    //         statusChange: { type: "date" },
+    //         workShiftStart: { type: "date" },
+    //         workShiftEnd: { type: "date" }
+    //       }
+    //     }
+    //   },
+    //   sort: { field: "vehicleNumber", dir: "asc" }
+    // });
 
     $("#grid").kendoGrid({
-      dataSource: dataSource,
+      dataSource: CarsInWorkShiftDs,
       columns: [
         {
           field: "operatingCompanyID",
