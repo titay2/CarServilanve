@@ -79,12 +79,7 @@
         .post("SendTextMessages", $scope.body)
         .then(data => {
           $state.reload();
-          //localStorage.clear()
-          $("#inputCenter").val("");
-          $("#inputArea").val("");
-          $("#propertyInput").val("");
-          $("#vihecle").val("");
-          // location.reload();
+          clearevtg();
         })
         .catch(err => {
           console.log(err);

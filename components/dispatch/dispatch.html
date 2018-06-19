@@ -1,11 +1,16 @@
-<div id="landingpage" ng-hide="user.id">
-    <div>
-        <h4 translate>HERE</h4>
-        <button class="btn" ng-click="login()" translate>
+<div id="" class="content blue" ng-hide="user.id">
+    <div class="wrapper">
+        <h4 class="dispatchtxt">
+            <center translate>HERE</center>
+        </h4>
+        <button class="btn center" ng-click="login()" translate>
             LOGIN
         </button>
     </div>
-    <div ng-show="user.id">
-        <h1>Loged in successfuly </h1>
-    </div>
+
+</div>
+<div id="landingpage" class="content blue" ng-show="user.id">
+    <h1 class="dispatchtxt">
+        <center>Loged in successfuly</center>
+    </h1>
 </div>

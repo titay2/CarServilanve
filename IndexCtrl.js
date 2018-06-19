@@ -53,20 +53,7 @@ $("#vihecle").on("change", function() {
 });
 
 $("#clearLable").click(function() {
-  $("#inputCenter").val("");
-  $("#inputArea").val("");
-  $("#propertyInput").val("");
-  $("#vihecle").val("");
-  localStorage.removeItem("callCenterId");
-  localStorage.removeItem("areaFilter");
-  localStorage.removeItem("propertyFilter");
-  localStorage.removeItem("vehicleFilter");
-  filters = {
-    operatingCompanyID: "",
-    postingID: "",
-    carNumber: "",
-    carAndDriverAttributes: ""
-  };
+  clearevtg();
 });
 
 //CONNECT TO THE SIGNAR, LOAD THE FIRST INPUTS FROM THE API, GET CHANGES FROM SIGNALR AND UPDATE UI.
@@ -212,7 +199,7 @@ function findCallCenter() {
           '">' +
           this.name +
           "</option>";
-        $("#callcenter").append(callCenter);
+        $("#inputCenter").append(callCenter);
       });
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -237,7 +224,7 @@ function findArea() {
           '">' +
           this.postingName +
           "</option>";
-        $("#area").append(postingArea);
+        $("#inputArea").append(postingArea);
       });
     },
     error: function(jqXHR, textStatus, errorThrown) {
@@ -245,7 +232,22 @@ function findArea() {
     }
   });
 }
-
+function clearevtg() {
+  localStorage.removeItem("callCenterId");
+  localStorage.removeItem("areaFilter");
+  localStorage.removeItem("propertyFilter");
+  localStorage.removeItem("vehicleFilter");
+  filters = {
+    operatingCompanyID: "",
+    postingID: "",
+    carNumber: "",
+    carAndDriverAttributes: ""
+  };
+  $("#inputCenter").val("");
+  $("#inputArea").val("");
+  $("#propertyInput").val("");
+  $("#vihecle").val("");
+}
 //SETS DATA TO LOCALSTORAGE
 function setFiletr(storageField, inputValue) {
   localStorage.setItem(storageField, JSON.stringify(inputValue));

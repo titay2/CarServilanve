@@ -20,30 +20,30 @@
     watchAndFilter("areaFilter", "postingID");
     watchAndFilter("propertyFilter", "carDispatchAttributes");
 
-    var CarsInWorkShiftDs = kendoDataSourceService.getCarsInWorkShiftDs;
+    //var CarsInWorkShiftDs = kendoDataSourceService.getCarsInWorkShiftDs;
 
-    // var dataSource = new kendo.data.DataSource({
-    //   transport: {
-    //     read: {
-    //       url: root + "WorkshiftCarGroup/CarsInWorkshift",
-    //       dataType: "json"
-    //     }
-    //   },
-    //   pageSize: 10,
-    //   schema: {
-    //     model: {
-    //       fields: {
-    //         statusChange: { type: "date" },
-    //         workShiftStart: { type: "date" },
-    //         workShiftEnd: { type: "date" }
-    //       }
-    //     }
-    //   },
-    //   sort: { field: "vehicleNumber", dir: "asc" }
-    // });
+    var dataSource = new kendo.data.DataSource({
+      transport: {
+        read: {
+          url: root + "WorkshiftCarGroup/CarsInWorkshift",
+          dataType: "json"
+        }
+      },
+      pageSize: 10,
+      schema: {
+        model: {
+          fields: {
+            statusChange: { type: "date" },
+            workShiftStart: { type: "date" },
+            workShiftEnd: { type: "date" }
+          }
+        }
+      },
+      sort: { field: "vehicleNumber", dir: "asc" }
+    });
 
     $("#grid").kendoGrid({
-      dataSource: CarsInWorkShiftDs,
+      dataSource: dataSource,
       columns: [
         {
           field: "operatingCompanyID",
@@ -94,14 +94,9 @@
     });
 
     $("#clearLable").click(function() {
-      // $state.reload("carsinshift");
       $("#grid")
         .data("kendoGrid")
         .dataSource.filter({});
-
-      // var dataSource = $("#grid").data("kendoGrid").dataSource;
-
-      // console.log(dataSource.filter());
     });
 
     //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION

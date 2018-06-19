@@ -15,12 +15,6 @@
     translateService.setLanguage();
     loginService.helloInitialize();
 
-    var gridElement = $("#grid");
-
-    function resizeGrid() {
-      gridElement.data("kendoGrid").resize();
-    }
-
     var dataSource = new kendo.data.DataSource({
       transport: {
         read: {
@@ -44,10 +38,7 @@
       sort: { field: "vehicleNumber", dir: "asc" }
     });
     var carDs = kendoDataSourceService.getCarDataSourse;
-    $(window).resize(function() {
-      resizeGrid();
-      console.log("here");
-    });
+
     $("#grid").kendoGrid({
       dataSource: dataSource,
       columns: [
