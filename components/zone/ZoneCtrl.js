@@ -84,9 +84,7 @@
         grid.refresh();
       }
     }, 10000);
-    function here(i) {
-      console.log(i);
-    }
+
     // var zone = $.connection.zonesAndCarsHub;
     // zone.client.zonesAndCarsUpdate = function(update) {
     //   console.log(update.length);
