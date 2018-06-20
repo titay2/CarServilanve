@@ -29,7 +29,7 @@
           dataType: "json"
         }
       },
-      pageSize: 10,
+      pageSize: 20,
       schema: {
         model: {
           fields: {

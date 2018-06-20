@@ -22,7 +22,7 @@
           },
           {
             redirect_uri: "http://localhost:8080",
-            //redirect_uri: 'https://semasp04.semel.ext/CarServilanve',
+            //redirect_uri: 'https://semasp04.semel.fi/CarServilanve',
             scope: "openid " + clientId,
             response_type: "token id_token"
           }

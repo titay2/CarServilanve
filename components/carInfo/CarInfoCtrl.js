@@ -19,11 +19,12 @@
       transport: {
         read: {
           url: root + "Cars/CarsDetails",
-          data: { format: "json" },
+          // data: { format: "json" }
           dataType: "json"
         }
       },
-      pageSize: 25,
+      pageSize: 20,
+      // group: { field: "zoneId" },
       schema: {
         model: {
           fields: {
@@ -37,10 +38,10 @@
       },
       sort: { field: "vehicleNumber", dir: "asc" }
     });
-    var carDs = kendoDataSourceService.getCarDataSourse;
 
     $("#grid").kendoGrid({
       dataSource: dataSource,
+      groupable: true,
       columns: [
         {
           field: "vehicleNumber",
@@ -53,7 +54,7 @@
         },
         {
           field: "carDispatchAttributes",
-          // hidden: true
+          hidden: true,
           title: "Property"
         },
         {

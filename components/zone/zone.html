@@ -1,4 +1,10 @@
-<div id="grid">
+<div class="pad">
+	<h3 translate>Zone </h3>
+	<div id="grid"></div>
+	<div id="wnd">
+		<button class="k-button close-button">First in queue</button>
+	</div>
+</div>
 </div>
 <script id="rowTemplate" type="text/x-kendo-tmpl">
     <tr data-uid="#: uid #">
@@ -8,10 +14,44 @@
 	<td>#: waitTime #</td>
         <td>
             # for (var i = 0; i < carsList.length; i++) { #
-				<button id= '#=carsList[i].carNumber#' style="display: inline-block "  class='#: carsList[i].dispatchStatusId #'>
+				<button id= '#=carsList[i].carNumber#'  data-opid='#=carsList[i].operatingCompanyID#' onClick='firstInQueue(this);'style="display: inline-block "  class='#: carsList[i].dispatchStatusId #'>
 					#: carsList[i].carString#
                 </button>
 			# } #
         </td>
    </tr>
+</script>
+<script>
+
+	var wnd = $("#wnd")
+		.kendoWindow({
+			height: 100,
+			width: 160,
+			visible: false
+		})
+		.data("kendoWindow");
+
+	$(".close-button").click(function (e) {
+		edit_queue(e.title, opid)
+		$(this)
+			.closest("[data-role=window]")
+			.data("kendoWindow")
+			.close();
+	});
+
+	function firstInQueue(e) {
+		console.log(e.dataset.opid)
+		wnd.title(e.id);
+		wnd.center().open();
+	}
+	function edit_queue(cNum, opid) {
+		var id = $(this).attr('data-id');
+		jQuery.ajax({
+			url: root + "Cars/setQueue?carNumber=" + cNum + "&operatingCompanyId=" + opid,
+			type: 'PUT',
+			success: function (data) {
+				console.log(data)
+			}
+		});
+	}
 </script>

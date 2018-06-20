@@ -25,8 +25,14 @@
       currentLang = valueSelected;
       $.getScript(baseUrl + currentLang + ".min.js", function() {
         kendo.culture(currentLang);
+        $("#grid")
+          .data("kendoGrid")
+          .destroy(); // destroy the Grid
+
+        $("#grid").empty();
         createGrid();
-        $state.reload();
+
+        //$state.reload();
       });
     });
     // check the validations with pasi and the initial table data origion

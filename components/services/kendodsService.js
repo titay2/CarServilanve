@@ -37,7 +37,7 @@
               dataType: "json"
             }
           },
-          pageSize: 10,
+          pageSize: 20,
           schema: {
             model: {
               id: "vehicleNumber",
@@ -111,7 +111,7 @@
               dataType: "json"
             }
           },
-          // pageSize: 10,
+          pageSize: 25,
           schema: {
             model: {
               id: "zoneId",
