@@ -1,6 +1,6 @@
 <div class="pad">
 	<h3 translate>Zone </h3>
-	<div id="grid"></div>
+	<div id="zoneGrid"></div>
 	<div id="wnd">
 		<button class="k-button close-button">First in queue</button>
 	</div>
@@ -32,7 +32,7 @@
 		.data("kendoWindow");
 
 	$(".close-button").click(function (e) {
-		var grid = $("#grid").data("kendoGrid");
+		var grid = $("#zoneGrid").data("kendoGrid");
 		edit_queue(wnd.element.attr('data-cNum'), wnd.element.attr('data-opid'))
 		$(this)
 			.closest("[data-role=window]")
@@ -54,6 +54,9 @@
 			url: root + "Cars/setQueue?carNumber=" + cNum + "&operatingCompanyId=" + opid,
 			type: 'PUT',
 			success: function (data) {
+			},
+			error: function (data) {
+				console.log(data);
 			}
 		});
 	}

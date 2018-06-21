@@ -24,7 +24,7 @@
     loginService.helloInitialize();
 
     var zoneDs = kendoDataSourceService.getZoneDataSourse;
-    $("#grid").kendoGrid({
+    $("#zoneGrid").kendoGrid({
       columns: [
         {
           field: "zoneId",
@@ -75,8 +75,9 @@
     });
 
     setInterval(function() {
-      var grid = $("#grid").data("kendoGrid");
+      var grid = $("#zoneGrid").data("kendoGrid");
       if (
+        grid &&
         !$(".k-loading-image").is(":visible") &&
         grid.dataSource._pristineData.length !== 0
       ) {

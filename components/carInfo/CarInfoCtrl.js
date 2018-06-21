@@ -38,6 +38,7 @@
       },
       sort: { field: "vehicleNumber", dir: "asc" }
     });
+    var carsDs = kendoDataSourceService.getCarDataSourse;
 
     $("#grid").kendoGrid({
       dataSource: dataSource,
