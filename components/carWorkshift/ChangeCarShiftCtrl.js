@@ -40,14 +40,18 @@
         kendo.culture(currentLang);
         $("#grid")
           .data("kendoGrid")
-          .destroy(); // destroy the Grid
-
+          .destroy();
         $("#grid").empty();
         createGrid();
         // $state.reload();
       });
     });
-
+    $("#clearLable").click(function() {
+      //$state.reload("carInfo");
+      $("#grid")
+        .data("kendoGrid")
+        .dataSource.filter({});
+    });
     function createGrid() {
       var ServiceBaseUrl = root + "TemporaryWorkShift",
         dataSource = new kendo.data.DataSource({

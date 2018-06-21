@@ -2,29 +2,15 @@
 <html>
 
 <head>
-    <title>Messages</title>
-
-    <!-- Viewport settings-->
-    <!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" /> -->
-
+    <title>Car Cervilance</title>
     <!-- Basic style -->
     <link rel="icon" type="image/png" href="assets/logo/logo.ico">
-
     <link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
     <link href="bower_components/angular-bootstrap/ui-bootstrap-csp.css" rel="stylesheet" />
-    <!-- <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
     <link href="bower_components/Kendo-ui/styles/kendo.common.min.css" rel="stylesheet" />
     <link href="bower_components/Kendo-ui/styles/kendo.default.min.css" rel="stylesheet" />
     <link href="bower_components/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet" />
-    <style>
-        .navbar {
-            margin-bottom: 0;
-            border-radius: 0;
-        }
-    </style>
-
-    <link rel="stylesheet" href="css/main.css" />
-
+    <link href="css/main.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -43,7 +29,6 @@
                     </div>
 
                     <div class="collapse navbar-collapse" id="topNavbar" ng-show="user.id">
-                        <!-- <div id="Topgrid"></div> -->
                         <ul class="nav navbar-nav">
                             <li>
                                 <a translate>Free</a>
@@ -66,12 +51,12 @@
                             <div class="col-md-2">
                                 <label style="color: white; " for="SelectPI" translate>CALL</label>
                                 <select id="inputCenter" class="form-control" placeholder="Call center" ng-model="body.OperatingCompany"></select>
-                                <!-- <datalist id="callcenter"></datalist> -->
+
                             </div>
                             <div class="col-md-2">
                                 <label style="color: white; " for="SelectP" translate>AREA</label>
                                 <select id="inputArea" list="area" class="form-control" placeholder="Area" ng-model="body.Posting"></select>
-                                <!-- <datalist id="area"></datalist> -->
+
                             </div>
                             <div class="col-md-1">
                                 <label style="color: white;" class="control-label" for="propertyInput" translate>PROPERTY</label>
@@ -111,7 +96,6 @@
                         </button>
                     </div>
                     <div class="collapse navbar-collapse row seven-cols" id="bottomNavbar">
-                        <!-- <div class="collapse navbar-collapse" id="bottomNavbar"  > -->
                         <ul class="nav  nav-tabs">
                             <li class="col-md-1">
                                 <a ui-sref="carInfo" ui-sref-active="active" ng-show="user.id" translate>CarInfo</a>
@@ -134,10 +118,13 @@
                             <li class="col-md-1">
                                 <a ui-sref="groupworkshift" ui-sref-active="active" ng-show="user.id" translate>Groupshift </a>
                             </li>
-                            <!-- <li class="col-md-16"><a ui-sref="restriction" translate>Active</a></li> -->
                             <li class="col-md-1">
-                                <button class="btn" ng-show="user.id" ng-click="HelloService.logout()" translate> LOGOUT </button>
-                                <!-- <h4 ng-model="body.UserName">{{user.email| limitTo : 8 }}</h4> -->
+                                <div style="display: inline-block">
+                                    <h4 ng-model="body.UserName">{{user.email| limitTo : 1 }}</h4>
+                                    <button class="btn" ng-show="user.id" ng-click="HelloService.logout()" translate> LOGOUT </button>
+                                </div>
+
+
                             </li>
 
                         </ul>
@@ -148,8 +135,6 @@
             </nav>
         </div>
 
-
-
         <div cache-view="false" ui-view class="testview"> </div>
 
     </div>
@@ -159,7 +144,7 @@
     <!-- <script src="node_modules/@aspnet/signalr/dist/browser/signalr.min.js"></script> -->
     <script src="assets/jquery.signalR-2.2.3.min.js"></script>
     <script src="http://localhost:8888/signalr/hubs"></script>
-    <!-- <script src="http://testcarsurveillancerpc.cloudapp.net:8080/signalr/hubs"></script> -->
+
     <!-- <script src="http://testcarsurveillanceworker.cloudapp.net:8080/signalr/hubs"></script> -->
 
     <script src="bower_components/moment/moment.js"></script>
@@ -173,7 +158,6 @@
     <script type="text/javascript" src="bower_components/hello/dist/hello.all.min.js"></script>
     <script type="text/javascript" src="bower_components/ng-hello/dist/ng-hello.min.js"></script>
     <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
-
     <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
@@ -185,10 +169,9 @@
     <script type="text/javascript" src="app.js"></script>
     <script type="text/javascript" src="app.run.js"></script>
     <script type="text/javascript" src="IndexCtrl.js"></script>
-
+    <script type="text/javascript" src="settingValues.js"></script>
 
     <!--	Import component scripts-->
-    <script type="text/javascript" src="settingValues.js"></script>
     <script src="components/services/apiService.js"></script>
     <script src="components/services/kendodsService.js"></script>
     <script src="components/services/filterService.js"></script>
@@ -204,7 +187,6 @@
     <script src="components/carInfo/CarInfoCtrl.js"></script>
     <script src="components/zone/ZoneCtrl.js"></script>
 
-    <!-- <script src="node_modules/@aspnet/signalr/dist/browser/signalr.min.js"></script> -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
     <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>

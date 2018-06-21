@@ -9,6 +9,10 @@ body {
 .pad {
   margin-right: 1%;
 }
+.navbar {
+  margin-bottom: 0;
+  border-radius: 0;
+}
 /*top and bottom navbars */
 .navbar-fixed-top {
   position: relative;

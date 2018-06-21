@@ -115,6 +115,7 @@
     watchAndFilter("vehicleFilter", "vehicleNumber");
     watchAndFilter("areaFilter", "postingID");
     watchAndFilter("propertyFilter", "carDispatchAttributes");
+
     // $("#grid").kendoDraggable({
     //   filter: ".driverCardNr",
     //   dragstart: function(e) {

@@ -86,13 +86,46 @@
       }
     }, 10000);
 
-    // var zone = $.connection.zonesAndCarsHub;
-    // zone.client.zonesAndCarsUpdate = function(update) {
-    //   console.log(update.length);
+    // bulding a zone table datasource from cars datasource
+    // var carsDs = kendoDataSourceService.getCarDataSourse;
 
-    // };
-    // $.connection.hub.start().done(function() {
-    //   zone.server.getAllZonesAndCarsInfo().done(function() {});
-    // });
+    // waitFor(gridDrawComplete());
+
+    // function gridDrawComplete() {
+    //   if (zoneDs._pristineData.length > 0) {
+    //     return true;
+    //   } else {
+    //     return false;
+    //   }
+    // }
+    // var gridDataUpdate = [];
+
+    // function waitFor(condition) {
+    //   if (gridDrawComplete() === false) {
+    //     window.setTimeout(waitFor.bind(null, condition), 100);
+    //   } else {
+    //     console.log(zoneDs);
+    //     console.log(carsDs);
+    //     for (var k = 0; k < zoneDs._pristineData.length; k++) {
+    //       var gridRow = _.where(carsDs._pristineData, {
+    //         zoneId: zoneDs._pristineData[k].zoneId
+    //       });
+    //       // var obj = gridRow.reduce(function(gridRow, cur, i) {
+    //       //   gridRow[i] = cur;
+    //       //   return gridRow;
+    //       // }, {});
+    //       var obj = {};
+    //       obj.zoneId = zoneDs._pristineData[k].zoneId;
+    //       obj.zoneName = zoneDs._pristineData[k].zoneName;
+    //       obj.waitTime = zoneDs._pristineData[k].waitTime;
+    //       obj.freeCarsCount = zoneDs._pristineData[k].freeCarsCount;
+    //       obj.carslist = gridRow;
+
+    //       // gridDataUpdate[carslist] = gridRow;
+    //       gridDataUpdate.push(obj);
+    //     }
+    //     console.log(gridDataUpdate);
+    //   }
+    // }
   }
 })();
