@@ -1,12 +1,14 @@
 var root = "https://semasp04.semel.fi/TestCarsurveillanceBackend/api/";
 var crudServiceBaseUrl =
   "https://semasp04.semel.fi/TestCarsurveillanceBackend/signalR/";
-localStorage.clear();
+
 var callCenterId = JSON.parse(localStorage.getItem("callCenterId") || "[]");
 var areaFilter = JSON.parse(localStorage.getItem("areaFilter") || "[]");
 var propertyFilter = JSON.parse(localStorage.getItem("propertyFilter") || "[]");
 var vehicleFilter = JSON.parse(localStorage.getItem("vehicleFilter") || "[]");
-
+var zoneAndCarHub = $.connection.zoneAndCarHub;
+var fleet = $.connection.dispatchStatusHub;
+localStorage.clear();
 findCallCenter();
 findArea();
 
@@ -64,7 +66,6 @@ var allFleets = [];
 $.connection.hub.url =
   "http://testcarsurveillanceworker.cloudapp.net:8080/signalr/hubs";
 
-var fleet = $.connection.dispatchStatusHub;
 fleet.client.dispatchStatusUpdate = function(update_array) {
   allFleets = allFleets.map(function(item) {
     var car = update_array.find(a => a.CarID == item.CarID);

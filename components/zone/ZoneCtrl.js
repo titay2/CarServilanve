@@ -26,23 +26,35 @@
     var allCars = [];
     var allZones = [];
     var zoneAndCarsDs;
-    var zoneAndCarHub = $.connection.zoneAndCarHub;
+
     zoneAndCarHub.client.carsWithZoneUpdate = function(zonesAndCarsUpdate) {
       for (var i = 0; i < zonesAndCarsUpdate.length; i++) {
         var zoneAndCars = zoneAndCarsDs.get(zonesAndCarsUpdate[i].CarNumber);
         if (!zoneAndCars) {
           zoneAndCarsDs.add(zonesAndCarsUpdate[i]);
-        } else if (zoneAndCars.ZoneId !== zonesAndCarsUpdate[i].ZoneId) {
+        } else {
           zoneAndCars.set("ZoneId", zonesAndCarsUpdate[i].ZoneId);
+          zoneAndCars.set(
+            "DispatchStatusId",
+            zonesAndCarsUpdate[i].DispatchStatusId
+          );
+          zoneAndCars.set("CarString", zonesAndCarsUpdate[i].CarString);
+          zoneAndCars.set("StatusTime", zonesAndCarsUpdate[i].StatusTime);
         }
       }
 
-      //console.log(modifyZoneDs(zoneAndCarsDs._data, allZones));
+      var newCars = zoneAndCarsDs._data;
+      var zoneNumList = _.uniq(newCars, function(item) {
+        return item.ZoneId;
+      });
+      allNewZones = zoneNumList.map(a => a.ZoneId);
 
-      //   allCars = allCars.map(function(item) {
-      //     var aZone = zonesAndCarsUpdate.find(a => a.CarNumber == item.CarNumber);
-      //     return aZone ? Object.assign(item, aZone) : item;
-      //   });
+      var dataS = modifyZoneDs(zoneAndCarsDs._data, allNewZones);
+
+      var zonesgrid = $("#zonesGrid").data("kendoGrid");
+
+      zonesgrid.dataSource.data(dataS);
+      //zonesgrid.refresh();
     };
 
     $.connection.hub.start().done(function() {
@@ -60,7 +72,10 @@
             data: getAllZonesAndCars,
             schema: {
               model: {
-                id: "CarNumber"
+                id: "CarNumber",
+                fields: {
+                  StatusTime: { type: "date" }
+                }
               }
             },
             sort: { field: "StatusTime", dir: "asc" }
@@ -120,6 +135,98 @@
           });
         });
     });
+    var a = [
+      {
+        zoneId: 410,
+        zoneName: "Malminkartano",
+        carString: "[22185E]",
+        carNumber: 22185,
+        dispatchStatusId: 3,
+        isWorkshift: 0,
+        statusTime: "2018-06-27T12:58:24",
+        m2mgwStatus: 1,
+        finishsuspend: "0001-01-01T00:00:00",
+        dataVersionNr: "AAAAAAnN5wg=",
+        carAndDriverAttributes: "12356789AB",
+        postingId: 91,
+        operatingCompanyID: 9999
+      },
+      {
+        zoneId: 8015,
+        zoneName: "Stockholm",
+        carString: "[5675V]",
+        carNumber: 5675,
+        dispatchStatusId: 2,
+        isWorkshift: 0,
+        statusTime: "2018-06-27T13:04:17",
+        m2mgwStatus: 1,
+        finishsuspend: "0001-01-01T00:00:00",
+        dataVersionNr: "AAAAAAnN5wc=",
+        carAndDriverAttributes: "12356789AB",
+        postingId: 91,
+        operatingCompanyID: 9999
+      },
+      {
+        zoneId: 710,
+        zoneName: "Pihlajamäki",
+        carString: "[5859V]",
+        carNumber: 5859,
+        dispatchStatusId: 2,
+        isWorkshift: 0,
+        statusTime: "2018-06-27T12:24:56",
+        m2mgwStatus: 1,
+        finishsuspend: "0001-01-01T00:00:00",
+        dataVersionNr: "AAAAAAnN5wY=",
+        carAndDriverAttributes: "12356789AB",
+        postingId: 91,
+        operatingCompanyID: 9999
+      },
+      {
+        zoneId: 0,
+        zoneName: "NoZone",
+        carString: "[12834E]",
+        carNumber: 12834,
+        dispatchStatusId: 3,
+        isWorkshift: 0,
+        statusTime: "2018-06-27T13:46:54.847",
+        m2mgwStatus: 1,
+        finishsuspend: "0001-01-01T00:00:00",
+        dataVersionNr: "AAAAAAnN5wU=",
+        carAndDriverAttributes: "12356789AB",
+        postingId: 91,
+        operatingCompanyID: 9999
+      },
+      {
+        zoneId: 8033,
+        zoneName: "Stockholm",
+        carString: "[5664]",
+        carNumber: 5664,
+        dispatchStatusId: 0,
+        isWorkshift: 0,
+        statusTime: "2018-06-27T13:07:21",
+        m2mgwStatus: 1,
+        finishsuspend: "0001-01-01T00:00:00",
+        dataVersionNr: "AAAAAAnN5wQ=",
+        carAndDriverAttributes: "12356789AB",
+        postingId: 91,
+        operatingCompanyID: 9999
+      }
+    ];
+    function to_date(o) {
+      var parts = o.statusTime.split("-");
+      console.log(parts);
+      o.statusTime = new Date(parts[0], parts[1] - 1, parts[2]);
+      return o;
+    }
+    function desc_start_time(o) {
+      return -o.statusTime.getTime();
+    }
+    var b = _
+      .chain(a)
+      .map(to_date)
+      .sortBy(desc_start_time)
+      .value();
+    console.log(b);
 
     function modifyZoneDs(carsDs, zonesList) {
       var zonesList = _.sortBy(zonesList, function(num) {
@@ -130,7 +237,8 @@
         var gridRow = _.where(carsDs, {
           ZoneId: zonesList[k]
         });
-        if (gridRow) {
+
+        if (gridRow.length > 0) {
           var slicedRow = gridRow.slice(0, 25);
           let obj = {};
           obj.ZoneId = gridRow[0].ZoneId;
