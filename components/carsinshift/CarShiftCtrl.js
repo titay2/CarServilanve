@@ -135,7 +135,6 @@
             value: filterValue
           });
         } else {
-          console.log(filterField);
           currentFilters.push({
             field: filterField,
             operator: "eq",

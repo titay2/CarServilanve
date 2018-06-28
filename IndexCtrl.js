@@ -1,11 +1,12 @@
 var root = "https://semasp04.semel.fi/TestCarsurveillanceBackend/api/";
 var crudServiceBaseUrl =
   "https://semasp04.semel.fi/TestCarsurveillanceBackend/signalR/";
+localStorage.clear();
 var callCenterId = JSON.parse(localStorage.getItem("callCenterId") || "[]");
 var areaFilter = JSON.parse(localStorage.getItem("areaFilter") || "[]");
 var propertyFilter = JSON.parse(localStorage.getItem("propertyFilter") || "[]");
 var vehicleFilter = JSON.parse(localStorage.getItem("vehicleFilter") || "[]");
-localStorage.clear();
+
 findCallCenter();
 findArea();
 
@@ -45,8 +46,8 @@ $("#propertyInput").on("change", function() {
 $("#vihecle").on("change", function() {
   var input = $(this);
   var val = input.val();
-  //if(input.next()){
-  if (input.focusout()) {
+  if (input.next()) {
+    //if (input.focusout()) {
     setFiletr("vehicleFilter", val);
     filters.carNumber = parseInt(val);
   }
@@ -56,43 +57,39 @@ $("#clearLable").click(function() {
   clearevtg();
 });
 
+var allFleets = [];
 //CONNECT TO THE SIGNAR, LOAD THE FIRST INPUTS FROM THE API, GET CHANGES FROM SIGNALR AND UPDATE UI.
-$.connection.hub.url = "http://localhost:8888/signalr";
-// $.connection.hub.url =
-//   "http://testcarsurveillancerpc.cloudapp.net:8080/";
-// $.connection.hub.url =
-//   "http://testcarsurveillanceworker.cloudapp.net:8080/signalr/hubs";
+// $.connection.hub.url = "http://localhost:8888/signalr";
 
-var chat = $.connection.dispatchStatusHub;
-chat.client.dispatchStatusUpdate = function(update_array) {
-  var array = findFleet();
+$.connection.hub.url =
+  "http://testcarsurveillanceworker.cloudapp.net:8080/signalr/hubs";
 
-  array = array.map(function(item) {
-    var car = update_array.find(a => a.carID == item.carID);
+var fleet = $.connection.dispatchStatusHub;
+fleet.client.dispatchStatusUpdate = function(update_array) {
+  allFleets = allFleets.map(function(item) {
+    var car = update_array.find(a => a.CarID == item.CarID);
     return car ? Object.assign(item, car) : item;
   });
-
   function getposting() {
     var resultposting;
     if (filters.postingID) {
-      resultposting = array.filter(function(o) {
-        return o.postingID === filters.postingID;
+      resultposting = allFleets.filter(function(o) {
+        return o.PostingID === filters.postingID;
       });
     } else {
-      resultposting = array;
+      resultposting = allFleets;
     }
 
     return new Promise(function(res, rej) {
       res(resultposting);
     });
   }
-
   getposting()
     .then(function(result) {
       var resultOcId;
       if (filters.operatingCompanyID) {
         resultOcId = result.filter(function(o) {
-          return o.operatingCompanyID === filters.operatingCompanyID;
+          return o.OperatingCompanyID === filters.operatingCompanyID;
         });
       } else {
         resultOcId = result;
@@ -104,7 +101,7 @@ chat.client.dispatchStatusUpdate = function(update_array) {
       var resultCarNum;
       if (filters.carNumber) {
         resultCarNum = result.filter(function(o) {
-          return o.carNumber === filters.carNumber;
+          return o.CarNumber === filters.carNumber;
         });
       } else {
         resultCarNum = result;
@@ -116,11 +113,11 @@ chat.client.dispatchStatusUpdate = function(update_array) {
       var resultAttribute;
       if (filters.carAndDriverAttributes) {
         resultAttribute = result.filter(function(o) {
-          if (o.carAndDriverAttributes !== null) {
+          if (o.CarAndDriverAttributes !== null) {
             return (
               // o.carAndDriverAttributes.indexOf(filters.carAndDriverAttributes) >
               // -1
-              o.carAndDriverAttributes === filters.carAndDriverAttributes
+              o.CarAndDriverAttributes === filters.carAndDriverAttributes
             );
           }
         });
@@ -130,18 +127,7 @@ chat.client.dispatchStatusUpdate = function(update_array) {
 
       return resultAttribute;
     })
-    .then(function(result) {
-      var resultP;
-      if (filters.postingID) {
-        resultP = result.filter(function(o) {
-          return o.postingID === filters.postingID;
-        });
-      } else {
-        resultP = result;
-      }
 
-      return resultP;
-    })
     .then(function(result) {
       updateStatus(result, 0, "freecars");
       updateStatus(result, 1, "soonfh");
@@ -150,7 +136,9 @@ chat.client.dispatchStatusUpdate = function(update_array) {
     });
 };
 $.connection.hub.start().done(function() {
-  chat.server.getFleetDispatchInfo().done(function(getAllLogs) {});
+  fleet.server.getFleetDispatchInfo().done(function(getAllLogs) {
+    allFleets = getAllLogs;
+  });
 });
 
 function updateStatus(data, num, id) {
@@ -158,29 +146,15 @@ function updateStatus(data, num, id) {
   document.getElementById(id).innerHTML = 0;
   for (var i in data) {
     if (data.hasOwnProperty(i)) {
-      if (data[i].dispatchStatus === num) {
+      if (data[i].DispatchStatus === num) {
         count = data.reduce(function(n, status) {
-          return n + (status.dispatchStatus == num);
+          return n + (status.DispatchStatus == num);
         }, 0);
         document.getElementById(id).innerHTML = count;
       } else {
       }
     }
   }
-}
-
-function findFleet() {
-  var result;
-  $.ajax({
-    url: root + "FleetStates/dispatchInfo",
-    method: "GET",
-    dataType: "json",
-    async: false,
-    success: function(data) {
-      result = data;
-    }
-  });
-  return result;
 }
 
 //POPULATE THE CALLCENTER INPUT OPTIONS WITH DATA FROM DATABASE

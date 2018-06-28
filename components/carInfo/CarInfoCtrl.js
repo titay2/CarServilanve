@@ -19,12 +19,11 @@
       transport: {
         read: {
           url: root + "Cars/CarsDetails",
-          // data: { format: "json" }
+          data: { format: "json" },
           dataType: "json"
         }
       },
       pageSize: 20,
-      // group: { field: "zoneId" },
       schema: {
         model: {
           fields: {
@@ -150,7 +149,6 @@
     // }
 
     $("#clearLable").click(function() {
-      //$state.reload("carInfo");
       $("#grid")
         .data("kendoGrid")
         .dataSource.filter({});

@@ -1,12 +1,25 @@
 <div class="pad">
 	<h3 translate>Zone </h3>
-	<div id="zoneGrid"></div>
-	<div id="wnd">
+	<div id="zoneGrid" class="hidden"></div>
+	<div id="zonesGrid"></div>
+	<!-- <div id="wnd">
 		<button class="k-button close-button">First in queue</button>
-	</div>
+	</div> -->
 </div>
 </div>
 <script id="rowTemplate" type="text/x-kendo-tmpl">
+    <tr data-uid="#: uid #">
+	<td>#: ZoneId #</td>
+        <td>
+            # for (var i = 0; i < CarsList.length; i++) { #
+				<button id= '#=CarsList[i].CarNumber#'  data-opid='#=CarsList[i].OperatingCompanyID#' onClick='firstInQueue(event);'style="display: inline-block "  class='#: CarsList[i].DispatchStatusId #'>
+					#: CarsList[i].CarString#
+                </button>
+			# } #
+        </td>
+   </tr>
+</script>
+<!-- <script id="rowTemplate" type="text/x-kendo-tmpl">
     <tr data-uid="#: uid #">
 	<td>#: zoneId #</td>
 	<td>#: zoneName #</td>
@@ -20,8 +33,8 @@
 			# } #
         </td>
    </tr>
-</script>
-<script>
+</script> -->
+<!-- <script>
 
 	var wnd = $("#wnd")
 		.kendoWindow({
@@ -60,4 +73,4 @@
 			}
 		});
 	}
-</script>
+</script> -->

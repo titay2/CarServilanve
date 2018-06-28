@@ -23,40 +23,40 @@
 
     translateService.setLanguage();
     loginService.helloInitialize();
-
+    var messageDs = new kendo.data.DataSource({
+      type: "signalr",
+      autoSync: true,
+      schema: {
+        model: {
+          fields: {
+            SendTime: {
+              type: "date",
+              from: "TextMessageSendCommands.SendTime"
+            }
+          }
+        }
+      },
+      // sort: [{ field: "SendTime"", dir: "desc" }],
+      transport: {
+        signalr: {
+          promise: hubStart,
+          hub: hub,
+          server: {
+            read: "getAllLogMessages"
+          },
+          client: {
+            read: "logMessageUpdate"
+          }
+        }
+      }
+    });
     $("#grid").kendoGrid({
       height: 950,
       //scrollable: true,
       sortable: true,
       resizable: true,
       detailInit: detailInit,
-      dataSource: {
-        type: "signalr",
-        autoSync: true,
-        schema: {
-          model: {
-            fields: {
-              SendTime: {
-                type: "date",
-                from: "TextMessageSendCommands.SendTime"
-              }
-            }
-          }
-        },
-        // sort: [{ field: "SendTime"", dir: "desc" }],
-        transport: {
-          signalr: {
-            promise: hubStart,
-            hub: hub,
-            server: {
-              read: "getAllLogMessages"
-            },
-            client: {
-              read: "logMessageUpdate"
-            }
-          }
-        }
-      },
+      dataSource: messageDs,
       columns: [
         {
           field: "SendTime",
