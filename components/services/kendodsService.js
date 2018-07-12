@@ -45,7 +45,6 @@
                 vehicleNumber: { type: "number" },
                 operatingCompanyID: { type: "number" },
                 dispatchStatus: { type: "number" },
-                dispatchStatus: { type: "number" },
                 soonForHireTime: { type: "date" },
                 changedStatus: { type: "date" },
                 lastUpdate: { type: "date" },

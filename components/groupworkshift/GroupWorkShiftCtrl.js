@@ -1,10 +1,8 @@
 (function() {
   angular.module("app").controller("GroupWorkShiftCtrl", GroupWorkShiftCtrl);
   function GroupWorkShiftCtrl(
-    apiService,
     translateService,
     $scope,
-    $state,
     $translate,
     loginService
   ) {
@@ -13,28 +11,24 @@
       "https://kendo.cdn.telerik.com/2018.1.221/js/messages/kendo.messages.";
     translateService.setLanguage();
     loginService.helloInitialize();
+    createGrid();
 
-    $.getScript(baseUrl + currentLang + ".min.js", function() {
-      kendo.culture(currentLang);
-      createGrid();
-    });
-
-    $("#lang").on("change", function(e) {
-      var optionSelected = $("option:selected", this);
+    $("#lang").on("change", function() {
       var valueSelected = this.value;
       currentLang = valueSelected;
       $.getScript(baseUrl + currentLang + ".min.js", function() {
         kendo.culture(currentLang);
-        $("#grid")
-          .data("kendoGrid")
-          .destroy(); // destroy the Grid
-
-        $("#grid").empty();
-        createGrid();
-
-        //$state.reload();
+        if ($("#groupWorkhiftGrid").data("kendoGrid")) {
+          $("#groupWorkhiftGrid")
+            .data("kendoGrid")
+            .destroy();
+          $("#groupWorkhiftGrid").empty();
+          createGrid();
+        }
       });
     });
+    clearFilter("#groupWorkhiftGrid");
+
     // check the validations with pasi and the initial table data origion
     function createGrid() {
       //needs Id field
@@ -52,14 +46,13 @@
             contentType: "application/json",
             type: "PUT",
             complete: function(e) {
-              $("#grid")
+              $("#groupWorkhiftGrid")
                 .data("kendoGrid")
                 .dataSource.read();
             }
           },
           destroy: {
             url: function(e) {
-              console.log(e);
               var options = e.models;
               var leng = options.length;
               var thisrow = options[leng - 1];
@@ -74,7 +67,7 @@
             contentType: "application/json",
             type: "DELETE",
             complete: function(e) {
-              $("#grid")
+              $("#groupWorkhiftGrid")
                 .data("kendoGrid")
                 .dataSource.read();
             }
@@ -85,7 +78,7 @@
             contentType: "application/json",
             type: "POST",
             complete: function(e) {
-              $("#grid")
+              $("#groupWorkhiftGrid")
                 .data("kendoGrid")
                 .dataSource.read();
             }
@@ -100,7 +93,6 @@
                 return kendo.stringify(arr[0]);
                 break;
               case "update":
-                console.log(kendo.stringify(arr[0]));
                 return JSON.stringify(arr[0]);
                 break;
             }
@@ -125,12 +117,12 @@
           }
         }
       });
-      var grid = $("#grid").kendoGrid({
+      $("#groupWorkhiftGrid").kendoGrid({
         columns: [
           {
             field: "operatingCompanyId",
             title: "Call Center",
-            hidden: true,
+            // hidden: true,
             editor: ocDropDownEditor
           },
           {
@@ -170,6 +162,20 @@
           }
         }
       });
+      watchAndFilter("callCenterId", "operatingCompanyId");
+      //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION
+      function watchAndFilter(watchThis, filterBy) {
+        function getValue() {
+          return window.localStorage.getItem(watchThis);
+        }
+        $scope.$watch(getValue, function(val) {
+          var gridData = $("#groupWorkhiftGrid").data("kendoGrid");
+          if (val) {
+            var newValue = $.parseJSON(val);
+            applyFilter(filterBy, newValue, gridData, dataSource1);
+          }
+        });
+      }
       function customDateTimePickerEditor(container, options) {
         $('<input required name="' + options.field + '"/>')
           .appendTo(container)
@@ -206,11 +212,6 @@
             }
           });
       }
-
-      // grid.find(".k-grid-toolbar").on("click", ".k-pager-refresh", function(e) {
-      //   e.preventDefault();
-      //   grid.data("kendoGrid").dataSource.read();
-      // });
     }
   }
 })();

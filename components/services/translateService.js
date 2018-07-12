@@ -13,7 +13,6 @@
 
     function setLanguage() {
       $("#lang").on("change", function(e) {
-        var optionSelected = $("option:selected", this);
         var valueSelected = this.value;
         if (valueSelected === "fi-FI") {
           $translate.use("fi-FI");

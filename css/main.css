@@ -41,6 +41,11 @@ li:last-child {
 .navbar > .container-fluid .navbar-brand {
   margin-left: -182px;
 }
+.flex-container {
+  display: flex;
+  /* flex-wrap: nowrap; */
+  /* background-color: DodgerBlue; */
+}
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
@@ -295,7 +300,9 @@ h3 {
   font-size: 29px;
   padding-left: 38%;
 }
-
+.single-div {
+  display: inline-block;
+}
 @media (min-width: 768px) {
   .seven-cols .col-md-1,
   .seven-cols .col-sm-1,

@@ -2,23 +2,9 @@
   "use strict";
 
   angular.module("app").controller("MessageCtrl", MessageCtrl);
-  MessageCtrl.$inject = [
-    "apiService",
-    "translateService",
-    "$scope",
-    "$state",
-    "$translate",
-    "loginService"
-  ];
-  function MessageCtrl(
-    apiService,
-    translateService,
-    $scope,
-    $state,
-    $translate,
-    loginService
-  ) {
-    var hub = $.connection.logMessageHub;
+  MessageCtrl.$inject = ["translateService", "loginService"];
+  function MessageCtrl(translateService, loginService) {
+    var hub = $.connection.textMessageDetailTickerHub;
     var hubStart = $.connection.hub.start();
 
     translateService.setLanguage();
@@ -29,9 +15,9 @@
       schema: {
         model: {
           fields: {
-            SendTime: {
+            sendTime: {
               type: "date",
-              from: "TextMessageSendCommands.SendTime"
+              from: "textMsgSendCmdObject.sendTime"
             }
           }
         }
@@ -42,14 +28,15 @@
           promise: hubStart,
           hub: hub,
           server: {
-            read: "getAllLogMessages"
+            read: "getAllTextLogAndSendCommand"
           },
           client: {
-            read: "logMessageUpdate"
+            read: "textMessageSendCommandUpdate"
           }
         }
       }
     });
+
     $("#grid").kendoGrid({
       height: 950,
       //scrollable: true,
@@ -59,47 +46,69 @@
       dataSource: messageDs,
       columns: [
         {
-          field: "SendTime",
+          field: "sendTime",
           format: "{0: dd/MM/yyyy  h:mm}",
           title: "Send Time"
         },
         {
-          field: "TextMessageSendCommands.Text",
-          title: "Text"
+          field: "textMsgSendCmdObject.text",
+          title: "Text",
+          attributes: {
+            style: "white-space: nowrap "
+          }
         },
         {
-          field: "TextMessageSendCommands.UserName",
+          field: "textMsgSendCmdObject.userName",
           title: "User Name"
         },
         {
-          field: "TextMessageSendCommands.Name",
+          field: "textMsgSendCmdObject.name",
           title: "Message Name"
         },
         {
-          field: "TextMessageSendCommands.DisplayShowTime",
+          field: "textMsgSendCmdObject.displayShowTime",
           title: "Show Time"
         },
         {
-          field: "TextMessageSendCommands.PrintMessage",
+          field: "textMsgSendCmdObject.printMessage",
           title: "Print"
         },
         {
-          field: "TextMessageSendCommands.MessageShowType",
+          field: "textMsgSendCmdObject.messageShowType",
           title: "Type"
         },
         {
-          field: "TextMessageSendCommands.QuarantedDelivery ",
+          field: "textMsgSendCmdObject.quarantedDelivery ",
           title: "Secure Send"
         }
       ]
     });
+    $("#grid")
+      .kendoTooltip({
+        filter: "tr.k-master-row td:nth-child(3)",
+        position: "right",
+        content: function(e) {
+          var dataItem = $("#grid")
+            .data("kendoGrid")
+            .dataItem(e.target.closest("tr"));
+          var content = dataItem.textMsgSendCmdObject.text;
+          return (
+            '<div style="width: ' +
+            content.length * 0.6 +
+            'em; max-width: 14em">' +
+            content +
+            "</div>"
+          );
+        }
+      })
+      .data("kendoTooltip");
 
     function detailInit(e) {
       $("<div/>")
         .appendTo(e.detailCell)
         .kendoGrid({
           dataSource: {
-            data: e.data.Logtextmessage,
+            data: e.data.logTextMsgList,
             pageSize: 10,
             schema: {
               model: {
@@ -115,14 +124,14 @@
           pageable: true,
           columns: [
             {
-              field: "SendDateTime",
+              field: "sendDateTime",
               title: "Send time",
               format: "{0: dd/MM/yyyy  h:mm}"
             },
-            { field: "Carnumber", title: "Vehicle" },
-            { field: "OperatingCompanyId", title: "Company" },
-            { field: "SystemId", title: "System ID" },
-            { field: "SendStatus", title: "Status" }
+            { field: "carnumber", title: "Vehicle" },
+            { field: "operatingCompanyId", title: "Company" },
+            { field: "systemId", title: "System ID" },
+            { field: "sendStatus", title: "Status" }
           ]
         });
     }

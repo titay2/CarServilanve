@@ -2,16 +2,7 @@
   "use strict";
 
   angular.module("app").controller("CarInfoCtrl", CarInfoCtrl);
-  function CarInfoCtrl(
-    apiService,
-    translateService,
-    $scope,
-    $state,
-    $translate,
-    loginService,
-    filterService,
-    kendoDataSourceService
-  ) {
+  function CarInfoCtrl(translateService, $scope, loginService) {
     translateService.setLanguage();
     loginService.helloInitialize();
 
@@ -19,7 +10,6 @@
       transport: {
         read: {
           url: root + "Cars/CarsDetails",
-          data: { format: "json" },
           dataType: "json"
         }
       },
@@ -37,7 +27,6 @@
       },
       sort: { field: "vehicleNumber", dir: "asc" }
     });
-    var carsDs = kendoDataSourceService.getCarDataSourse;
 
     $("#grid").kendoGrid({
       dataSource: dataSource,
@@ -110,87 +99,23 @@
       sortable: true,
       pageable: true
     });
+
     watchAndFilter("callCenterId", "operatingCompanyID");
     watchAndFilter("vehicleFilter", "vehicleNumber");
     watchAndFilter("areaFilter", "postingID");
     watchAndFilter("propertyFilter", "carDispatchAttributes");
+    clearFilter("#grid");
 
-    // $("#grid").kendoDraggable({
-    //   filter: ".driverCardNr",
-    //   dragstart: function(e) {
-    //     var draggedElement = e.currentTarget.closest("tr"), //get the DOM element that is being dragged
-    //       dataItem = dataSource.getByUid(draggedElement.data("uid")); //get corresponding dataItem from the DataSource instance
-    //     console.log(dataItem.carId);
-    //   },
-    //   hint: function(element) {
-    //     return element.clone().css({
-    //       // "opacity": 0.6,
-    //       // "background-color": "#0cf"
-    //     });
-    //   }
-    // });
-    // $("#grid").kendoDropTargetArea({
-    //   filter: ".taxiCarCompanyId, .taxiCarCompanyId2",
-    //   drop: onDrop
-    // });
-
-    // function onDrop(e) {
-    //   var draggedElement = e.dropTarget.closest("tr"), //get the DOM element that is being dragged
-    //     dataItem = dataSource.getByUid(draggedElement.data("uid"));
-    //   var row = $(this).closest("tr"); //get corresponding dataItem from the DataSource instance
-    //   var colIdx = e.dropTarget.index();
-    //   var colName = $("#grid")
-    //     .find("th")
-    //     .eq(colIdx)
-    //     .text();
-
-    //   console.log(colName);
-    //   console.log(dataItem);
-    // }
-
-    $("#clearLable").click(function() {
-      $("#grid")
-        .data("kendoGrid")
-        .dataSource.filter({});
-    });
-
-    //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION
     function watchAndFilter(watchThis, filterBy) {
+      var carGrid = $("#grid").data("kendoGrid");
       function getValue() {
         return window.localStorage.getItem(watchThis);
       }
       $scope.$watch(getValue, function(val) {
         if (val) {
           var newValue = $.parseJSON(val);
-          applyFilter(filterBy, newValue);
+          applyFilter(filterBy, newValue, carGrid, dataSource);
         }
-      });
-    }
-    //TAKE FILTER VALUES FROM LOCALSTORAGE AND MODIFIES THE DATASOURCE ACCORDINGLY
-    function applyFilter(filterField, filterValue) {
-      var gridData = $("#grid").data("kendoGrid");
-      var currFilterObj = gridData.dataSource.filter();
-      var currentFilters = currFilterObj ? currFilterObj.filters : [];
-
-      if (currentFilters && currentFilters.length > 0) {
-        for (var i = 0; i < currentFilters.length; i++) {
-          if (currentFilters[i].field == filterField) {
-            currentFilters.splice(i, 1);
-            break;
-          }
-        }
-      }
-
-      if (filterValue != 0) {
-        currentFilters.push({
-          field: filterField,
-          operator: "eq",
-          value: filterValue
-        });
-      }
-      dataSource.filter({
-        logic: "and",
-        filters: currentFilters
       });
     }
   }

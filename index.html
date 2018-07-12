@@ -2,6 +2,7 @@
 <html>
 
 <head>
+    <!-- <base href="/"> -->
     <title>Car Cervilance</title>
     <!-- Basic style -->
     <link rel="icon" type="image/png" href="assets/logo/logo.ico">
@@ -15,6 +16,7 @@
 
 <body>
     <div id="app-container" ng-app="app">
+        <div id="zoneGrid" class="hidden"></div>
         <div>
             <nav class="navbar navbar-inverse navbar-fixed-top navbar-expand-md navbar-light bg-ligh">
                 <div class="container">
@@ -28,7 +30,8 @@
                             <img src="assets/logo/logo.png" alt="Semel Logo"> </a>
                     </div>
 
-                    <div class="collapse navbar-collapse" id="topNavbar" ng-show="user.id">
+                    <div class="collapse navbar-collapse" class="flex-container" id="topNavbar" ng-show="user.id">
+                        <!-- <div></div> -->
                         <ul class="nav navbar-nav">
                             <li>
                                 <a translate>Free</a>
@@ -47,33 +50,33 @@
                                 <button id="notavailable" type="button" class="btn btn-primary btn-default outline ntav"></button>
                             </li>
                         </ul>
-                        <div id="filter" class="form-group row" ng-show="user.id">
-                            <div class="col-md-2">
+                        <div class="form-group row flex-container" ng-show="user.id">
+                            <div class="col-md-3">
                                 <label style="color: white; " for="SelectPI" translate>CALL</label>
                                 <select id="inputCenter" class="form-control" placeholder="Call center" ng-model="body.OperatingCompany"></select>
 
                             </div>
-                            <div class="col-md-2">
+                            <div class="col-md-3">
                                 <label style="color: white; " for="SelectP" translate>AREA</label>
                                 <select id="inputArea" list="area" class="form-control" placeholder="Area" ng-model="body.Posting"></select>
 
                             </div>
-                            <div class="col-md-1">
+                            <div class="col-md-2">
                                 <label style="color: white;" class="control-label" for="propertyInput" translate>PROPERTY</label>
                                 <input class="form-control" id="propertyInput" placeholder="Property" ng-model="body.Properties">
                             </div>
-                            <div class="col-md-1  ">
+                            <div class="col-md-2  ">
                                 <label style="color: white;" for="vihecle" translate>VEHICLE</label>
                                 <input class="form-control" id="vihecle" placeholder="Vehicle" ng-model="body.vihecle" />
                             </div>
-                            <div id="clearLable">
+                            <div class="col-md-1" id="clearLable">
                                 <button id="clearBtn" class="btn" type="button" translate>CLEAR</button>
                             </div>
 
-                            <div class="topcorner">
+                            <div class="col-md-1 topcorner  ">
                                 <label style="color: white;" class="control-label" for="lang" placeholder="English">&nbsp;
                                     <i class="fa fa-language"></i> {{'LANGUAGE' | translate}}</label>
-                                <select id="lang" class="form-control" ng-model="body.language" data-width="90px">
+                                <select id="lang" class="form-control" ng-model="body.language">
                                     <option value="fi-FI"> {{'Finnish' | translate}}</option>
                                     <option value="en-GB"> {{'English' | translate}}</option>
                                     <option value="sv-SE"> {{'Swedish' | translate}}</option>
@@ -81,6 +84,7 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
             </nav>
         </div>
@@ -158,7 +162,6 @@
     <script type="text/javascript" src="bower_components/hello/dist/hello.all.min.js"></script>
     <script type="text/javascript" src="bower_components/ng-hello/dist/ng-hello.min.js"></script>
     <script type="text/javascript" src="bower_components/underscore/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js"></script>
     <script type="text/javascript" src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script type="text/javascript" src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script type="text/javascript" src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>

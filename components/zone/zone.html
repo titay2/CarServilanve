@@ -1,64 +1,65 @@
-<div class="pad">
+<div class="pad" ng-show="user.id">
 	<h3 translate>Zone </h3>
-	<div id="zoneGrid" class="hidden"></div>
+
 	<div id="zonesGrid"></div>
-	<!-- <div id="wnd">
+	<div id="wnd">
 		<button class="k-button close-button">First in queue</button>
-	</div> -->
+	</div>
 </div>
-</div>
+
 <script id="rowTemplate" type="text/x-kendo-tmpl">
     <tr data-uid="#: uid #">
-	<td>#: ZoneId #</td>
-        <td>
-            # for (var i = 0; i < CarsList.length; i++) { #
-				<button id= '#=CarsList[i].CarNumber#'  data-opid='#=CarsList[i].OperatingCompanyID#' onClick='firstInQueue(event);'style="display: inline-block "  class='#: CarsList[i].DispatchStatusId #'>
-					#: CarsList[i].CarString#
-                </button>
-			# } #
-        </td>
-   </tr>
-</script>
-<!-- <script id="rowTemplate" type="text/x-kendo-tmpl">
-    <tr data-uid="#: uid #">
-	<td>#: zoneId #</td>
-	<td>#: zoneName #</td>
-	<td>#: freeCarsCount #</td>
-	<td>#: waitTime #</td>
+		<td>#: zoneId #</td>
+		<td>#: zoneName #</td>
+		<td>#: freeCarsCount #</td>
+		<td>#: waitTime #</td>
         <td>
             # for (var i = 0; i < carsList.length; i++) { #
-				<button id= '#=carsList[i].carNumber#'  data-opid='#=carsList[i].operatingCompanyID#' onClick='firstInQueue(event);'style="display: inline-block "  class='#: carsList[i].dispatchStatusId #'>
+				<button id='#=carsList[i].carNumber#'  data-opid='#=carsList[i].operatingCompanyID#' data-status='#=carsList[i].statusTime# 'onClick='firstInQueue(event);'style="display: inline-block "  class='#: carsList[i].dispatchStatusId #'>
 					#: carsList[i].carString#
                 </button>
 			# } #
         </td>
    </tr>
-</script> -->
-<!-- <script>
+</script>
 
+<script type="text/x-kendo-template" id="template">
+	<div id="details-container">
+		<h2>Status Time: #= time #</h2>
+		<button class="k-button close-button">First in queue</button>
+	</div>
+</script>
+
+
+<script>
+	var grid = $("#zonesGrid").data("kendoGrid");
 	var wnd = $("#wnd")
 		.kendoWindow({
 			height: 100,
-			width: 160,
+			width: 340,
 			visible: false
 		})
 		.data("kendoWindow");
 
 	$(".close-button").click(function (e) {
-		var grid = $("#zoneGrid").data("kendoGrid");
 		edit_queue(wnd.element.attr('data-cNum'), wnd.element.attr('data-opid'))
 		$(this)
 			.closest("[data-role=window]")
 			.data("kendoWindow")
 			.close();
-		grid.dataSource.read();
-		grid.refresh();
+		//grid.refresh();
+		//grid.dataSource.read();
 	});
 
 	function firstInQueue(e) {
+		var dataItem = $(e.currentTarget).closest("button");
+		var statustime = dataItem.attr('data-status');
+		var time = statustime.split("T").join(",");
+
 		wnd.element.attr('data-cNum', $(e.target).attr('id'));
 		wnd.element.attr('data-opid', $(e.target).attr('data-opid'));
-		wnd.title($(e.target).attr('id'));
+		wnd.title($(e.target).attr('id') + "  Time: " + time);
+
 		wnd.center().open();
 	}
 	function edit_queue(cNum, opid) {
@@ -73,4 +74,4 @@
 			}
 		});
 	}
-</script> -->
+</script>

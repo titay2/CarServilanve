@@ -17,10 +17,18 @@
   config.$inject = [
     "$stateProvider",
     "$urlRouterProvider",
-    "$translateProvider"
+    "$translateProvider",
+    "$locationProvider"
   ];
 
-  function config($stateProvider, $urlRouterProvider, $translateProvider) {
+  function config(
+    $stateProvider,
+    $urlRouterProvider,
+    $translateProvider,
+    $locationProvider
+  ) {
+    // $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix("");
     $translateProvider
       .preferredLanguage("en-GB")
       .fallbackLanguage("en-GB")
@@ -30,7 +38,6 @@
       })
       .useSanitizeValueStrategy()
       .useCookieStorage();
-    //$urlRouterProvider.hashPrefix("");
     $stateProvider
       .state("carsinshift", {
         url: "/carsinshift",
@@ -57,12 +64,14 @@
       .state("carInfo", {
         url: "/carInfo",
         templateUrl: "components/carInfo/carInfo.html",
-        controller: "CarInfoCtrl"
+        controller: "CarInfoCtrl",
+        controllerAs: "vm"
       })
       .state("carWorkshift", {
         url: "/carWorkshift",
         controller: "ChangeCarShiftCtrl",
-        templateUrl: "components/carWorkshift/changecarshift.html"
+        templateUrl: "components/carWorkshift/changecarshift.html",
+        controllerAs: "vm"
       })
       .state("dispatch", {
         url: "/dispatch",

@@ -1,22 +1,9 @@
 (function() {
   "use strict";
   angular.module("app").controller("ChangeCarShiftCtrl", ChangeCarShiftCtrl);
-  ChangeCarShiftCtrl.$inject = [
-    "apiService",
-    "translateService",
-    "$scope",
-    "$state",
-    "$log",
-    "$translate",
-    "loginService"
-  ];
-
   function ChangeCarShiftCtrl(
-    apiService,
     translateService,
     $scope,
-    $state,
-    $log,
     $translate,
     loginService
   ) {
@@ -27,40 +14,33 @@
 
     translateService.setLanguage();
     loginService.helloInitialize();
-    $.getScript(baseUrl + currentLang + ".min.js", function() {
-      kendo.culture(currentLang);
-      createGrid();
-    });
 
-    $("#lang").on("change", function(e) {
-      var optionSelected = $("option:selected", this);
+    createGrid();
+    $("#lang").on("change", function() {
       var valueSelected = this.value;
       currentLang = valueSelected;
       $.getScript(baseUrl + currentLang + ".min.js", function() {
         kendo.culture(currentLang);
-        $("#grid")
-          .data("kendoGrid")
-          .destroy();
-        $("#grid").empty();
-        createGrid();
-        // $state.reload();
+        if ($("#changeShiftGrid").data("kendoGrid")) {
+          $("#changeShiftGrid")
+            .data("kendoGrid")
+            .destroy();
+          $("#changeShiftGrid").empty();
+          createGrid();
+        }
       });
     });
-    $("#clearLable").click(function() {
-      //$state.reload("carInfo");
-      $("#grid")
-        .data("kendoGrid")
-        .dataSource.filter({});
-    });
+    clearFilter("#changeShiftGrid");
+
     function createGrid() {
       var ServiceBaseUrl = root + "TemporaryWorkShift",
         dataSource = new kendo.data.DataSource({
           transport: {
             read: {
               url: ServiceBaseUrl,
-              dataType: "json",
-              contentType: "application/json",
-              type: "GET"
+              dataType: "json"
+              //  contentType: "application/json",
+              // type: "GET"
             },
             create: {
               url: ServiceBaseUrl,
@@ -68,7 +48,7 @@
               contentType: "application/json",
               type: "POST",
               complete: function(e) {
-                $("#grid")
+                $("#changeShiftGrid")
                   .data("kendoGrid")
                   .dataSource.read();
               }
@@ -85,7 +65,7 @@
               contentType: "application/json",
               type: "DELETE",
               complete: function(e) {
-                $("#grid")
+                $("#changeShiftGrid")
                   .data("kendoGrid")
                   .dataSource.read();
               }
@@ -96,7 +76,7 @@
               contentType: "application/json",
               type: "PUT",
               complete: function(e) {
-                $("#grid")
+                $("#changeShiftGrid")
                   .data("kendoGrid")
                   .dataSource.read();
               }
@@ -157,8 +137,7 @@
         decimals: 0
       });
 
-      watchAndFilter("callCenterId", "operatingCompanyId");
-      $("#grid").kendoGrid({
+      $("#changeShiftGrid").kendoGrid({
         dataSource: dataSource,
         toolbar: ["create"],
         pageable: true,
@@ -215,44 +194,19 @@
         ],
         editable: "popup"
       });
-
+      watchAndFilter("callCenterId", "operatingCompanyId");
+      watchAndFilter("vehicleFilter", "carnumber");
       //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION
       function watchAndFilter(watchThis, filterBy) {
         function getValue() {
           return window.localStorage.getItem(watchThis);
         }
         $scope.$watch(getValue, function(val) {
+          var gridData = $("#changeShiftGrid").data("kendoGrid");
           if (val) {
             var newValue = $.parseJSON(val);
-            applyFilter(filterBy, newValue);
+            applyFilter(filterBy, newValue, gridData, dataSource);
           }
-        });
-      }
-      //TAKE FILTER VALUES FROM LOCALSTORAGE AND MODIFIES THE DATASOURCE ACCORDINGLY
-      function applyFilter(filterField, filterValue) {
-        var gridData = $("#grid").data("kendoGrid");
-        var currFilterObj = gridData.dataSource.filter();
-        var currentFilters = currFilterObj ? currFilterObj.filters : [];
-
-        if (currentFilters && currentFilters.length > 0) {
-          for (var i = 0; i < currentFilters.length; i++) {
-            if (currentFilters[i].field == filterField) {
-              currentFilters.splice(i, 1);
-              break;
-            }
-          }
-        }
-
-        if (filterValue != "0") {
-          currentFilters.push({
-            field: filterField,
-            operator: "eq",
-            value: filterValue
-          });
-        }
-        dataSource.filter({
-          logic: "and",
-          filters: currentFilters
         });
       }
 

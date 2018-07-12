@@ -2,27 +2,11 @@
   "use strict";
 
   angular.module("app").controller("CarShiftCtrl", CarShiftCtrl);
-  function CarShiftCtrl(
-    apiService,
-    translateService,
-    $scope,
-    $state,
-    $translate,
-    loginService,
-    filterService,
-    kendoDataSourceService
-  ) {
+  function CarShiftCtrl(translateService, $scope, loginService) {
     translateService.setLanguage();
     loginService.helloInitialize();
 
-    watchAndFilter("callCenterId", "operatingCompanyID");
-    watchAndFilter("vehicleFilter", "vehicleNumber");
-    watchAndFilter("areaFilter", "postingID");
-    watchAndFilter("propertyFilter", "carDispatchAttributes");
-
-    //var CarsInWorkShiftDs = kendoDataSourceService.getCarsInWorkShiftDs;
-
-    var dataSource = new kendo.data.DataSource({
+    var carsIWSdataSource = new kendo.data.DataSource({
       transport: {
         read: {
           url: root + "WorkshiftCarGroup/CarsInWorkshift",
@@ -42,24 +26,22 @@
       sort: { field: "vehicleNumber", dir: "asc" }
     });
 
-    $("#grid").kendoGrid({
-      dataSource: dataSource,
+    $("#carsShiftGrid").kendoGrid({
+      dataSource: carsIWSdataSource,
       columns: [
         {
           field: "operatingCompanyID",
           hidden: true
         },
         {
-          field: "carDispatchAttributes"
-          //hidden: true
+          field: "carDispatchAttributes",
+          hidden: true
         },
         {
           field: "postingID",
           hidden: true
         },
         { field: "vehicleNumber", title: "Car Number" },
-        //{ field: "driverId", title: "Driver ID" },
-        //{ field: "zoneId", title: "Zone ID" },
         { field: "zoneNumber", title: "Zone Number" },
         { field: "zone", title: "Zone name" },
         { field: "status", title: "Status" },
@@ -89,63 +71,26 @@
       resizable: true,
       sortable: true,
       pageable: true
-      // serverFiltering: true,
-      // serverPaging: true
     });
 
-    $("#clearLable").click(function() {
-      $("#grid")
-        .data("kendoGrid")
-        .dataSource.filter({});
-    });
+    watchAndFilter("callCenterId", "operatingCompanyID");
+    watchAndFilter("vehicleFilter", "vehicleNumber");
+    watchAndFilter("areaFilter", "postingID");
+    watchAndFilter("propertyFilter", "carDispatchAttributes");
+    clearFilter("#carsShiftGrid");
 
     //WATCH CHANGES ON THE LOCALSTORAGE FILTER VALUES AND PASS THE NEW VALUES TO TE FILTER FUNCTION
     function watchAndFilter(watchThis, filterBy) {
+      var gridData = $("#carsShiftGrid").data("kendoGrid");
       function getValue() {
         return window.localStorage.getItem(watchThis);
       }
+
       $scope.$watch(getValue, function(val) {
         if (val) {
           var newValue = $.parseJSON(val);
-          applyFilter(filterBy, newValue);
+          applyFilter(filterBy, newValue, gridData, carsIWSdataSource);
         }
-      });
-    }
-    //TAKE FILTER VALUES FROM LOCALSTORAGE AND MODIFIES THE DATASOURCE ACCORDINGLY
-    function applyFilter(filterField, filterValue) {
-      var gridData = $("#grid").data("kendoGrid");
-      var currFilterObj = gridData.dataSource.filter();
-      var currentFilters = currFilterObj ? currFilterObj.filters : [];
-
-      if (currentFilters && currentFilters.length > 0) {
-        for (var i = 0; i < currentFilters.length; i++) {
-          if (currentFilters[i].field == filterField) {
-            currentFilters.splice(i, 1);
-            break;
-          }
-        }
-      }
-      var ifprop = parseInt(filterValue);
-
-      if (filterValue != "0") {
-        if (filterField === "carDispatchAttributes") {
-          currentFilters.push({
-            field: filterField,
-            operator: "contains",
-            value: filterValue
-          });
-        } else {
-          currentFilters.push({
-            field: filterField,
-            operator: "eq",
-            value: filterValue
-          });
-        }
-      }
-
-      dataSource.filter({
-        logic: "and",
-        filters: currentFilters
       });
     }
   }
